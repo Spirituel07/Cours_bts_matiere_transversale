@@ -592,16 +592,109 @@ body {
 .chap-card .n { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--gold); }
 .chap-card h4 { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--navy); margin-top: 4px; line-height: 1.4; }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .sidebar { display: none; }
-  .main { margin-left: 0; padding: 24px 20px; max-width: 100%; }
+/* ── HAMBURGER BUTTON ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
 }
+.hamburger:hover { background: rgba(255,255,255,0.08); }
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--gold2);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── SIDEBAR OVERLAY (mobile) ── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 98;
+}
+.sidebar-overlay.active { display: block; }
+
+/* ── TABLES: make scrollable on small screens ── */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hamburger { display: flex; }
+
+  .app-header { padding: 0 16px; }
+  .app-header h1 { font-size: 1rem; }
+  .app-header .subtitle { display: none; }
+
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 99;
+    top: 60px;
+    width: min(290px, 80vw);
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .main { margin-left: 0; padding: 24px 20px; max-width: 100%; }
+
+  .progress-header .prog-bar { width: 90px; }
+  .progress-header { gap: 8px; font-size: 0.72rem; }
+}
+
 @media (max-width: 600px) {
+  .app-header h1 { font-size: 0.92rem; }
+
   .main { padding: 16px 12px; }
-  .content-card { padding: 20px 18px; }
-  .exercise-zone { padding: 24px 18px; }
+
+  .chapter-header { padding: 24px 20px; }
+  .chapter-header h2 { font-size: 1.3rem; }
+
+  .content-card { padding: 18px 16px; }
+  .content-card h3 { font-size: 1rem; }
+
+  .exercise-zone { padding: 20px 14px; }
+  .exercise-zone .ex-header { flex-wrap: wrap; gap: 10px; }
+
+  .question-block { padding: 16px 14px; }
+
   .bilan-grid { grid-template-columns: 1fr; }
+  .bilan-sep { border-right: none; border-bottom: 2px solid var(--navy); }
+
+  .chapters-overview { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .welcome { padding: 40px 16px; }
+  .welcome h2 { font-size: 1.5rem; }
+
+  .ex-actions { flex-direction: column; align-items: stretch; }
+  .ex-actions .btn { text-align: center; }
+
+  .fill-group { flex-direction: column; align-items: flex-start; }
+  .fill-input { width: 100%; }
+
+  .progress-header #progressText { display: none; }
+
+  .acc-table, .journal-table { font-size: 0.75rem; }
+  .acc-table th, .acc-table td,
+  .journal-table th, .journal-table td { padding: 7px 8px; }
+
+  .toast { left: 12px; right: 12px; bottom: 16px; max-width: none; }
+
+  .score-num { font-size: 1.8rem; }
 }
 
 /* Toast */
@@ -648,9 +741,14 @@ body {
 
 <!-- HEADER -->
 <header class="app-header">
-  <div style="display:flex;align-items:baseline;gap:6px">
-    <h1>Comptabilité Générale</h1>
-    <span class="subtitle">Tronc Commun BTS — M. BESSALA Richard</span>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu" onclick="toggleSidebar()">
+      <span></span><span></span><span></span>
+    </button>
+    <div style="display:flex;align-items:baseline;gap:6px">
+      <h1>Comptabilité Générale</h1>
+      <span class="subtitle">Tronc Commun BTS — M. BESSALA Richard</span>
+    </div>
   </div>
   <div class="progress-header">
     <span id="progressText">0 / 11 chapitres</span>
@@ -659,6 +757,7 @@ body {
   </div>
 </header>
 
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 <div class="layout">
 
 <!-- SIDEBAR -->
@@ -774,19 +873,19 @@ body {
     <h3>II. La Réglementation Comptable OHADA</h3>
     <p>L'<strong>Organisation pour l'Harmonisation en Afrique du Droit des Affaires (OHADA)</strong> est née le <strong>17 octobre 1993</strong> à Port Louis et mise en vigueur le 18 septembre 1995.</p>
     <h4>Chronologie OHADA</h4>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Date</th><th>Événement</th></tr>
       <tr><td>23 mars 2000</td><td>Adoption de l'Acte Uniforme portant Organisation des Comptabilités</td></tr>
       <tr><td>1er janvier 2001</td><td>Mise en vigueur du droit comptable OHADA</td></tr>
       <tr><td>26 janvier 2017</td><td>Adoption de l'AUDCIF (Acte Uniforme relatif au Droit Comptable et à l'Information Financière)</td></tr>
       <tr><td>1er janvier 2018</td><td>Mise en vigueur de l'AUDCIF</td></tr>
-    </table>
+    </table></div>
     <div class="highlight">Le SYSCOHADA comprend le Plan Comptable Général OHADA (PCGO) et le dispositif des comptes consolidés et combinés.</div>
   </div>
 
   <div class="content-card">
     <h3>III. Le Plan de Comptes OHADA — Les 9 Classes</h3>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Classes</th><th>Nature des comptes</th><th>Exemples</th></tr>
       <tr><td><span class="tag tag-passif">1</span> Classe 1</td><td>Ressources durables (capitaux propres, dettes fin.)</td><td>Capital, Emprunts</td></tr>
       <tr><td><span class="tag tag-actif">2</span> Classe 2</td><td>Actif immobilisé</td><td>Terrains, Matériels</td></tr>
@@ -797,7 +896,7 @@ body {
       <tr><td><span class="tag tag-produit">7</span> Classe 7</td><td>Produits</td><td>701 Ventes march.</td></tr>
       <tr><td>Classe 8</td><td>Autres charges et produits (HAO)</td><td>81 VCEAI, 82 PCEAI</td></tr>
       <tr><td>Classe 9</td><td>Comptabilité analytique (CAGE)</td><td>—</td></tr>
-    </table>
+    </table></div>
     <div class="nb">Classes 1 à 5 : comptes de bilan (situation). Classes 6 à 8 : comptes de gestion. Classe 9 : hors bilan.</div>
     <h4>Rôle du premier chiffre</h4>
     <p>Le premier chiffre d'un numéro de compte indique sa <strong>classe</strong>. La codification est décimale : chaque compte principal peut être subdivisé en sous-comptes (ex : 411, 4110, 4112…). La terminaison <strong>9</strong> dans les comptes à 2 chiffres identifie généralement les <strong>dépréciations</strong> (ex : 39 – Dépréciations des stocks).</p>
@@ -840,11 +939,11 @@ body {
 
   <div class="content-card">
     <h3>VI. Systèmes de Tenue des Comptes</h3>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Système</th><th>Entités concernées</th><th>Seuils CA (FCFA HT)</th></tr>
       <tr><td><strong>SMT</strong> (Système Minimal de Trésorerie)</td><td>Petites et très petites entités</td><td>&lt; 60M (négoce) / &lt; 40M (artisanat) / &lt; 30M (services)</td></tr>
       <tr><td><strong>Système Normal</strong></td><td>Toutes les autres entités</td><td>Au-dessus des seuils SMT</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <!-- EXERCICE CH.1 -->
@@ -966,7 +1065,7 @@ body {
 
   <div class="content-card">
     <h3>II. Classification des Entreprises</h3>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Critère</th><th>Catégories</th><th>Exemples (Cameroun)</th></tr>
       <tr><td rowspan="3"><strong>Nature de l'activité</strong></td><td>Secteur primaire (agriculture, pêche, élevage)</td><td>SODECOTON</td></tr>
       <tr><td>Secteur secondaire (industrie/transformation)</td><td>CIMENCAM, CICAM</td></tr>
@@ -976,7 +1075,7 @@ body {
       <tr><td>Entreprises parapubliques (capitaux mixtes)</td><td>ENEO, SONARA, CAMTEL</td></tr>
       <tr><td rowspan="2"><strong>Cadre juridique</strong></td><td>Entreprises individuelles</td><td>Commerce de M. Dupont</td></tr>
       <tr><td>Sociétés (SNC, SCS, SARL, SA, SAS)</td><td>SA Nestlé Cameroun</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <div class="content-card">
@@ -1253,12 +1352,12 @@ body {
   <div class="content-card">
     <h3>I. La Notion de Flux Économique</h3>
     <p>Un <strong>flux économique</strong> désigne tout mouvement de valeur entre deux points. On distingue :</p>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Type de flux</th><th>Nature du mouvement</th><th>Exemple</th></tr>
       <tr><td><strong>Flux Réel (FR)</strong></td><td>Mouvement de biens physiques</td><td>Livraison de marchandises</td></tr>
       <tr><td><strong>Flux Financier (FF)</strong></td><td>Mouvement de monnaie</td><td>Paiement par chèque</td></tr>
       <tr><td><strong>Flux de Service (FS)</strong></td><td>Prestation de service</td><td>Facture d'électricité</td></tr>
-    </table>
+    </table></div>
     <h4>Selon l'origine et la destination</h4>
     <ul>
       <li><strong>Flux interne :</strong> mouvement à l'intérieur d'un même patrimoine (ex : virement de la banque à la caisse)</li>
@@ -1277,13 +1376,13 @@ body {
     <div class="highlight">En comptabilité, la <strong>Ressource</strong> est toujours égale à l'<strong>Emploi</strong> pour une même opération (en montant total).</div>
 
     <h4>Exemples d'analyse</h4>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Opération</th><th>Emploi (E)</th><th>Ressource (R)</th></tr>
       <tr><td>Achat de marchandises en espèces 5 000 000</td><td>Marchandises 5 000 000</td><td>Caisse 5 000 000</td></tr>
       <tr><td>Vente de marchandises à crédit 1 000 000</td><td>Créance clients 1 000 000</td><td>Ventes 1 000 000</td></tr>
       <tr><td>Versement d'espèces en banque 300 000</td><td>Banque 300 000</td><td>Caisse 300 000</td></tr>
       <tr><td>Achat 2 500 000 : 500 000 espèces + 1 M chèque + 1 M à crédit</td><td>Marchandises 2 500 000</td><td>Caisse 500K + Banque 1M + Fourn. 1M</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <!-- EXERCICE CH.4 -->
@@ -1423,12 +1522,12 @@ body {
     <div class="highlight">Tout enregistrement comptable doit affecter au moins deux comptes différents : le(s) compte(s) débité(s) et le(s) compte(s) crédité(s), pour des <strong>montants totaux égaux</strong>.</div>
     <p>Conséquence : Pour toute opération, <strong>Total Débits = Total Crédits</strong>.</p>
     <h4>Application : Achat de marchandises 800 000 FCFA à crédit</h4>
-    <table class="journal-table">
+    <div class="table-wrap"><table class="journal-table">
       <tr><th>N° Cpte</th><th>Libellé</th><th class="debit-col">Débit</th><th class="credit-col">Crédit</th></tr>
       <tr><td>601</td><td class="account-debited">Achats de marchandises</td><td class="debit-col">800 000</td><td></td></tr>
       <tr><td>401</td><td class="account-credited">Fournisseurs</td><td></td><td class="credit-col">800 000</td></tr>
       <tr><td colspan="2" class="libelle">Achat à crédit</td><td></td><td></td></tr>
-    </table>
+    </table></div>
   </div>
 
   <div class="content-card">
@@ -1563,7 +1662,7 @@ body {
     <p>Si Produits &gt; Charges → <strong>Bénéfice</strong> (enrichissement)<br>
     Si Charges &gt; Produits → <strong>Perte</strong> (appauvrissement)</p>
     <h4>Structure du Compte de Résultat OHADA (principaux soldes)</h4>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Solde intermédiaire</th><th>Formule simplifiée</th></tr>
       <tr><td><strong>Marge Commerciale (XA)</strong></td><td>Ventes march. − Achats march. ± Variation stocks march.</td></tr>
       <tr><td><strong>Chiffre d'Affaires (XB)</strong></td><td>Ventes march. + Ventes produits + Services + Produits accessoires</td></tr>
@@ -1571,7 +1670,7 @@ body {
       <tr><td><strong>Excédent Brut d'Exploitation (XD)</strong></td><td>VA − Charges de personnel</td></tr>
       <tr><td><strong>Résultat d'Exploitation (XE)</strong></td><td>EBE + Reprises − Dotations</td></tr>
       <tr><td><strong>Résultat Net (XI)</strong></td><td>Résultat AO + Résultat HAO − Impôts</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <!-- EXERCICE CH.6 -->
@@ -1673,7 +1772,7 @@ body {
   <div class="content-card">
     <h3>II. L'Article de Journal (Écriture Comptable)</h3>
     <p>Un article du journal comprend : la <strong>date</strong>, les <strong>numéros et intitulés des comptes</strong>, les <strong>montants</strong> (débit = crédit), et le <strong>libellé</strong> de l'opération.</p>
-    <table class="journal-table">
+    <div class="table-wrap"><table class="journal-table">
       <tr><th>N° Débit</th><th>N° Crédit</th><th>Date / Comptes</th><th class="debit-col">Débit</th><th class="credit-col">Crédit</th></tr>
       <tr class="date-row"><td colspan="5">05/06/2018</td></tr>
       <tr><td>601</td><td></td><td class="account-debited">Achats de marchandises</td><td class="debit-col">800 000</td><td></td></tr>
@@ -1683,7 +1782,7 @@ body {
       <tr><td>411</td><td></td><td class="account-debited">Clients</td><td class="debit-col">1 000 000</td><td></td></tr>
       <tr><td></td><td>701</td><td class="account-credited">Ventes de marchandises</td><td></td><td class="credit-col">1 000 000</td></tr>
       <tr><td colspan="2"></td><td class="libelle">Vente à crédit</td><td></td><td></td></tr>
-    </table>
+    </table></div>
     <h4>Article simple vs complexe</h4>
     <ul>
       <li><strong>Article simple :</strong> un seul compte débité contre un seul compte crédité</li>
@@ -1816,7 +1915,7 @@ body {
       <li>Le solde de clôture</li>
     </ul>
     <h4>Balance à 6 colonnes (la plus courante)</h4>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr>
         <th>N° Cpte</th><th>Intitulé</th>
         <th>Sol. Ouv. D</th><th>Sol. Ouv. C</th>
@@ -1826,7 +1925,7 @@ body {
       <tr><td>10</td><td>Capital</td><td></td><td>8 000 000</td><td>—</td><td>—</td><td></td><td>8 000 000</td></tr>
       <tr><td>411</td><td>Clients</td><td>400 000</td><td></td><td>1 000 000</td><td>—</td><td>1 400 000</td><td></td></tr>
       <tr><td>401</td><td>Fournisseurs</td><td></td><td>500 000</td><td>650 000</td><td>800 000</td><td></td><td>650 000</td></tr>
-    </table>
+    </table></div>
     <h4>Contrôles de la Balance</h4>
     <div class="formula">
       Total Soldes Débiteurs = Total Soldes Créditeurs<br>
@@ -1920,7 +2019,7 @@ body {
 
   <div class="content-card">
     <h3>I. Les Documents Commerciaux</h3>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Phase</th><th>Document</th><th>Émetteur</th></tr>
       <tr><td rowspan="2">Préparation</td><td>Appel d'offre / Demande de renseignements</td><td>Client</td></tr>
       <tr><td>Fiche client / Fiche fournisseur</td><td>Fournisseur / Client</td></tr>
@@ -1933,7 +2032,7 @@ body {
       <tr><td>Bon d'entrée</td><td>Magasinier client</td></tr>
       <tr><td>Note d'envoi (bon d'expédition)</td><td>Fournisseur</td></tr>
       <tr><td>Facturation</td><td>Facture Doit / Avoir</td><td>Fournisseur</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <div class="content-card">
@@ -1948,20 +2047,20 @@ body {
       = Net à Payer (NAP)
     </div>
     <h4>Types de réductions</h4>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Réduction</th><th>Nature</th><th>Motif</th></tr>
       <tr><td>Remise</td><td>Commerciale</td><td>Importance de la commande</td></tr>
       <tr><td>Rabais</td><td>Commerciale</td><td>Défaut de qualité / non-conformité</td></tr>
       <tr><td>Ristourne</td><td>Commerciale</td><td>Fidélité du client (par tranche de CA)</td></tr>
       <tr><td>Escompte</td><td>Financière</td><td>Paiement comptant ou anticipé</td></tr>
-    </table>
+    </table></div>
     <div class="nb">Les RRR se calculent <strong>en cascade</strong> (la 2e sur le résultat de la 1re). Ne jamais additionner les pourcentages.</div>
   </div>
 
   <div class="content-card">
     <h3>III. Comptabilisation des Factures</h3>
     <h4>Facture Doit — Chez le Client (Achat)</h4>
-    <table class="journal-table">
+    <div class="table-wrap"><table class="journal-table">
       <tr><th>Compte</th><th>Intitulé</th><th class="debit-col">Débit</th><th class="credit-col">Crédit</th></tr>
       <tr><td>601</td><td class="account-debited">Achats marchandises (Net Com)</td><td class="debit-col">✓</td><td></td></tr>
       <tr><td>6015</td><td class="account-debited">Transport sur achats (port facturé HT)</td><td class="debit-col">✓</td><td></td></tr>
@@ -1969,16 +2068,16 @@ body {
       <tr><td>4452</td><td class="account-debited">État — TVA récupérable</td><td class="debit-col">✓</td><td></td></tr>
       <tr><td>401</td><td class="account-credited">Fournisseurs (NAP)</td><td></td><td class="credit-col">✓</td></tr>
       <tr><td>773</td><td class="account-credited">Escomptes obtenus</td><td></td><td class="credit-col">✓</td></tr>
-    </table>
+    </table></div>
     <h4>Facture Doit — Chez le Fournisseur (Vente)</h4>
-    <table class="journal-table">
+    <div class="table-wrap"><table class="journal-table">
       <tr><th>Compte</th><th>Intitulé</th><th class="debit-col">Débit</th><th class="credit-col">Crédit</th></tr>
       <tr><td>411</td><td class="account-debited">Clients (NAP)</td><td class="debit-col">✓</td><td></td></tr>
       <tr><td>673</td><td class="account-debited">Escomptes accordés</td><td class="debit-col">✓</td><td></td></tr>
       <tr><td>701</td><td class="account-credited">Ventes de marchandises</td><td></td><td class="credit-col">✓</td></tr>
       <tr><td>4431</td><td class="account-credited">État — TVA facturée</td><td></td><td class="credit-col">✓</td></tr>
       <tr><td>4194</td><td class="account-credited">Clients — Emballages consignés</td><td></td><td class="credit-col">✓</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <!-- EXERCICE CH.9 -->
@@ -2196,12 +2295,12 @@ body {
   <div class="content-card">
     <h3>I. La Lettre de Change (Traite)</h3>
     <p>La <strong>lettre de change</strong> est un écrit par lequel le <strong>tireur</strong> donne l'ordre au <strong>tiré</strong> de payer à l'<strong>échéance</strong> une somme déterminée au <strong>bénéficiaire</strong>.</p>
-    <table class="acc-table">
+    <div class="table-wrap"><table class="acc-table">
       <tr><th>Acteur</th><th>Rôle</th></tr>
       <tr><td><strong>Tireur</strong></td><td>Créancier / Fournisseur (émet la traite)</td></tr>
       <tr><td><strong>Tiré</strong></td><td>Débiteur / Client (accepte et paie)</td></tr>
       <tr><td><strong>Bénéficiaire</strong></td><td>Celui qui encaisse (souvent le tireur lui-même)</td></tr>
-    </table>
+    </table></div>
     <h4>Différence avec le Billet à Ordre</h4>
     <p>Le <strong>billet à ordre</strong> est émis par le débiteur (<strong>souscripteur</strong>) lui-même, qui s'engage à payer le bénéficiaire à l'échéance. C'est l'inverse de la traite (initiative du débiteur).</p>
   </div>
@@ -2209,11 +2308,11 @@ body {
   <div class="content-card">
     <h3>II. Comptabilisation des Effets de Commerce</h3>
     <h4>À la Création</h4>
-    <table class="journal-table">
+    <div class="table-wrap"><table class="journal-table">
       <tr><th colspan="2">Chez le tireur/bénéficiaire (fournisseur)</th><th colspan="2">Chez le tiré/souscripteur (client)</th></tr>
       <tr><td>D: 412 Clients EAR</td><td class="debit-col">VN</td><td>D: 401 Fourn.</td><td class="debit-col">VN</td></tr>
       <tr><td>C: 411 Clients</td><td class="credit-col">VN</td><td>C: 402 Fourn. EAP</td><td class="credit-col">VN</td></tr>
-    </table>
+    </table></div>
     <div class="nb">EAR = Effets à Recevoir (actif) | EAP = Effets à Payer (passif)</div>
     <h4>À l'Encaissement (effet remis à la banque)</h4>
     <ul>
@@ -2683,6 +2782,27 @@ function restoreUI() {
     showChapter(0);
   }
 }
+
+// ════════ SIDEBAR MOBILE TOGGLE ════════
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const btn = document.getElementById('hamburgerBtn');
+  const isOpen = sidebar.classList.toggle('open');
+  overlay.classList.toggle('active', isOpen);
+  btn.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+// Close sidebar when a chapter is clicked on mobile
+const origShowChapter = showChapter;
+
+document.querySelectorAll('.chapter-nav-item').forEach(el => {
+  el.addEventListener('click', () => {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar.classList.contains('open')) toggleSidebar();
+  });
+});
 
 restoreUI();
 
