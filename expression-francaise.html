@@ -510,11 +510,68 @@
     color: var(--rust);
   }
 
+  /* ── TABLE WRAP ── */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 16px 0;
+  }
+  .table-wrap table { margin: 0; }
+
   /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .container { padding: 0 16px; }
+
+    section { padding: 40px 0 28px; }
+
+    .hero { padding: 40px 16px 36px; }
+    .hero p { font-size: 0.95rem; }
+    .hero-stats { gap: 24px; }
+
+    .card { padding: 16px 16px; }
+    .example-box { padding: 12px 14px; }
+    .tip-box { padding: 12px 14px; }
+    .def-box { padding: 12px 14px; }
+
+    .quiz-box { padding: 16px; }
+    .test-section { padding: 20px 16px; }
+
+    .score-n { font-size: 2.5rem; }
+  }
+
   @media (max-width: 600px) {
     .match-container { grid-template-columns: 1fr; }
     .schema { flex-direction: column; }
     .schema-arrow { transform: rotate(90deg); }
+
+    .container { padding: 0 12px; }
+
+    .hero { padding: 32px 12px 28px; }
+    .hero-stats { gap: 16px; }
+    .stat-n { font-size: 1.5rem; }
+
+    h2 { font-size: 1.4rem; }
+    h3 { font-size: 1.1rem; }
+
+    .card { padding: 14px 12px; }
+    .quiz-box { padding: 14px 12px; }
+    .test-section { padding: 16px 12px; }
+
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+
+    .fill-input { min-width: 0; width: 100%; }
+
+    /* Boutons Vrai/Faux pleine largeur sur très petit écran */
+    #vf-container [style*="display:flex;gap:10px"] {
+      flex-direction: column;
+    }
+
+    .quiz-opt { font-size: 0.85rem; padding: 8px 10px; }
+    .quiz-feedback { font-size: 0.82rem; }
+
+    footer { padding: 24px 16px; }
+
+    .section-anchor { scroll-margin-top: 48px; }
   }
 
   /* ── SMOOTH ACTIVE NAV ── */
@@ -633,7 +690,7 @@
   <h2>Les Fonctions du Langage</h2>
   <p>Jakobson identifie <strong>six fonctions</strong> du langage, chacune centrée sur un élément de la communication.</p>
 
-  <table>
+  <div class="table-wrap"><table>
     <thead>
       <tr><th>Fonction</th><th>Centrée sur…</th><th>Objectif</th><th>Indices</th></tr>
     </thead>
@@ -675,7 +732,7 @@
         <td>Rimes, rythmes, figures de style, jeux de mots</td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 
   <h3>Exemples illustrés</h3>
   <div class="example-box"><strong>Référentielle :</strong> « La révolution informatique transforme l'industrie. » → Information factuelle sur la réalité.</div>
@@ -716,7 +773,7 @@
     </div>
   </div>
 
-  <table>
+  <div class="table-wrap"><table>
     <thead>
       <tr><th>Caractéristiques</th><th>Soutenu</th><th>Courant</th><th>Familier</th></tr>
     </thead>
@@ -752,7 +809,7 @@
         <td>« Il vient pas »</td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 
   <div class="tip-box">
     À l'examen BTS, utilisez toujours le registre <strong>soutenu</strong> dans vos productions écrites. Analysez le registre d'un texte en relevant le vocabulaire et la syntaxe.
@@ -886,7 +943,7 @@
   <h2>Types et Formes de Phrases</h2>
 
   <h3>Les 4 types de phrases</h3>
-  <table>
+  <div class="table-wrap"><table>
     <thead>
       <tr><th>Type</th><th>Définition</th><th>Ponctuation</th><th>Exemple</th></tr>
     </thead>
@@ -896,7 +953,7 @@
       <tr><td><strong>Impérative</strong></td><td>Donne un ordre, un conseil</td><td>. ou !</td><td>« Adoptez les nouvelles technologies. »</td></tr>
       <tr><td><strong>Exclamative</strong></td><td>Exprime une émotion forte</td><td>!</td><td>« Quelle révolution extraordinaire ! »</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <h3>Les formes de phrases</h3>
   <div class="grid-2">
@@ -1133,7 +1190,7 @@
   </div>
 
   <h3>Les connecteurs logiques indispensables</h3>
-  <table>
+  <div class="table-wrap"><table>
     <thead><tr><th>Relation</th><th>Connecteurs</th></tr></thead>
     <tbody>
       <tr><td>Addition</td><td>de plus, en outre, par ailleurs, également, de surcroît</td></tr>
@@ -1143,7 +1200,7 @@
       <tr><td>Illustration</td><td>par exemple, notamment, c'est le cas de, ainsi</td></tr>
       <tr><td>Conclusion</td><td>en définitive, en conclusion, pour conclure, en somme</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <h3>Exemple rédigé (sujet BTS 2023)</h3>
   <p><em>Sujet : « L'identité culturelle est-elle un atout ou un frein pour l'économie des pays en voie de développement ? »</em></p>
