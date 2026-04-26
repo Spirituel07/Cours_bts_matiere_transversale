@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mes Cours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f2;
+      --white: #ffffff;
+      --text: #1c1a18;
+      --muted: #8a8680;
+      --border: #e8e4de;
+      --border-hover: #c8c3bb;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 400;
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 5.5vw, 3.2rem);
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .intro {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 3rem;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem 1.4rem 1.3rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    }
+
+    .card:active { transform: translateY(0); box-shadow: none; }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .icon-blue   { background: #deeefb; }
+    .icon-green  { background: #ddf2e4; }
+    .icon-amber  { background: #fdefd6; }
+    .icon-purple { background: #eeecfc; }
+    .icon-coral  { background: #fae8e2; }
+
+    .card-meta {
+      font-size: 10.5px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.55;
+      flex-grow: 1;
+    }
+
+    .card-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+      transition: color 0.2s;
+    }
+
+    .card:hover .card-link { color: var(--text); }
+
+    .arrow { display: inline-block; transition: transform 0.2s; }
+    .card:hover .arrow { transform: translate(3px, -3px); }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      .page { padding: 2rem 1.25rem 3rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow { animation: fadeUp 0.4s ease both; }
+    h1       { animation: fadeUp 0.4s 0.05s ease both; }
+    .intro   { animation: fadeUp 0.4s 0.08s ease both; }
+    hr       { animation: fadeUp 0.4s 0.1s ease both; }
+    .grid    { animation: fadeUp 0.4s 0.14s ease both; }
+
+    .card { animation: fadeUp 0.4s ease both; }
+    .card:nth-child(1) { animation-delay: 0.18s; }
+    .card:nth-child(2) { animation-delay: 0.22s; }
+    .card:nth-child(3) { animation-delay: 0.26s; }
+    .card:nth-child(4) { animation-delay: 0.30s; }
+    .card:nth-child(5) { animation-delay: 0.34s; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <p class="eyebrow">Année académique 2025 – 2026</p>
+    <h1>Mes cours</h1>
+    <p class="intro">Sélectionne un cours pour accéder à son contenu.</p>
+
+    <hr />
+
+    <div class="grid">
+
+      <a class="card" href="droit-ethique.html">
+        <div class="card-icon icon-blue">⚖️</div>
+        <div class="card-meta">Droit</div>
+        <div class="card-title">Droit &amp; Éthique</div>
+        <div class="card-desc">Principes juridiques fondamentaux, déontologie et responsabilité.</div>
+        <div class="card-link">Ouvrir le cours <span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card" href="economie-generale.html">
+        <div class="card-icon icon-green">📊</div>
+        <div class="card-meta">Comptabilité</div>
+        <div class="card-title">Comptabilité Générale &amp; Création d'entreprise</div>
+        <div class="card-desc">Tenue des comptes, bilan, compte de résultat et entrepreneuriat.</div>
+        <div class="card-link">Ouvrir le cours <span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card" href="expression-francaise.html">
+        <div class="card-icon icon-amber">✍️</div>
+        <div class="card-meta">Langue française</div>
+        <div class="card-title">Techniques d'Expression Française</div>
+        <div class="card-desc">Rédaction, argumentation, correspondance professionnelle.</div>
+        <div class="card-link">Ouvrir le cours <span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card" href="expression-anglaise.html">
+        <div class="card-icon icon-purple">🗣️</div>
+        <div class="card-meta">Langue anglaise</div>
+        <div class="card-title">Techniques d'Expression Anglaise</div>
+        <div class="card-desc">Written &amp; oral communication, vocabulary, professional English.</div>
+        <div class="card-link">Ouvrir le cours <span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card" href="comptabilite.html">
+        <div class="card-icon icon-coral">🧾</div>
+        <div class="card-meta">Comptabilité</div>
+        <div class="card-title">Comptabilité</div>
+        <div class="card-desc">Fondamentaux comptables, enregistrements et écritures courantes.</div>
+        <div class="card-link">Ouvrir le cours <span class="arrow">↗</span></div>
+      </a>
+
+    </div>
+
+    <footer>
+      &copy; 2026 — Mes Cours &nbsp;·&nbsp; <a href="index.html" style="color:inherit;text-decoration:underline;">Accueil</a>
+    </footer>
+
+  </div>
+</body>
+</html>

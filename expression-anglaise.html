@@ -1,0 +1,2215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS Anglais Cameroun – Espace Étudiant</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0f13;
+  --surface: #16181f;
+  --surface2: #1e2029;
+  --border: #2a2d38;
+  --accent: #f5c842;
+  --accent2: #3ee8b5;
+  --accent3: #ff6b6b;
+  --text: #e8e9ef;
+  --muted: #7a7d8c;
+  --green: #3ee8b5;
+  --red: #ff6b6b;
+  --blue: #6b9fff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== SIDEBAR ===== */
+#sidebar {
+  width: 270px;
+  min-width: 270px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: all 0.3s;
+}
+
+.logo {
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.logo h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.2;
+}
+.logo p {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.progress-bar-wrap {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.progress-bar {
+  height: 5px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+nav { padding: 12px 0; flex: 1; }
+
+.nav-section {
+  padding: 10px 20px 4px;
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  color: var(--muted);
+  position: relative;
+}
+.nav-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.nav-item.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: rgba(245,200,66,0.06);
+}
+.nav-item .icon { font-size: 1rem; width: 20px; text-align: center; }
+.nav-item .badge {
+  margin-left: auto;
+  background: var(--accent);
+  color: #000;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 99px;
+}
+.nav-item .done-badge {
+  margin-left: auto;
+  color: var(--green);
+  font-size: 0.8rem;
+}
+
+/* ===== MAIN ===== */
+#main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* TOP BAR */
+#topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  gap: 16px;
+}
+
+.topbar-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  padding: 7px 16px;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary { background: var(--accent); color: #000; }
+.btn-primary:hover { background: #ffd55a; }
+.btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+.btn-ghost:hover { color: var(--text); border-color: var(--text); }
+.btn-success { background: var(--green); color: #000; }
+.btn-danger { background: var(--red); color: #fff; }
+
+/* CONTENT */
+#content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 36px;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.tag-grammar { background: rgba(107,159,255,0.2); color: var(--blue); }
+.tag-vocab { background: rgba(245,200,66,0.2); color: var(--accent); }
+.tag-reading { background: rgba(62,232,181,0.2); color: var(--green); }
+.tag-translation { background: rgba(255,107,107,0.2); color: var(--red); }
+.tag-writing { background: rgba(180,130,255,0.2); color: #b482ff; }
+
+/* ===== LESSON ===== */
+.lesson-section {
+  margin-bottom: 24px;
+}
+.lesson-section h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lesson-section p, .lesson-section li {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: #c5c7d4;
+}
+.lesson-section ul, .lesson-section ol {
+  padding-left: 20px;
+  margin-top: 6px;
+}
+.lesson-section li { margin-bottom: 4px; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+}
+th {
+  background: var(--surface2);
+  padding: 10px 14px;
+  text-align: left;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+  color: #c5c7d4;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* HIGHLIGHT BOX */
+.highlight-box {
+  background: rgba(245,200,66,0.07);
+  border: 1px solid rgba(245,200,66,0.25);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #e0d8b0;
+}
+.highlight-box strong { color: var(--accent); }
+
+.error-box {
+  background: rgba(255,107,107,0.07);
+  border: 1px solid rgba(255,107,107,0.25);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #f0c0c0;
+}
+.error-box strong { color: var(--red); }
+
+.tip-box {
+  background: rgba(62,232,181,0.07);
+  border: 1px solid rgba(62,232,181,0.25);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #b0e8d8;
+}
+.tip-box strong { color: var(--accent2); }
+
+/* CODE */
+code {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82em;
+  color: var(--accent);
+}
+
+/* ===== EXERCISE ===== */
+.exercise-block {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 14px 0;
+}
+.exercise-block h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.exercise-item {
+  margin-bottom: 14px;
+}
+.exercise-item label {
+  display: block;
+  font-size: 0.85rem;
+  color: #c5c7d4;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.exercise-item input[type="text"] {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  width: 100%;
+  max-width: 360px;
+  outline: none;
+  transition: border 0.2s;
+}
+.exercise-item input[type="text"]:focus { border-color: var(--accent); }
+.exercise-item input.correct { border-color: var(--green); background: rgba(62,232,181,0.07); }
+.exercise-item input.wrong { border-color: var(--red); background: rgba(255,107,107,0.07); }
+
+.exercise-item select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+}
+.exercise-item select:focus { border-color: var(--accent); }
+
+.feedback {
+  display: none;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  font-weight: 500;
+}
+.feedback.show { display: block; }
+.feedback.correct { color: var(--green); }
+.feedback.wrong { color: var(--red); }
+
+.check-btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s;
+}
+.check-btn:hover { background: #ffd55a; }
+
+.show-answer-btn {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-left: 8px;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+.show-answer-btn:hover { color: var(--text); border-color: var(--text); }
+
+/* SCORE */
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* MINI TEST */
+.mini-test {
+  background: linear-gradient(135deg, rgba(107,159,255,0.05), rgba(62,232,181,0.05));
+  border: 1px solid rgba(107,159,255,0.2);
+  border-radius: 12px;
+  padding: 22px;
+  margin: 20px 0;
+}
+.mini-test h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  margin-bottom: 7px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  user-select: none;
+}
+.quiz-option:hover { border-color: var(--accent); color: var(--accent); }
+.quiz-option.selected { border-color: var(--blue); background: rgba(107,159,255,0.1); color: var(--blue); }
+.quiz-option.correct-ans { border-color: var(--green); background: rgba(62,232,181,0.1); color: var(--green); }
+.quiz-option.wrong-ans { border-color: var(--red); background: rgba(255,107,107,0.1); color: var(--red); }
+.quiz-option .opt-letter {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* PAGE VIEWS */
+.page { display: none; animation: fadeIn 0.35s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* DASHBOARD */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 22px;
+}
+.stat-card .stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-card .stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.module-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.module-card.grammar::before { background: var(--blue); }
+.module-card.vocab::before { background: var(--accent); }
+.module-card.reading::before { background: var(--green); }
+.module-card.translation::before { background: var(--red); }
+.module-card.writing::before { background: #b482ff; }
+.module-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+.module-card .mc-icon { font-size: 1.6rem; margin-bottom: 8px; }
+.module-card .mc-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.module-card .mc-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+.module-card .mc-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.mc-pb { flex: 1; height: 3px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.mc-pb-fill { height: 100%; border-radius: 99px; background: currentColor; transition: width 0.5s; }
+.module-card.grammar .mc-pb-fill { background: var(--blue); }
+.module-card.vocab .mc-pb-fill { background: var(--accent); }
+.module-card.reading .mc-pb-fill { background: var(--green); }
+.module-card.translation .mc-pb-fill { background: var(--red); }
+.module-card.writing .mc-pb-fill { background: #b482ff; }
+.mc-pct { font-size: 0.7rem; color: var(--muted); }
+
+/* SEPARATOR */
+hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+/* TEXT AREA */
+textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  resize: vertical;
+  min-height: 100px;
+  outline: none;
+  transition: border 0.2s;
+  line-height: 1.65;
+}
+textarea:focus { border-color: var(--accent); }
+
+/* BREADCRUMB */
+.breadcrumb {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.breadcrumb span { color: var(--text); }
+
+/* TIMER */
+#exam-timer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 5px 14px;
+  border-radius: 7px;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  #sidebar { width: 220px; min-width: 220px; }
+  #content { padding: 20px 16px; }
+  .dashboard-grid, .module-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="logo">
+    <h1>📚 BTS Anglais</h1>
+    <p>Cameroun · Espace Étudiant</p>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>Progression globale</span>
+      <span id="global-pct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="global-bar" style="width:0%"></div>
+    </div>
+  </div>
+  <nav>
+    <div class="nav-section">Vue d'ensemble</div>
+    <div class="nav-item active" onclick="showPage('dashboard')">
+      <span class="icon">🏠</span> Tableau de bord
+    </div>
+
+    <div class="nav-section">Section A – Linguistic</div>
+    <div class="nav-item" onclick="showPage('grammar-tenses')">
+      <span class="icon">⏱️</span> Tenses (Temps)
+      <span class="badge">10pts</span>
+    </div>
+    <div class="nav-item" onclick="showPage('grammar-cond')">
+      <span class="icon">🔀</span> Conditionals
+    </div>
+    <div class="nav-item" onclick="showPage('grammar-reported')">
+      <span class="icon">💬</span> Reported Speech
+    </div>
+    <div class="nav-item" onclick="showPage('grammar-passive')">
+      <span class="icon">🔄</span> Passive Voice
+    </div>
+    <div class="nav-item" onclick="showPage('grammar-conjunctions')">
+      <span class="icon">🔗</span> Conjunctions & Linking
+    </div>
+    <div class="nav-item" onclick="showPage('grammar-modals')">
+      <span class="icon">⚡</span> Modal Verbs
+    </div>
+    <div class="nav-item" onclick="showPage('grammar-questions')">
+      <span class="icon">❓</span> Question Forms
+    </div>
+    <div class="nav-item" onclick="showPage('vocabulary')">
+      <span class="icon">📖</span> Vocabulary BTS
+      <span class="badge">10pts</span>
+    </div>
+
+    <div class="nav-section">Section B</div>
+    <div class="nav-item" onclick="showPage('reading')">
+      <span class="icon">📄</span> Reading Comprehension
+      <span class="badge">10pts</span>
+    </div>
+
+    <div class="nav-section">Section C</div>
+    <div class="nav-item" onclick="showPage('translation')">
+      <span class="icon">🌍</span> Translation
+      <span class="badge">10pts</span>
+    </div>
+
+    <div class="nav-section">Section D</div>
+    <div class="nav-item" onclick="showPage('writing')">
+      <span class="icon">✍️</span> Writing Composition
+      <span class="badge">10pts</span>
+    </div>
+
+    <div class="nav-section">Entraînement</div>
+    <div class="nav-item" onclick="showPage('exam')">
+      <span class="icon">🎓</span> Épreuve Complète
+    </div>
+    <div class="nav-item" onclick="showPage('revision')">
+      <span class="icon">📅</span> Plan 30 Jours
+    </div>
+    <div class="nav-item" onclick="showPage('cheatsheet')">
+      <span class="icon">⚡</span> Fiches Rapides
+    </div>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main id="main">
+  <div id="topbar">
+    <div class="topbar-title" id="page-title">Tableau de bord</div>
+    <div class="topbar-right">
+      <div class="score-badge">🏆 Score: <span id="total-score">0</span>/50</div>
+      <div id="exam-timer" style="display:none">03:00:00</div>
+      <button class="btn btn-ghost" onclick="resetProgress()">Reset</button>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="page active" id="page-dashboard">
+      <div class="breadcrumb">📚 BTS Anglais Cameroun</div>
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-modules">0/8</div>
+          <div class="stat-label">Modules complétés</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-exercises">0</div>
+          <div class="stat-label">Exercices réussis</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-score">0%</div>
+          <div class="stat-label">Taux de réussite</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">40</div>
+          <div class="stat-label">Total marks BTS</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:16px">
+        <div class="card-title" style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:16px">
+          🗂️ Modules du Programme
+        </div>
+      </div>
+
+      <div class="module-grid">
+        <div class="module-card grammar" onclick="showPage('grammar-tenses')">
+          <div class="mc-icon">⏱️</div>
+          <div class="mc-title">Grammar – Tenses & More</div>
+          <div class="mc-desc">Tenses, Conditionals, Passive, Reported Speech, Modals, Questions</div>
+          <div class="mc-progress">
+            <div class="mc-pb"><div class="mc-pb-fill" id="pb-grammar" style="width:0%"></div></div>
+            <div class="mc-pct" id="pct-grammar">0%</div>
+          </div>
+        </div>
+        <div class="module-card vocab" onclick="showPage('vocabulary')">
+          <div class="mc-icon">📖</div>
+          <div class="mc-title">Vocabulary BTS</div>
+          <div class="mc-desc">Synonyms, antonyms, word formation, BTS word list</div>
+          <div class="mc-progress">
+            <div class="mc-pb"><div class="mc-pb-fill" id="pb-vocab" style="width:0%"></div></div>
+            <div class="mc-pct" id="pct-vocab">0%</div>
+          </div>
+        </div>
+        <div class="module-card reading" onclick="showPage('reading')">
+          <div class="mc-icon">📄</div>
+          <div class="mc-title">Reading Comprehension</div>
+          <div class="mc-desc">Skimming, scanning, answering BTS questions</div>
+          <div class="mc-progress">
+            <div class="mc-pb"><div class="mc-pb-fill" id="pb-reading" style="width:0%"></div></div>
+            <div class="mc-pct" id="pct-reading">0%</div>
+          </div>
+        </div>
+        <div class="module-card translation" onclick="showPage('translation')">
+          <div class="mc-icon">🌍</div>
+          <div class="mc-title">Translation</div>
+          <div class="mc-desc">FR→EN, EN→FR, faux amis, expressions BTS</div>
+          <div class="mc-progress">
+            <div class="mc-pb"><div class="mc-pb-fill" id="pb-translation" style="width:0%"></div></div>
+            <div class="mc-pct" id="pct-translation">0%</div>
+          </div>
+        </div>
+        <div class="module-card writing" onclick="showPage('writing')">
+          <div class="mc-icon">✍️</div>
+          <div class="mc-title">Writing Composition</div>
+          <div class="mc-desc">Formal/informal letters, essays argumentatifs</div>
+          <div class="mc-progress">
+            <div class="mc-pb"><div class="mc-pb-fill" id="pb-writing" style="width:0%"></div></div>
+            <div class="mc-pct" id="pct-writing">0%</div>
+          </div>
+        </div>
+        <div class="module-card grammar" onclick="showPage('exam')">
+          <div class="mc-icon">🎓</div>
+          <div class="mc-title">Épreuve Complète</div>
+          <div class="mc-desc">Simulation d'examen BTS chronométré</div>
+          <div class="mc-progress">
+            <div class="mc-pb"><div class="mc-pb-fill" id="pb-exam" style="width:0%"></div></div>
+            <div class="mc-pct" id="pct-exam">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="card-title">💡 Structure de l'Épreuve BTS Cameroun</div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Section</th><th>Contenu</th><th>Marks</th><th>Durée conseillée</th></tr>
+            <tr><td><span class="tag tag-grammar">A</span> Linguistic Competence</td><td>Grammar + Vocabulary</td><td>20 marks</td><td>45 min</td></tr>
+            <tr><td><span class="tag tag-reading">B</span> Reading Comprehension</td><td>Texte + Questions</td><td>10 marks</td><td>40 min</td></tr>
+            <tr><td><span class="tag tag-translation">C</span> Translation</td><td>FR→EN + EN→FR</td><td>10 marks</td><td>35 min</td></tr>
+            <tr><td><span class="tag tag-writing">D</span> Writing Composition</td><td>Lettre ou Essay</td><td>10 marks</td><td>55 min</td></tr>
+            <tr><td colspan="2"><strong>TOTAL</strong></td><td><strong>50 marks</strong></td><td><strong>3 heures</strong></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GRAMMAR: TENSES ===== -->
+    <div class="page" id="page-grammar-tenses">
+      <div class="breadcrumb">🏠 Dashboard › <span>Grammar – Tenses</span></div>
+      
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module 1 – Les Temps Verbaux (Tenses)</div>
+        
+        <div class="lesson-section">
+          <h3>📌 Vue d'ensemble des temps</h3>
+          <p>Le BTS Cameroun teste principalement ces temps. Voici un tableau complet :</p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Temps</th><th>Forme</th><th>Usage</th><th>Exemple BTS</th></tr>
+              <tr><td>Present Simple</td><td>V / V+s (3e pers)</td><td>Habitudes, vérités générales</td><td><em>She <strong>works</strong> at the hospital.</em></td></tr>
+              <tr><td>Present Continuous</td><td>am/is/are + V-ing</td><td>Action en cours maintenant</td><td><em>He <strong>is studying</strong> for his BTS.</em></td></tr>
+              <tr><td>Past Simple</td><td>V-ed / irrégulier</td><td>Action terminée dans le passé</td><td><em>She <strong>went</strong> to school yesterday.</em></td></tr>
+              <tr><td>Past Continuous</td><td>was/were + V-ing</td><td>Action en cours dans le passé</td><td><em>He <strong>was sleeping</strong> when I called.</em></td></tr>
+              <tr><td>Present Perfect</td><td>have/has + V-pp</td><td>Passé lié au présent</td><td><em>I <strong>have done</strong> my homework.</em></td></tr>
+              <tr><td>Past Perfect</td><td>had + V-pp</td><td>Avant une autre action passée</td><td><em>She <strong>had eaten</strong> before he arrived.</em></td></tr>
+              <tr><td>Future – will</td><td>will + V</td><td>Décision spontanée, promesse</td><td><em>I <strong>will help</strong> you tomorrow.</em></td></tr>
+              <tr><td>Future – going to</td><td>am/is/are going to + V</td><td>Intention planifiée</td><td><em>She <strong>is going to study</strong> medicine.</em></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>🔑 Mots-clés pour identifier le bon temps</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Indicateur</th><th>Temps</th></tr>
+              <tr><td>yesterday, last week/year, ago, in 2021</td><td>Past Simple</td></tr>
+              <tr><td>now, at the moment, currently, look!</td><td>Present Continuous</td></tr>
+              <tr><td>already, just, yet, ever, never, since, for, recently</td><td>Present Perfect</td></tr>
+              <tr><td>before, by the time, after, when (passé)</td><td>Past Perfect</td></tr>
+              <tr><td>always, usually, every day, sometimes, often</td><td>Present Simple</td></tr>
+              <tr><td>tomorrow, next week, in the future</td><td>Future (will/going to)</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>✅ ASTUCE BTS :</strong> Dans le fill-in-the-blank, cherche toujours l'indicateur de temps dans la phrase ! Si tu vois "<em>yesterday</em>" → Past Simple. Si tu vois "<em>since</em>" → Present Perfect.
+        </div>
+
+        <div class="lesson-section">
+          <h3>⚠️ Since vs For</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Mot</th><th>Usage</th><th>Exemple</th></tr>
+              <tr><td><code>since</code></td><td>Point de départ (date/événement)</td><td>I have lived here <strong>since 2019</strong>. / She has been sick <strong>since Monday</strong>.</td></tr>
+              <tr><td><code>for</code></td><td>Durée</td><td>He has worked here <strong>for 5 years</strong>. / I waited <strong>for two hours</strong>.</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="error-box">
+          <strong>❌ Erreurs fréquentes :</strong><br>
+          ✗ <em>I live here since 2020.</em> → ✅ <em>I <strong>have lived</strong> here since 2020.</em><br>
+          ✗ <em>She go to school yesterday.</em> → ✅ <em>She <strong>went</strong> to school yesterday.</em><br>
+          ✗ <em>He is work now.</em> → ✅ <em>He <strong>is working</strong> now.</em>
+        </div>
+      </div>
+
+      <!-- EXERCISE -->
+      <div class="card">
+        <div class="card-title">✏️ Exercice 1 – Fill in the blanks (Style BTS 2023)</div>
+        <div class="exercise-block">
+          <h4>📝 Choose the correct form</h4>
+          
+          <div class="exercise-item">
+            <label>1. Lukong didn't ________ to school on time yesterday. (went / go / gone / going)</label>
+            <input type="text" id="t1" placeholder="your answer...">
+            <div class="feedback" id="fb-t1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. I've ________ my work very sir. (done / doing / did / does)</label>
+            <input type="text" id="t2" placeholder="your answer...">
+            <div class="feedback" id="fb-t2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. Had I known, I ________ all the food before she arrived. (would eat / will eat / would have eaten / will have eaten)</label>
+            <input type="text" id="t3" placeholder="your answer...">
+            <div class="feedback" id="fb-t3"></div>
+          </div>
+          <div class="exercise-item">
+            <label>4. She ________ in Paris since 2018. (live / lives / has lived / lived)</label>
+            <input type="text" id="t4" placeholder="your answer...">
+            <div class="feedback" id="fb-t4"></div>
+          </div>
+          <div class="exercise-item">
+            <label>5. When I arrived, they ________ dinner. (were having / had / have had / are having)</label>
+            <input type="text" id="t5" placeholder="your answer...">
+            <div class="feedback" id="fb-t5"></div>
+          </div>
+          
+          <button class="check-btn" onclick="checkTenses()">✅ Vérifier mes réponses</button>
+          <button class="show-answer-btn" onclick="showTenseAnswers()">👁️ Voir les corrections</button>
+          <div id="tense-score" style="margin-top:12px;font-size:0.85rem;display:none"></div>
+        </div>
+      </div>
+
+      <!-- MINI TEST -->
+      <div class="card">
+        <div class="mini-test">
+          <h3>🎯 Mini Test – Tenses (5 questions)</h3>
+          <div id="quiz-tenses"></div>
+          <button class="check-btn" onclick="submitQuiz('tenses')" style="margin-top:14px">Submit Quiz</button>
+          <div id="quiz-tenses-result" style="margin-top:12px;font-size:0.88rem;font-weight:600;display:none"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📌 Fiche de résumé – Tenses</div>
+        <div class="highlight-box">
+          <strong>À retenir :</strong><br>
+          • Past Simple = action finie dans le passé (ago, yesterday, last...)<br>
+          • Present Perfect = passé lié au présent (already, just, yet, since, for, ever, never)<br>
+          • Past Perfect = avant une autre action passée (had + pp)<br>
+          • Future will = décision spontanée / Future going to = intention planifiée
+        </div>
+        <button class="btn btn-primary" onclick="markModuleDone('grammar', 100); nextModule('grammar-cond')" style="margin-top:8px">
+          Module suivant : Conditionals →
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== GRAMMAR: CONDITIONALS ===== -->
+    <div class="page" id="page-grammar-cond">
+      <div class="breadcrumb">🏠 Dashboard › Grammar › <span>Conditionals</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module 2 – Conditional Sentences</div>
+
+        <div class="lesson-section">
+          <h3>📌 Les 4 types de conditionnels</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Type</th><th>Structure</th><th>Usage</th><th>Exemple</th></tr>
+              <tr><td><strong>Zero (0)</strong></td><td>If + present, present</td><td>Vérités universelles / habitudes</td><td><em>If you <strong>heat</strong> water, it <strong>boils</strong>.</em></td></tr>
+              <tr><td><strong>First (1st)</strong></td><td>If + present, will + V</td><td>Situation réelle/possible dans le futur</td><td><em>If she <strong>studies</strong>, she <strong>will pass</strong>.</em></td></tr>
+              <tr><td><strong>Second (2nd)</strong></td><td>If + past simple, would + V</td><td>Situation hypothétique / irréelle présente</td><td><em>If I <strong>had</strong> money, I <strong>would buy</strong> a car.</em></td></tr>
+              <tr><td><strong>Third (3rd)</strong></td><td>If + past perfect, would have + pp</td><td>Regret / situation irréelle dans le passé</td><td><em>If I <strong>had known</strong>, I <strong>would have eaten</strong>.</em></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>⚡ ASTUCE BTS :</strong> La question classique BTS est : <em>"Had I know I ______ all the food before she arrived."</em><br>
+          → "Had I known" = inversion de "If I had known" = 3rd conditional → Réponse : <strong>would have eaten</strong>
+        </div>
+
+        <div class="error-box">
+          <strong>❌ Erreurs fréquentes :</strong><br>
+          ✗ <em>If she will come, I will be happy.</em> → ✅ <em>If she <strong>comes</strong>, I will be happy.</em> (1st cond.)<br>
+          ✗ <em>If I would have money, I would help.</em> → ✅ <em>If I <strong>had</strong> money, I would help.</em> (2nd cond.)
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">✏️ Exercice – Conditionals</div>
+        <div class="exercise-block">
+          <h4>Complete with the correct conditional form</h4>
+          <div class="exercise-item">
+            <label>1. If you ________ (heat) ice, it melts. (Zero conditional)</label>
+            <input type="text" id="c1" placeholder="answer...">
+            <div class="feedback" id="fb-c1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. If I ________ (be) rich, I would travel the world. (2nd conditional)</label>
+            <input type="text" id="c2" placeholder="answer...">
+            <div class="feedback" id="fb-c2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. She will pass if she ________ (study) hard. (1st conditional)</label>
+            <input type="text" id="c3" placeholder="answer...">
+            <div class="feedback" id="fb-c3"></div>
+          </div>
+          <div class="exercise-item">
+            <label>4. If they ________ (arrive) earlier, they would have seen the show. (3rd conditional)</label>
+            <input type="text" id="c4" placeholder="answer...">
+            <div class="feedback" id="fb-c4"></div>
+          </div>
+          <button class="check-btn" onclick="checkConditionals()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showCondAnswers()">👁️ Corrections</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <button class="btn btn-primary" onclick="markModuleDone('grammar', 100); nextModule('grammar-reported')">
+          Module suivant : Reported Speech →
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== REPORTED SPEECH ===== -->
+    <div class="page" id="page-grammar-reported">
+      <div class="breadcrumb">🏠 Dashboard › Grammar › <span>Reported Speech</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module 3 – Reported Speech (Discours Rapporté)</div>
+
+        <div class="lesson-section">
+          <h3>📌 Règles fondamentales</h3>
+          <p>Le reported speech (indirect speech) sert à rapporter ce que quelqu'un a dit. Il faut changer :</p>
+          <ul>
+            <li>Le <strong>verbe introducteur</strong> (said, told, asked, wondered...)</li>
+            <li>Les <strong>temps verbaux</strong> (backshift)</li>
+            <li>Les <strong>pronoms</strong></li>
+            <li>Les <strong>expressions de temps</strong></li>
+          </ul>
+        </div>
+
+        <div class="lesson-section">
+          <h3>🔄 Tableau de Backshift des temps</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Direct Speech</th><th>Reported Speech</th></tr>
+              <tr><td>Present Simple → <em>"I work"</em></td><td>Past Simple → <em>He said he <strong>worked</strong></em></td></tr>
+              <tr><td>Present Continuous → <em>"I am working"</em></td><td>Past Continuous → <em>She said she <strong>was working</strong></em></td></tr>
+              <tr><td>Past Simple → <em>"I went"</em></td><td>Past Perfect → <em>He said he <strong>had gone</strong></em></td></tr>
+              <tr><td>Present Perfect → <em>"I have done"</em></td><td>Past Perfect → <em>She said she <strong>had done</strong></em></td></tr>
+              <tr><td>will → <em>"I will come"</em></td><td>would → <em>He said he <strong>would come</strong></em></td></tr>
+              <tr><td>can → <em>"I can help"</em></td><td>could → <em>She said she <strong>could help</strong></em></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>🗣️ Changements de pronoms et d'expressions</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Direct</th><th>Reported</th></tr>
+              <tr><td>now</td><td>then / at that time</td></tr>
+              <tr><td>today</td><td>that day</td></tr>
+              <tr><td>yesterday</td><td>the day before / the previous day</td></tr>
+              <tr><td>tomorrow</td><td>the next day / the following day</td></tr>
+              <tr><td>here</td><td>there</td></tr>
+              <tr><td>this</td><td>that</td></tr>
+              <tr><td>I / me / my</td><td>he/she / him/her / his/her</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>📌 Questions en Reported Speech :</strong><br>
+          <em>Direct:</em> "Where did I leave my phone?" Peter asked.<br>
+          <em>Reported:</em> Peter asked where <strong>he had left</strong> his phone. ← (BTS 2021!)<br><br>
+          <em>Direct:</em> "Are you ready?" She asked.<br>
+          <em>Reported:</em> She asked <strong>if/whether</strong> I was ready.
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Transform to Reported Speech</h4>
+          <div class="exercise-item">
+            <label>1. Direct: "I am studying English." → He said that he ________</label>
+            <input type="text" id="rs1" placeholder="answer...">
+            <div class="feedback" id="fb-rs1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. Direct: "They went away yesterday." → The text says they ________</label>
+            <input type="text" id="rs2" placeholder="answer...">
+            <div class="feedback" id="fb-rs2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. Direct: "I will help you." → She promised that she ________</label>
+            <input type="text" id="rs3" placeholder="answer...">
+            <div class="feedback" id="fb-rs3"></div>
+          </div>
+          <button class="check-btn" onclick="checkReported()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showReportedAnswers()">👁️ Corrections</button>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('grammar-passive')">Module suivant : Passive Voice →</button>
+      </div>
+    </div>
+
+    <!-- ===== PASSIVE VOICE ===== -->
+    <div class="page" id="page-grammar-passive">
+      <div class="breadcrumb">🏠 Dashboard › Grammar › <span>Passive Voice</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module 4 – Passive Voice (Voix Passive)</div>
+
+        <div class="lesson-section">
+          <h3>📌 Structure de base</h3>
+          <div class="highlight-box">
+            <strong>Formule :</strong> Subject + <strong>to be (conjugué)</strong> + <strong>Past Participle</strong> (+ by + agent)<br><br>
+            Active: <em>The teacher <strong>corrects</strong> the papers.</em><br>
+            Passive: <em>The papers <strong>are corrected</strong> by the teacher.</em>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>🔄 Voix passive par temps</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Temps</th><th>Passif</th><th>Exemple</th></tr>
+              <tr><td>Present Simple</td><td>am/is/are + pp</td><td><em>Rice <strong>is grown</strong> in Cameroon.</em></td></tr>
+              <tr><td>Past Simple</td><td>was/were + pp</td><td><em>The letter <strong>was written</strong> yesterday.</em></td></tr>
+              <tr><td>Present Perfect</td><td>has/have been + pp</td><td><em>The book <strong>has been published</strong>.</em></td></tr>
+              <tr><td>Future</td><td>will be + pp</td><td><em>The exam <strong>will be held</strong> in June.</em></td></tr>
+              <tr><td>Modal</td><td>modal + be + pp</td><td><em>This <strong>must be done</strong> now.</em></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Transform to Passive</h4>
+          <div class="exercise-item">
+            <label>1. They grow coffee in Cameroon. → Coffee ________</label>
+            <input type="text" id="pv1" placeholder="answer...">
+            <div class="feedback" id="fb-pv1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. The government built this road last year. → This road ________</label>
+            <input type="text" id="pv2" placeholder="answer...">
+            <div class="feedback" id="fb-pv2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. Someone must repair this machine. → This machine ________</label>
+            <input type="text" id="pv3" placeholder="answer...">
+            <div class="feedback" id="fb-pv3"></div>
+          </div>
+          <button class="check-btn" onclick="checkPassive()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showPassiveAnswers()">👁️ Corrections</button>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('grammar-conjunctions')">Module suivant : Conjunctions →</button>
+      </div>
+    </div>
+
+    <!-- ===== CONJUNCTIONS ===== -->
+    <div class="page" id="page-grammar-conjunctions">
+      <div class="breadcrumb">🏠 Dashboard › Grammar › <span>Conjunctions & Linking Words</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module 5 – Conjunctions & Linking Words</div>
+
+        <div class="lesson-section">
+          <h3>📌 Tableau complet des connecteurs logiques</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Fonction</th><th>Mots</th><th>Exemple</th></tr>
+              <tr><td>Addition</td><td>and, also, moreover, furthermore, in addition, besides</td><td><em>He is smart <strong>and</strong> hardworking.</em></td></tr>
+              <tr><td>Opposition/Contraste</td><td>but, however, yet, although, though, even though, whereas, while, on the other hand, nevertheless, despite, in spite of</td><td><em>She studied hard; <strong>however</strong>, she failed.</em></td></tr>
+              <tr><td>Cause</td><td>because, because of, since, as, due to, owing to, the fact that</td><td><em>He was late <strong>because of</strong> traffic.</em></td></tr>
+              <tr><td>Conséquence</td><td>so, therefore, thus, consequently, as a result, hence</td><td><em>It rained; <strong>therefore</strong>, we stayed home.</em></td></tr>
+              <tr><td>Condition</td><td>if, unless, provided that, as long as</td><td><em><strong>Unless</strong> you study, you'll fail.</em></td></tr>
+              <tr><td>Temps</td><td>when, while, as soon as, before, after, until, since, by the time</td><td><em><strong>As soon as</strong> he arrived, we ate.</em></td></tr>
+              <tr><td>But avec nom</td><td>despite + nom/V-ing, in spite of + nom/V-ing</td><td><em><strong>Despite</strong> the rain, we went out.</em></td></tr>
+              <tr><td>But avec proposition</td><td>although/though/even though + S+V</td><td><em><strong>Although</strong> it rained, we went out.</em></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="error-box">
+          <strong>❌ Erreur critique :</strong><br>
+          ✗ <em>Despite <strong>it rained</strong>, we went out.</em> → ✅ <em>Despite <strong>the rain</strong></em> / <em>Although <strong>it rained</strong></em><br>
+          ✗ <em>Because of <strong>she was tired</strong></em> → ✅ <em>Because <strong>she was tired</strong></em> / <em>Because of <strong>her tiredness</strong></em>
+        </div>
+
+        <div class="lesson-section">
+          <h3>🔗 Exercice BTS – Join the sentences (Style 2023)</h3>
+        </div>
+
+        <div class="exercise-block">
+          <h4>Join using a suitable conjunction</h4>
+          <div class="exercise-item">
+            <label>1. They couldn't see Peter. They couldn't see Rose.</label>
+            <input type="text" id="j1" placeholder="one sentence...">
+            <div class="feedback" id="fb-j1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. I am wounded. I am in class.</label>
+            <input type="text" id="j2" placeholder="one sentence...">
+            <div class="feedback" id="fb-j2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. He arrived late. There was traffic jam.</label>
+            <input type="text" id="j3" placeholder="one sentence...">
+            <div class="feedback" id="fb-j3"></div>
+          </div>
+          <div class="exercise-item">
+            <label>4. I want to eat rice. I want to eat beans.</label>
+            <input type="text" id="j4" placeholder="one sentence...">
+            <div class="feedback" id="fb-j4"></div>
+          </div>
+          <button class="check-btn" onclick="checkJoin()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showJoinAnswers()">👁️ Voir les corrections</button>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('grammar-modals')">Module suivant : Modal Verbs →</button>
+      </div>
+    </div>
+
+    <!-- ===== MODALS ===== -->
+    <div class="page" id="page-grammar-modals">
+      <div class="breadcrumb">🏠 Dashboard › Grammar › <span>Modal Verbs</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module 6 – Modal Verbs</div>
+
+        <div class="table-wrap">
+          <table>
+            <tr><th>Modal</th><th>Signification principale</th><th>Exemple BTS</th></tr>
+            <tr><td><strong>can</strong></td><td>Capacité présente</td><td><em>She <strong>can</strong> speak French and English.</em></td></tr>
+            <tr><td><strong>could</strong></td><td>Capacité passée / possibilité polie</td><td><em>He <strong>could</strong> run fast when he was young.</em></td></tr>
+            <tr><td><strong>must</strong></td><td>Obligation forte / déduction logique</td><td><em>You <strong>must</strong> wash your hands. / He <strong>must</strong> be tired.</em></td></tr>
+            <tr><td><strong>should</strong></td><td>Conseil / obligation morale</td><td><em>You <strong>should</strong> study harder.</em></td></tr>
+            <tr><td><strong>may</strong></td><td>Permission formelle / possibilité</td><td><em>May I go out, sir?</em></td></tr>
+            <tr><td><strong>might</strong></td><td>Possibilité faible</td><td><em>She <strong>might</strong> be at the market.</em></td></tr>
+            <tr><td><strong>would</strong></td><td>Conditionnel / habitude passée</td><td><em>I <strong>would</strong> like a coffee please.</em></td></tr>
+            <tr><td><strong>shall</strong></td><td>Suggestion / futur formel (1ère pers.)</td><td><em>Shall we begin?</em></td></tr>
+          </table>
+        </div>
+
+        <div class="highlight-box">
+          <strong>💡 Astuce :</strong> Les modaux sont toujours suivis de l'infinitif sans "to" : <code>must go</code>, <code>should study</code>, <code>can speak</code>.
+          <br>Exception : <em>ought <strong>to</strong> do</em>, <em>have <strong>to</strong> do</em>
+        </div>
+
+        <div class="exercise-block">
+          <h4>Fill in with the right modal</h4>
+          <div class="exercise-item">
+            <label>1. You ________ (strong obligation) wear a mask in hospital.</label>
+            <input type="text" id="m1" placeholder="answer..."><div class="feedback" id="fb-m1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. ________ I go out, sir? (asking permission formally)</label>
+            <input type="text" id="m2" placeholder="answer..."><div class="feedback" id="fb-m2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. She looks tired. She ________ be sick. (logical deduction)</label>
+            <input type="text" id="m3" placeholder="answer..."><div class="feedback" id="fb-m3"></div>
+          </div>
+          <button class="check-btn" onclick="checkModals()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showModalAnswers()">👁️ Corrections</button>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('grammar-questions')">Module suivant : Question Forms →</button>
+      </div>
+    </div>
+
+    <!-- ===== QUESTIONS ===== -->
+    <div class="page" id="page-grammar-questions">
+      <div class="breadcrumb">🏠 Dashboard › Grammar › <span>Question Forms</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module 7 – Question Forms</div>
+
+        <div class="lesson-section">
+          <h3>📌 Question Tags (très fréquent au BTS)</h3>
+          <div class="highlight-box">
+            <strong>Règle :</strong> Si la phrase est positive → tag négatif. Si la phrase est négative → tag positif.<br><br>
+            <em>She works here, <strong>doesn't she?</strong></em><br>
+            <em>They aren't coming, <strong>are they?</strong></em><br>
+            <em>You have done it, <strong>haven't you?</strong></em><br>
+            <em>He can swim, <strong>can't he?</strong></em>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Indirect Questions</h3>
+          <div class="highlight-box">
+            <strong>Règle :</strong> En indirect question, on utilise l'ordre normal (S+V), pas d'inversion !<br><br>
+            Direct: <em>Where <strong>does</strong> he live?</em><br>
+            Indirect: <em>I wonder where he <strong>lives</strong>.</em> (pas d'inversion, pas d'auxiliaire do/does)<br><br>
+            Direct: <em>Did she pass the exam?</em><br>
+            Indirect: <em>I want to know <strong>if/whether</strong> she passed the exam.</em>
+          </div>
+        </div>
+
+        <div class="exercise-block">
+          <h4>Add the correct question tag</h4>
+          <div class="exercise-item">
+            <label>1. Peter is reading his book, ________?</label>
+            <input type="text" id="q1" placeholder="answer..."><div class="feedback" id="fb-q1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. She hasn't finished her work, ________?</label>
+            <input type="text" id="q2" placeholder="answer..."><div class="feedback" id="fb-q2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. They can speak English, ________?</label>
+            <input type="text" id="q3" placeholder="answer..."><div class="feedback" id="fb-q3"></div>
+          </div>
+          <button class="check-btn" onclick="checkQuestions()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showQuestionAnswers()">👁️ Corrections</button>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('vocabulary')">Module suivant : Vocabulary →</button>
+      </div>
+    </div>
+
+    <!-- ===== VOCABULARY ===== -->
+    <div class="page" id="page-vocabulary">
+      <div class="breadcrumb">🏠 Dashboard › <span>Vocabulary BTS</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-vocab">VOCABULARY</span> Module 8 – Vocabulary BTS Cameroun</div>
+
+        <div class="lesson-section">
+          <h3>📌 Liste BTS – Synonymes & Antonymes fréquents</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Mot</th><th>Synonyme</th><th>Antonyme</th><th>Exemple BTS</th></tr>
+              <tr><td><strong>fatal</strong></td><td>deadly, lethal, mortal</td><td>harmless, safe</td><td><em>AIDS is as <strong>fatal</strong> as ever.</em></td></tr>
+              <tr><td><strong>lazy</strong></td><td>idle, inactive</td><td>hardworking, diligent</td><td><em>A <strong>lazy</strong> person cannot succeed.</em></td></tr>
+              <tr><td><strong>compelled</strong></td><td>forced, obliged</td><td>free, voluntary</td><td><em>The officer <strong>compelled</strong> the suspect.</em></td></tr>
+              <tr><td><strong>wealthy</strong></td><td>rich, affluent, prosperous</td><td>poor, destitute</td><td><em>From very <strong>wealthy</strong> families.</em></td></tr>
+              <tr><td><strong>focus</strong></td><td>concern, centre, emphasis</td><td>neglect, distraction</td><td><em>The <strong>focus</strong> of economics.</em></td></tr>
+              <tr><td><strong>spread</strong></td><td>transmit, disseminate</td><td>contain, stop</td><td><em>Insects <strong>spread</strong> disease.</em></td></tr>
+              <tr><td><strong>eradicate</strong></td><td>eliminate, wipe out</td><td>introduce, spread</td><td><em>To <strong>eradicate</strong> diseases.</em></td></tr>
+              <tr><td><strong>beneficial</strong></td><td>helpful, useful, advantageous</td><td>harmful, detrimental</td><td><em>Some insects are very <strong>beneficial</strong>.</em></td></tr>
+              <tr><td><strong>curb</strong></td><td>control, limit, reduce</td><td>increase, encourage</td><td><em>Measures to <strong>curb</strong> the virus.</em></td></tr>
+              <tr><td><strong>implement</strong></td><td>carry out, apply, execute</td><td>abandon, ignore</td><td><em><strong>Implement</strong> new measures.</em></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Word Formation – BTS Style</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Verb</th><th>Noun</th><th>Adjective</th><th>Adverb</th></tr>
+              <tr><td>dismiss</td><td>dismissal</td><td>dismissed</td><td>—</td></tr>
+              <tr><td>increase</td><td>increase</td><td>increasing/increased</td><td>increasingly</td></tr>
+              <tr><td>educate</td><td>education</td><td>educational/educated</td><td>educationally</td></tr>
+              <tr><td>protect</td><td>protection</td><td>protective/protected</td><td>protectively</td></tr>
+              <tr><td>transmit</td><td>transmission/transmitter</td><td>transmissible</td><td>—</td></tr>
+              <tr><td>employ</td><td>employment/employer/employee</td><td>employed/unemployed</td><td>—</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Vocabulary – Métiers & Définitions (BTS 2021 & 2023)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Mot</th><th>Définition</th></tr>
+              <tr><td><strong>Farmer/Peasant</strong></td><td>Someone who works on the land, growing things</td></tr>
+              <tr><td><strong>Dentist</strong></td><td>A doctor who treats teeth (toothache → dentist)</td></tr>
+              <tr><td><strong>Engine</strong></td><td>The machine that makes a car move</td></tr>
+              <tr><td><strong>Auctioneer</strong></td><td>Conducts public sales; goods sold to highest bidder</td></tr>
+              <tr><td><strong>Insurance broker</strong></td><td>Gets clients for insurers</td></tr>
+              <tr><td><strong>Forwarding agent</strong></td><td>Has office/warehouse in port; deals with consignments</td></tr>
+              <tr><td><strong>Factor</strong></td><td>Transacts business in his own name on behalf of a principal</td></tr>
+              <tr><td><strong>Agent</strong></td><td>Empowered to do business on behalf of another person</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Vocabulary Exercise (Style BTS 2023)</h4>
+          <div class="exercise-item">
+            <label>a) Someone who works on the land, growing things is called a ________.</label>
+            <input type="text" id="v1" placeholder="answer..."><div class="feedback" id="fb-v1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>b) The opposite of <em>full</em> is ________.</label>
+            <input type="text" id="v2" placeholder="answer..."><div class="feedback" id="fb-v2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>c) If you have a toothache you might want to visit a ________.</label>
+            <input type="text" id="v3" placeholder="answer..."><div class="feedback" id="fb-v3"></div>
+          </div>
+          <div class="exercise-item">
+            <label>d) The synonym of <em>fatal</em> is ________. (from: poor; deadly; concern; hardworking; forced)</label>
+            <input type="text" id="v4" placeholder="answer..."><div class="feedback" id="fb-v4"></div>
+          </div>
+          <div class="exercise-item">
+            <label>e) The antonym of <em>lazy</em> is ________. (from: poor; deadly; concern; hardworking; forced)</label>
+            <input type="text" id="v5" placeholder="answer..."><div class="feedback" id="fb-v5"></div>
+          </div>
+          <button class="check-btn" onclick="checkVocab()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showVocabAnswers()">👁️ Corrections</button>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="markModuleDone('vocab', 100); nextModule('reading')">Module suivant : Reading →</button>
+      </div>
+    </div>
+
+    <!-- ===== READING ===== -->
+    <div class="page" id="page-reading">
+      <div class="breadcrumb">🏠 Dashboard › <span>Reading Comprehension</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-reading">READING</span> Section B – Reading Comprehension</div>
+
+        <div class="lesson-section">
+          <h3>📌 Méthode BTS en 5 étapes</h3>
+          <ol>
+            <li><strong>Lire les questions AVANT le texte</strong> – Pour savoir quoi chercher.</li>
+            <li><strong>Skimming (survol)</strong> – Lire rapidement pour comprendre l'idée générale.</li>
+            <li><strong>Scanning (repérage)</strong> – Chercher les informations précises (noms, chiffres, dates).</li>
+            <li><strong>Répondre en phrase complète</strong> – Jamais une réponse d'un seul mot.</li>
+            <li><strong>Reformuler</strong> – Ne pas copier mot pour mot ; utilise tes propres mots.</li>
+          </ol>
+        </div>
+
+        <div class="tip-box">
+          <strong>✅ Formules types pour répondre :</strong><br>
+          • "According to the text, ..." → <em>According to the text, insects spread diseases through mechanical transmission.</em><br>
+          • "The text states that..." → <em>The text states that mosquitoes are the greatest menace.</em><br>
+          • Pour donner une raison : "...because / due to the fact that / since..."
+        </div>
+
+        <hr>
+
+        <div class="lesson-section">
+          <h3>📄 Texte BTS 2023 – HOW INSECTS MAKE US SICK</h3>
+        </div>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin:12px 0;font-size:0.85rem;line-height:1.85;color:#c5c7d4">
+          <p>People commonly use the term "Insect" to include not true insects—Six legged creatures such as flies, flacs, mosquitoes, lice and beetles—but also eight legged creatures such as mites and ticks. The vast majority of insects are harmless to man and some are very beneficial. Without them, many of the plants and trees that people and animals depend on for food would not be pollinated or bear fruits. Of course there are insects that annoy man and beast with their painful bite or simply by their presence in vast number. Some also wreak havoc on crops. Worse however is the fact that insects spread sickness and death. Insects borne diseases presently, every one out of six people are infected with a disease acquired through insects.</p>
+          <br>
+          <p>There are two main ways that insects serve as vectors-transmiters of disease. The first is by mechanical transmission. Just as people can rack dirt into a home on unclean shoes, houseflies may carry on their feet millions of micro-organisms that in large enough doses can cause disease. Flies can pick up contamination from faeces for example and pass it on when they land on our food or drink causing illnesses such as typhoid, dysentery and even cholera.</p>
+          <br>
+          <p>When insects harbor viruses, bacteria or parasites inside their bodies, they can spread diseases a second way—by passing it on to us through a bite. Only a small percentage of insects transmit disease to humans in this way. For instance, although there are thousands of species of mosquitoes, only the anopheles transmits malaria—the world's second deadliest communicable disease (after tuberculosis).</p>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Answer the questions (Style BTS 2023)</h4>
+          <div class="exercise-item">
+            <label>1. What is the name given to diseases caused by insects? (2 marks)</label>
+            <textarea id="r1" placeholder="Write your answer in a complete sentence..."></textarea>
+            <div class="feedback" id="fb-r1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. Give one important role insects play as mentioned in the text. (2 marks)</label>
+            <textarea id="r2" placeholder="Write your answer in a complete sentence..."></textarea>
+            <div class="feedback" id="fb-r2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. According to the text, in which two ways can insects transmit diseases? (2 marks)</label>
+            <textarea id="r3" placeholder="a)... b)..."></textarea>
+            <div class="feedback" id="fb-r3"></div>
+          </div>
+          <button class="check-btn" onclick="showReadingAnswers()">👁️ Voir la correction détaillée</button>
+        </div>
+
+        <div id="reading-correction" style="display:none" class="highlight-box">
+          <strong>✅ CORRECTION DÉTAILLÉE :</strong><br><br>
+          <strong>Q1.</strong> Diseases caused by insects are called <em>insect borne diseases</em>.<br><br>
+          <strong>Q2.</strong> One important role insects play is <em>pollination</em>: without them, many plants and trees would not be pollinated or bear fruits.<br><br>
+          <strong>Q3.</strong> a) The first way is by <em>mechanical transmission</em>: insects carry micro-organisms on their feet and pass them to our food.<br>
+          b) The second way is through a <em>bite</em>: when insects harbor viruses or parasites, they spread them by biting humans.<br><br>
+          <strong>💡 Conseil :</strong> Note that each answer uses a complete sentence and reformulates the text in different words — never copy-paste!
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="markModuleDone('reading', 100); nextModule('translation')">Module suivant : Translation →</button>
+      </div>
+    </div>
+
+    <!-- ===== TRANSLATION ===== -->
+    <div class="page" id="page-translation">
+      <div class="breadcrumb">🏠 Dashboard › <span>Translation</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-translation">TRANSLATION</span> Section C – Translation</div>
+
+        <div class="lesson-section">
+          <h3>📌 Faux Amis Dangereux (Common Mistakes)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Français (faux ami)</th><th>❌ Mauvaise traduction</th><th>✅ Bonne traduction</th></tr>
+              <tr><td>actuellement</td><td>~~actually~~</td><td>currently, nowadays, at present</td></tr>
+              <tr><td>actually</td><td>~~actuellement~~</td><td>en fait, en réalité</td></tr>
+              <tr><td>assister à</td><td>~~to assist~~</td><td>to attend</td></tr>
+              <tr><td>sensible</td><td>~~sensible~~</td><td>sensitive</td></tr>
+              <tr><td>sensible (EN)</td><td>~~sensible~~</td><td>raisonnable, sense</td></tr>
+              <tr><td>libraire</td><td>~~library~~</td><td>bookshop / bookstore</td></tr>
+              <tr><td>library</td><td>~~librairie~~</td><td>bibliothèque</td></tr>
+              <tr><td>éventuellement</td><td>~~eventually~~</td><td>possibly, if need be</td></tr>
+              <tr><td>eventually</td><td>~~éventuellement~~</td><td>finalement, à la fin</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Corrections – BTS 2023 (Français → Anglais)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Français</th><th>✅ Traduction correcte</th><th>Explication</th></tr>
+              <tr><td>Ravie de vous rencontrer.</td><td><strong>Delighted to meet you.</strong> / Nice to meet you.</td><td>"Ravie" = delighted/pleased/glad</td></tr>
+              <tr><td>Au mois d'Août, il pleut des cordes.</td><td><strong>In August, it rains heavily / it pours.</strong></td><td>"pleuvoir des cordes" = to rain heavily / to pour</td></tr>
+              <tr><td>Le bébé a pleuré toute la journée parce qu'il avait faim.</td><td><strong>The baby cried all day because he/she was hungry.</strong></td><td>passé composé = past simple ; avait = past simple</td></tr>
+              <tr><td>Je m'appelle Michel.</td><td><strong>My name is Michel.</strong> / I am Michel.</td><td>Expression standard</td></tr>
+              <tr><td>Tous les samedis, nous allons à la plage.</td><td><strong>Every Saturday, we go to the beach.</strong></td><td>Habitude = present simple</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Corrections – BTS 2021 (Anglais → Français)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Anglais</th><th>✅ Traduction correcte</th></tr>
+              <tr><td>The absence of communication breeds conflict.</td><td><strong>L'absence de communication engendre le conflit.</strong></td></tr>
+              <tr><td>As you make your bed so shall you lie on it.</td><td><strong>On récolte ce que l'on sème.</strong> (proverbe)</td></tr>
+              <tr><td>For how long have the students been writing this subject?</td><td><strong>Depuis combien de temps les étudiants rédigent-ils ce sujet ?</strong></td></tr>
+              <tr><td>Sports may be good for one's health but fruits are better.</td><td><strong>Le sport peut être bon pour la santé mais les fruits sont meilleurs.</strong></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Traduire en anglais (Style BTS)</h4>
+          <div class="exercise-item">
+            <label>1. Je voudrais que vous veniez faire des courses avec moi ce soir.</label>
+            <textarea id="tr1" placeholder="Translation..."></textarea>
+            <div class="feedback" id="fb-tr1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. La vie est pleine des hauts et des bas.</label>
+            <textarea id="tr2" placeholder="Translation..."></textarea>
+            <div class="feedback" id="fb-tr2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. J'ai quatre-vingt-douze ans, mais je fréquente toujours.</label>
+            <textarea id="tr3" placeholder="Translation..."></textarea>
+            <div class="feedback" id="fb-tr3"></div>
+          </div>
+          <button class="check-btn" onclick="showTranslationAnswers()">👁️ Voir les corrections</button>
+        </div>
+        <div id="trans-correction" style="display:none" class="highlight-box">
+          <strong>✅ CORRECTIONS :</strong><br><br>
+          1. <em>I would like you to come shopping with me tonight.</em><br>
+          2. <em>Life is full of ups and downs.</em><br>
+          3. <em>I am ninety-two years old but I still go to school / I still attend.</em>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="markModuleDone('translation', 100); nextModule('writing')">Module suivant : Writing →</button>
+      </div>
+    </div>
+
+    <!-- ===== WRITING ===== -->
+    <div class="page" id="page-writing">
+      <div class="breadcrumb">🏠 Dashboard › <span>Writing Composition</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-writing">WRITING</span> Section D – Writing Composition</div>
+
+        <div class="lesson-section">
+          <h3>📌 Structure de la Formal Letter (Lettre Officielle)</h3>
+          <div class="highlight-box">
+            <strong>Structure obligatoire :</strong><br>
+            <pre style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.8;color:#e0d8b0">
+[Your Name]
+[Your Address]
+[Your P.O. Box]
+
+[Date: DD/MM/YYYY or Month DD, YYYY]
+
+[Recipient's Name/Title]
+[Recipient's Address]
+
+Subject: [Clear, concise subject]
+
+Dear Sir/Madam, / Dear Mr/Mrs [Name],
+
+[Introduction – state your purpose]
+[Body – details, explanation, request]
+[Conclusion – what you expect, polite closing]
+
+Yours faithfully, (if Dear Sir/Madam)
+Yours sincerely, (if Dear Mr/Mrs + name)
+
+[Signature]
+[Your Full Name]</pre>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>🔑 Formules standard BTS</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Fonction</th><th>Expression</th></tr>
+              <tr><td>Objet de la lettre</td><td>I am writing to inform you... / I am writing with reference to... / I wish to bring to your attention...</td></tr>
+              <tr><td>Demande</td><td>I would be grateful if you could... / I kindly request that... / Please find it convenient to...</td></tr>
+              <tr><td>Regret/Excuse</td><td>I regret to inform you... / I apologize for... / I am sorry to learn that...</td></tr>
+              <tr><td>Conclusion</td><td>I look forward to hearing from you. / I remain at your disposal for further information. / Thanking you in advance.</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📄 Exemple corrigé – BTS 2023 (Letter to Minister)</h3>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;font-size:0.83rem;line-height:1.85;font-family:'JetBrains Mono',monospace;color:#c5c7d4">
+            <p>Ondoua Abomo Elvis<br>IHIA Akobo<br>P.O. Box ... Yaoundé<br><br>
+            15th June 2024<br><br>
+            The Minister of Higher Education<br>
+            Ministry of Higher Education<br>
+            Yaoundé – Cameroon<br><br>
+            <strong>Subject: Request to Collect my BTS Diploma</strong><br><br>
+            Dear Sir,<br><br>
+            I am writing to respectfully request the collection of my BTS diploma. I am Ondoua Abomo Elvis, and I successfully passed the BTS examination in 2016 at the International Higher Institute of AKOBO in Management.<br><br>
+            Since several years have elapsed since my graduation, I believe my diploma should now be available for collection. I would therefore be grateful if you could kindly authorize the release of this document at your earliest convenience.<br><br>
+            I remain at your disposal for any further information or documentation you may require.<br><br>
+            Yours faithfully,<br><br>
+            Ondoua Abomo Elvis</p>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Essay Writing – Linking Words BTS</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Position</th><th>Expressions utiles</th></tr>
+              <tr><td>Introduction</td><td>Nowadays, ... / It is generally accepted that... / The question of... is a matter of great concern.</td></tr>
+              <tr><td>1st argument</td><td>First of all, / To begin with, / First and foremost,</td></tr>
+              <tr><td>2nd argument</td><td>Furthermore, / Moreover, / In addition, / Besides,</td></tr>
+              <tr><td>Opposition</td><td>However, / On the other hand, / Nevertheless, / Despite this,</td></tr>
+              <tr><td>Conclusion</td><td>In conclusion, / To sum up, / All things considered, / In a nutshell,</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Practice – Write your essay (15 lines minimum)</h4>
+          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px">Subject: <em>Would you like to leave your country after your studies and go to work in a developed country? Why or why not? Give reasons for your choice.</em> (BTS 2023)</p>
+          <textarea id="essay1" placeholder="Write your essay here... (Introduction + 2-3 paragraphs + Conclusion)" style="min-height:200px"></textarea>
+          <button class="check-btn" onclick="showEssayGuide()">📋 Voir le guide de correction</button>
+        </div>
+        <div id="essay-guide" style="display:none" class="highlight-box">
+          <strong>✅ GUIDE DE CORRECTION :</strong><br><br>
+          <strong>Introduction (2-3 lines) :</strong> Introduce the topic. E.g.: "Nowadays, many young people dream of working abroad after their studies. This is a controversial topic with both advantages and disadvantages."<br><br>
+          <strong>Body – Arguments FOR (3-4 lines) :</strong> "First of all, developed countries offer better career opportunities and higher salaries. Moreover, one can acquire new skills and experience..."<br><br>
+          <strong>Body – Arguments AGAINST (3-4 lines) :</strong> "However, leaving one's country means abandoning one's family and culture. Furthermore, brain drain is harmful to developing countries like Cameroon..."<br><br>
+          <strong>Conclusion (2-3 lines) :</strong> "In conclusion, the decision to emigrate depends on one's personal goals. In my opinion, one should work abroad to gain experience and then return to serve one's country."<br><br>
+          <strong>Critères de notation (10 marks) :</strong> Content (4) + Organisation (3) + Language (3)
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="markModuleDone('writing', 100); nextModule('exam')">Aller à l'Épreuve Complète →</button>
+      </div>
+    </div>
+
+    <!-- ===== EXAM ===== -->
+    <div class="page" id="page-exam">
+      <div class="breadcrumb">🏠 Dashboard › <span>Épreuve Complète</span></div>
+      <div class="card">
+        <div class="card-title">🎓 Simulation d'Épreuve BTS – Durée : 3 heures</div>
+        <div class="highlight-box">
+          <strong>📋 Instructions :</strong> Ceci est une simulation complète. Réponds à toutes les questions dans l'ordre. Le chronomètre démarre quand tu cliques sur "Commencer". Bonne chance !
+        </div>
+        <button class="btn btn-primary" onclick="startExamTimer()" style="margin-top:12px">⏱️ Commencer l'épreuve</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">SECTION A : LINGUISTIC COMPETENCE (20 marks)</div>
+        <div class="lesson-section">
+          <h3>GRAMMAR – Fill in the blanks (5 marks)</h3>
+        </div>
+        <div class="exercise-block">
+          <div class="exercise-item">
+            <label>1. I wouldn't mind ________ she answered. (too / either / nor / neither)</label>
+            <input type="text" id="ex1" placeholder="answer...">
+          </div>
+          <div class="exercise-item">
+            <label>2. What time ________ on the television? (are the news / is news / is the news)</label>
+            <input type="text" id="ex2" placeholder="answer...">
+          </div>
+          <div class="exercise-item">
+            <label>3. John bought his bag and Jane ________ (her / herself / hers / she)</label>
+            <input type="text" id="ex3" placeholder="answer...">
+          </div>
+          <div class="exercise-item">
+            <label>4. I'm so busy that I have very ________ time for reading. (few / little / a few / a little)</label>
+            <input type="text" id="ex4" placeholder="answer...">
+          </div>
+          <div class="exercise-item">
+            <label>5. If you are worried about the problem, you should do something ________ it. (for / against / with / about)</label>
+            <input type="text" id="ex5" placeholder="answer...">
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>GRAMMAR – Reported Speech & Tenses (5 marks)</h3>
+        </div>
+        <div class="exercise-block">
+          <div class="exercise-item">
+            <label>B1. I wished, I (to speak) ________ fluently English.</label>
+            <input type="text" id="ex6" placeholder="answer...">
+          </div>
+          <div class="exercise-item">
+            <label>B2. Peter asked: "where did I leave my phone?" → Put in Reported Speech:</label>
+            <textarea id="ex7" placeholder="Reported speech..."></textarea>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>VOCABULARY (10 marks)</h3>
+        </div>
+        <div class="exercise-block">
+          <div class="exercise-item">
+            <label>1. Give the antonym of: busy</label>
+            <input type="text" id="ev1" placeholder="answer...">
+          </div>
+          <div class="exercise-item">
+            <label>2. Give the synonym of: real</label>
+            <input type="text" id="ev2" placeholder="answer...">
+          </div>
+          <div class="exercise-item">
+            <label>3. The (dismiss) of employees is becoming (increase) important. → Put in correct form:</label>
+            <input type="text" id="ev3" placeholder="dismissal / increasingly...">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">SECTION D : WRITING COMPOSITION (10 marks)</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:12px">Choose ONE topic (write about 15 lines) :</p>
+        <ol style="font-size:0.85rem;line-height:2;color:#c5c7d4;padding-left:20px">
+          <li>Is transport important? What means of transport do you like most? How different is it from the others?</li>
+          <li>Patriotism in Cameroon.</li>
+        </ol>
+        <div style="margin-top:16px">
+          <textarea id="exam-essay" placeholder="Write your composition here (about 15 lines)..." style="min-height:220px"></textarea>
+        </div>
+        <button class="check-btn" onclick="showExamAnswers()" style="margin-top:12px">✅ Voir les corrections</button>
+      </div>
+
+      <div id="exam-corrections" style="display:none" class="card">
+        <div class="card-title">📋 CORRIGÉ – Simulation BTS</div>
+        <div class="highlight-box">
+          <strong>SECTION A – Grammar :</strong><br>
+          1. either &nbsp; 2. is the news &nbsp; 3. hers &nbsp; 4. little &nbsp; 5. about<br><br>
+          <strong>Tenses / Reported :</strong><br>
+          B1. could speak (I wished = 2nd cond. → could)<br>
+          B2. Peter asked where <strong>he had left</strong> his phone.<br><br>
+          <strong>Vocabulary :</strong><br>
+          1. free / idle / lazy &nbsp; 2. genuine / actual / true &nbsp; 3. The <strong>dismissal</strong> of employees is becoming <strong>increasingly</strong> important.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== REVISION PLAN ===== -->
+    <div class="page" id="page-revision">
+      <div class="breadcrumb">🏠 Dashboard › <span>Plan de Révision 30 Jours</span></div>
+      <div class="card">
+        <div class="card-title">📅 Plan de Révision – 30 Jours Intensif BTS</div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Semaine</th><th>Jours</th><th>Focus</th><th>Objectif</th></tr>
+            <tr><td><strong>Semaine 1</strong></td><td>J1-J7</td><td>Grammar intensive</td><td>Maîtriser tous les temps, conditionnels, reported speech, passive</td></tr>
+            <tr><td><strong>Semaine 2</strong></td><td>J8-J14</td><td>Vocabulary + Reading</td><td>Apprendre 10 mots/jour, pratiquer 2 textes de compréhension</td></tr>
+            <tr><td><strong>Semaine 3</strong></td><td>J15-J21</td><td>Translation + Writing</td><td>Traduire 5 phrases/jour, écrire 1 lettre ou essay par jour</td></tr>
+            <tr><td><strong>Semaine 4</strong></td><td>J22-J28</td><td>Épreuves complètes</td><td>Faire 1 épreuve complète par jour avec correction</td></tr>
+            <tr><td><strong>J29-J30</strong></td><td>—</td><td>Révision finale</td><td>Revoir les fiches, erreurs fréquentes, s'organiser mentalement</td></tr>
+          </table>
+        </div>
+
+        <div class="tip-box">
+          <strong>💡 Méthode pour gérer les 3 heures d'examen :</strong><br>
+          • <strong>Section A (Grammar + Vocab)</strong> : 45 min maximum<br>
+          • <strong>Section B (Reading)</strong> : 40 min (10 min lecture + 30 min réponses)<br>
+          • <strong>Section C (Translation)</strong> : 35 min<br>
+          • <strong>Section D (Writing)</strong> : 55 min (10 min plan + 40 min rédaction + 5 min relecture)<br>
+          • <strong>Buffer/Relecture finale</strong> : 5 min
+        </div>
+
+        <div class="highlight-box">
+          <strong>📌 Conseils le jour de l'examen :</strong><br>
+          1. Lis toutes les questions avant de commencer.<br>
+          2. Commence par ce que tu maîtrises le mieux.<br>
+          3. Ne laisse aucune question sans réponse.<br>
+          4. Vérifie les accords et la ponctuation.<br>
+          5. Pour les lettres : vérifie toujours la structure (adresse, date, objet, formule de politesse).
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CHEATSHEET ===== -->
+    <div class="page" id="page-cheatsheet">
+      <div class="breadcrumb">🏠 Dashboard › <span>Fiches Rapides</span></div>
+      <div class="card">
+        <div class="card-title">⚡ Fiches Ultra-Rapides – À Mémoriser</div>
+        
+        <div class="lesson-section">
+          <h3>🔴 Erreurs fréquentes des francophones</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>❌ Erreur</th><th>✅ Correct</th></tr>
+              <tr><td>I am agree</td><td>I agree</td></tr>
+              <tr><td>He is married with</td><td>He is married to</td></tr>
+              <tr><td>I have 20 years</td><td>I am 20 years old</td></tr>
+              <tr><td>She went to the school</td><td>She went to school</td></tr>
+              <tr><td>I am hungry since morning</td><td>I have been hungry since morning</td></tr>
+              <tr><td>Informations (pl.)</td><td>Information (uncountable)</td></tr>
+              <tr><td>Advices</td><td>Advice (uncountable)</td></tr>
+              <tr><td>The furnitures</td><td>The furniture (uncountable)</td></tr>
+              <tr><td>A news</td><td>A piece of news / The news is...</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📋 Verbes irréguliers indispensables BTS</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Infinitive</th><th>Past Simple</th><th>Past Participle</th></tr>
+              <tr><td>go</td><td>went</td><td>gone</td></tr>
+              <tr><td>do</td><td>did</td><td>done</td></tr>
+              <tr><td>make</td><td>made</td><td>made</td></tr>
+              <tr><td>know</td><td>knew</td><td>known</td></tr>
+              <tr><td>write</td><td>wrote</td><td>written</td></tr>
+              <tr><td>speak</td><td>spoke</td><td>spoken</td></tr>
+              <tr><td>come</td><td>came</td><td>come</td></tr>
+              <tr><td>take</td><td>took</td><td>taken</td></tr>
+              <tr><td>give</td><td>gave</td><td>given</td></tr>
+              <tr><td>see</td><td>saw</td><td>seen</td></tr>
+              <tr><td>find</td><td>found</td><td>found</td></tr>
+              <tr><td>tell</td><td>told</td><td>told</td></tr>
+              <tr><td>buy</td><td>bought</td><td>bought</td></tr>
+              <tr><td>think</td><td>thought</td><td>thought</td></tr>
+              <tr><td>eat</td><td>ate</td><td>eaten</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>🔗 Linking Words Complets</h3>
+          <div class="highlight-box">
+            <strong>Addition :</strong> and, also, moreover, furthermore, in addition, besides, as well as<br>
+            <strong>Opposition :</strong> but, however, yet, although, though, even though, whereas, while, nevertheless, on the contrary<br>
+            <strong>Cause :</strong> because, since, as, due to, owing to, because of, the fact that<br>
+            <strong>Résultat :</strong> so, therefore, thus, hence, consequently, as a result, that is why<br>
+            <strong>Condition :</strong> if, unless, provided that, as long as, on condition that<br>
+            <strong>Illustration :</strong> for example, for instance, such as, like, namely, that is to say<br>
+            <strong>Conclusion :</strong> in conclusion, to sum up, finally, in short, in a nutshell, all in all
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end #content -->
+</main>
+
+<script>
+// ===== STATE =====
+let progress = JSON.parse(localStorage.getItem('bts-progress') || '{}');
+let exerciseScore = parseInt(localStorage.getItem('bts-score') || '0');
+
+function saveProgress() {
+  localStorage.setItem('bts-progress', JSON.stringify(progress));
+  localStorage.setItem('bts-score', exerciseScore);
+  updateUI();
+}
+
+function resetProgress() {
+  if (confirm('Réinitialiser tout ton progrès ?')) {
+    progress = {};
+    exerciseScore = 0;
+    localStorage.removeItem('bts-progress');
+    localStorage.removeItem('bts-score');
+    updateUI();
+  }
+}
+
+function markModuleDone(module, pct) {
+  progress[module] = pct;
+  saveProgress();
+}
+
+function updateUI() {
+  const modules = ['grammar','vocab','reading','translation','writing','exam'];
+  const doneCount = modules.filter(m => progress[m] >= 100).length;
+  const avg = modules.reduce((s, m) => s + (progress[m] || 0), 0) / modules.length;
+
+  document.getElementById('global-pct').textContent = Math.round(avg) + '%';
+  document.getElementById('global-bar').style.width = avg + '%';
+  document.getElementById('stat-modules').textContent = doneCount + '/' + modules.length;
+  document.getElementById('stat-exercises').textContent = exerciseScore;
+  document.getElementById('stat-score').textContent = Math.round(avg) + '%';
+  document.getElementById('total-score').textContent = exerciseScore;
+
+  ['grammar','vocab','reading','translation','writing','exam'].forEach(m => {
+    const pct = progress[m] || 0;
+    const pb = document.getElementById('pb-' + m);
+    const pt = document.getElementById('pct-' + m);
+    if (pb) pb.style.width = pct + '%';
+    if (pt) pt.textContent = pct + '%';
+  });
+}
+
+// ===== NAVIGATION =====
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+
+  const titles = {
+    'dashboard': 'Tableau de bord',
+    'grammar-tenses': 'Grammar – Les Tenses',
+    'grammar-cond': 'Grammar – Conditionals',
+    'grammar-reported': 'Grammar – Reported Speech',
+    'grammar-passive': 'Grammar – Passive Voice',
+    'grammar-conjunctions': 'Grammar – Conjunctions',
+    'grammar-modals': 'Grammar – Modal Verbs',
+    'grammar-questions': 'Grammar – Question Forms',
+    'vocabulary': 'Vocabulary BTS',
+    'reading': 'Reading Comprehension',
+    'translation': 'Translation',
+    'writing': 'Writing Composition',
+    'exam': 'Épreuve Complète',
+    'revision': 'Plan de Révision',
+    'cheatsheet': 'Fiches Rapides'
+  };
+  document.getElementById('page-title').textContent = titles[id] || id;
+
+  // Find matching nav item
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'"+id+"'")) {
+      n.classList.add('active');
+    }
+  });
+
+  document.getElementById('content').scrollTop = 0;
+  updateUI();
+}
+
+function nextModule(id) { showPage(id); }
+
+// ===== EXERCISES =====
+function checkAnswer(inputId, feedbackId, correct, points=1) {
+  const val = document.getElementById(inputId).value.trim().toLowerCase();
+  const fb = document.getElementById(feedbackId);
+  const inp = document.getElementById(inputId);
+  const correctLower = correct.toLowerCase();
+  const isCorrect = correctLower.split('|').some(ans => val === ans.trim());
+  
+  fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+  if (isCorrect) {
+    fb.textContent = '✅ Correct !';
+    inp.className = 'correct';
+    return true;
+  } else {
+    fb.textContent = '❌ Pas tout à fait.';
+    inp.className = 'wrong';
+    return false;
+  }
+}
+
+function showCorrect(inputId, feedbackId, correct) {
+  document.getElementById(feedbackId).className = 'feedback show correct';
+  document.getElementById(feedbackId).textContent = '✅ Réponse : ' + correct;
+  document.getElementById(inputId).value = correct.split('|')[0];
+  document.getElementById(inputId).className = 'correct';
+}
+
+// TENSES
+function checkTenses() {
+  const answers = ['go', 'done', 'would have eaten', 'has lived', 'were having'];
+  const ids = ['t1','t2','t3','t4','t5'];
+  const fbs = ['fb-t1','fb-t2','fb-t3','fb-t4','fb-t5'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], answers[i])) score++; });
+  exerciseScore += score;
+  const sd = document.getElementById('tense-score');
+  sd.style.display = 'block';
+  sd.innerHTML = `<span style="color:${score>=3?'var(--green)':'var(--red)'}">Score : ${score}/5 ${score>=3?'🎉 Bien joué !':'📚 Révise les tenses.'}</span>`;
+  saveProgress();
+}
+
+function showTenseAnswers() {
+  const answers = ['go', 'done', 'would have eaten', 'has lived', 'were having'];
+  const ids = ['t1','t2','t3','t4','t5'];
+  const fbs = ['fb-t1','fb-t2','fb-t3','fb-t4','fb-t5'];
+  ids.forEach((id, i) => showCorrect(id, fbs[i], answers[i]));
+}
+
+// CONDITIONALS
+function checkConditionals() {
+  const answers = ['heat', 'were', 'studies', 'had arrived'];
+  const ids = ['c1','c2','c3','c4'];
+  const fbs = ['fb-c1','fb-c2','fb-c3','fb-c4'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], answers[i])) score++; });
+  exerciseScore += score;
+  saveProgress();
+}
+function showCondAnswers() {
+  const answers = ['heat', 'were', 'studies', 'had arrived'];
+  ['c1','c2','c3','c4'].forEach((id, i) => showCorrect(id, 'fb-c' + (i+1), answers[i]));
+}
+
+// REPORTED SPEECH
+function checkReported() {
+  const answers = ['was studying english|was studying', 'had gone away the day before|had gone away', 'would help me'];
+  const ids = ['rs1','rs2','rs3'];
+  const fbs = ['fb-rs1','fb-rs2','fb-rs3'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], answers[i])) score++; });
+  exerciseScore += score;
+  saveProgress();
+}
+function showReportedAnswers() {
+  const answers = ['was studying English', 'had gone away the day before', 'would help me'];
+  ['rs1','rs2','rs3'].forEach((id, i) => showCorrect(id, 'fb-rs' + (i+1), answers[i]));
+}
+
+// PASSIVE
+function checkPassive() {
+  const answers = ['is grown in cameroon|coffee is grown in cameroon', 'was built last year|this road was built last year by the government', 'must be repaired|this machine must be repaired'];
+  const ids = ['pv1','pv2','pv3'];
+  const fbs = ['fb-pv1','fb-pv2','fb-pv3'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], answers[i])) score++; });
+  exerciseScore += score;
+  saveProgress();
+}
+function showPassiveAnswers() {
+  showCorrect('pv1','fb-pv1','is grown in Cameroon');
+  showCorrect('pv2','fb-pv2','was built last year (by the government)');
+  showCorrect('pv3','fb-pv3','must be repaired');
+}
+
+// JOIN SENTENCES
+function checkJoin() {
+  const fb1 = document.getElementById('fb-j1');
+  const fb2 = document.getElementById('fb-j2');
+  const fb3 = document.getElementById('fb-j3');
+  const fb4 = document.getElementById('fb-j4');
+  [fb1,fb2,fb3,fb4].forEach(f => {
+    f.className = 'feedback show correct';
+    f.textContent = '✅ Checked – see correction below.';
+  });
+  exerciseScore += 2;
+  saveProgress();
+}
+function showJoinAnswers() {
+  document.getElementById('j1').value = "They couldn't see Peter nor Rose. / They couldn't see either Peter or Rose.";
+  document.getElementById('j2').value = "Although I am wounded, I am in class.";
+  document.getElementById('j3').value = "He arrived late because there was a traffic jam.";
+  document.getElementById('j4').value = "I want to eat rice and beans.";
+  ['j1','j2','j3','j4'].forEach((id, i) => {
+    document.getElementById('fb-j' + (i+1)).className = 'feedback show correct';
+    document.getElementById('fb-j' + (i+1)).textContent = '✅ Voir la valeur dans le champ.';
+    document.getElementById(id).className = 'correct';
+  });
+}
+
+// MODALS
+function checkModals() {
+  const answers = ['must', 'may', 'must|might'];
+  const ids = ['m1','m2','m3'];
+  const fbs = ['fb-m1','fb-m2','fb-m3'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], answers[i])) score++; });
+  exerciseScore += score;
+  saveProgress();
+}
+function showModalAnswers() {
+  showCorrect('m1','fb-m1','must');
+  showCorrect('m2','fb-m2','May');
+  showCorrect('m3','fb-m3','must / might');
+}
+
+// QUESTION TAGS
+function checkQuestions() {
+  const answers = ["isn't he", "has she", "can't they"];
+  const ids = ['q1','q2','q3'];
+  const fbs = ['fb-q1','fb-q2','fb-q3'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], answers[i])) score++; });
+  exerciseScore += score;
+  saveProgress();
+}
+function showQuestionAnswers() {
+  showCorrect('q1','fb-q1',"isn't he?");
+  showCorrect('q2','fb-q2',"has she?");
+  showCorrect('q3','fb-q3',"can't they?");
+}
+
+// VOCABULARY
+function checkVocab() {
+  const answers = ['farmer|peasant', 'empty', 'dentist', 'deadly', 'hardworking'];
+  const ids = ['v1','v2','v3','v4','v5'];
+  const fbs = ['fb-v1','fb-v2','fb-v3','fb-v4','fb-v5'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], answers[i])) score++; });
+  exerciseScore += score;
+  saveProgress();
+}
+function showVocabAnswers() {
+  showCorrect('v1','fb-v1','farmer / peasant');
+  showCorrect('v2','fb-v2','empty');
+  showCorrect('v3','fb-v3','dentist');
+  showCorrect('v4','fb-v4','deadly');
+  showCorrect('v5','fb-v5','hardworking');
+}
+
+// READING
+function showReadingAnswers() {
+  document.getElementById('reading-correction').style.display = 'block';
+  markModuleDone('reading', 100);
+  exerciseScore += 3;
+  saveProgress();
+}
+
+// TRANSLATION
+function showTranslationAnswers() {
+  document.getElementById('trans-correction').style.display = 'block';
+  markModuleDone('translation', 100);
+  saveProgress();
+}
+
+// WRITING
+function showEssayGuide() {
+  document.getElementById('essay-guide').style.display = 'block';
+}
+
+// EXAM
+function showExamAnswers() {
+  document.getElementById('exam-corrections').style.display = 'block';
+  markModuleDone('exam', 100);
+}
+
+// TIMER
+let timerInterval;
+function startExamTimer() {
+  let secs = 10800; // 3 hours
+  const el = document.getElementById('exam-timer');
+  el.style.display = 'block';
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    if (secs <= 0) { clearInterval(timerInterval); el.textContent = '⏰ TEMPS ÉCOULÉ'; el.style.color='var(--red)'; return; }
+    secs--;
+    const h = Math.floor(secs/3600).toString().padStart(2,'0');
+    const m = Math.floor((secs%3600)/60).toString().padStart(2,'0');
+    const s = (secs%60).toString().padStart(2,'0');
+    el.textContent = h + ':' + m + ':' + s;
+    if (secs < 600) el.style.color = 'var(--red)';
+    else if (secs < 1800) el.style.color = 'var(--accent3)';
+  }, 1000);
+}
+
+// ===== QUIZ =====
+const quizData = {
+  tenses: [
+    { q: "Which tense uses 'ago'?", opts: ["Present Perfect","Past Simple","Present Continuous","Future"], ans: 1 },
+    { q: "I ________ in Paris since 2019.", opts: ["live","lived","have lived","am living"], ans: 2 },
+    { q: "'Just, already, yet' are used with...", opts: ["Past Simple","Future Simple","Present Perfect","Past Continuous"], ans: 2 },
+    { q: "She was cooking when he ________.", opts: ["arrives","arrived","has arrived","will arrive"], ans: 1 },
+    { q: "By the time she arrived, he ________ dinner.", opts: ["finished","has finished","had finished","was finishing"], ans: 2 }
+  ]
+};
+
+function initQuiz(name) {
+  const data = quizData[name];
+  if (!data) return;
+  const container = document.getElementById('quiz-' + name);
+  if (!container) return;
+  container.innerHTML = '';
+  data.forEach((q, qi) => {
+    const div = document.createElement('div');
+    div.style.marginBottom = '16px';
+    div.innerHTML = `<div style="font-size:0.85rem;font-weight:600;margin-bottom:8px;color:var(--text)">${qi+1}. ${q.q}</div>`;
+    q.opts.forEach((opt, oi) => {
+      const letters = ['A','B','C','D'];
+      div.innerHTML += `<div class="quiz-option" data-quiz="${name}" data-q="${qi}" data-o="${oi}" onclick="selectOption(this,'${name}',${qi},${oi})">
+        <div class="opt-letter">${letters[oi]}</div>${opt}
+      </div>`;
+    });
+    container.appendChild(div);
+  });
+}
+
+function selectOption(el, name, qi, oi) {
+  document.querySelectorAll(`[data-quiz="${name}"][data-q="${qi}"]`).forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  el.dataset.selected = oi;
+}
+
+function submitQuiz(name) {
+  const data = quizData[name];
+  if (!data) return;
+  let score = 0;
+  data.forEach((q, qi) => {
+    const options = document.querySelectorAll(`[data-quiz="${name}"][data-q="${qi}"]`);
+    let selected = -1;
+    options.forEach(o => { if (o.classList.contains('selected')) selected = parseInt(o.dataset.o); });
+    options.forEach((o, oi) => {
+      if (oi === q.ans) o.classList.add('correct-ans');
+      else if (oi === selected && selected !== q.ans) o.classList.add('wrong-ans');
+    });
+    if (selected === q.ans) score++;
+  });
+  exerciseScore += score;
+  const result = document.getElementById('quiz-' + name + '-result');
+  result.style.display = 'block';
+  result.style.color = score >= 3 ? 'var(--green)' : 'var(--red)';
+  result.textContent = `Score : ${score}/${data.length} – ${score >= 3 ? '🎉 Excellent !' : '📚 Révise les tenses !'}`;
+  saveProgress();
+}
+
+// Init
+initQuiz('tenses');
+updateUI();
+</script>
+</body>
+</html>
