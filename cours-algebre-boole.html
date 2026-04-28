@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algèbre de Boole & Circuits Logiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf7f2;
+    --warm-white: #fffef9;
+    --ink: #1a1714;
+    --ink-light: #3d3630;
+    --ink-faint: #8a7f76;
+    --accent: #c0392b;
+    --accent-soft: #e74c3c20;
+    --accent-border: #e74c3c40;
+    --gold: #b5860d;
+    --gold-soft: #f0d06020;
+    --teal: #0a7c6e;
+    --teal-soft: #0a7c6e15;
+    --border: #e0d9d0;
+    --border-dark: #c8bfb3;
+    --sidebar-w: 280px;
+    --shadow: 0 2px 20px rgba(26,23,20,0.08);
+    --shadow-strong: 0 8px 40px rgba(26,23,20,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--warm-white);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: transform .3s ease;
+  }
+
+  .sidebar-header {
+    padding: 2rem 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .sidebar-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    color: #9a9088;
+    margin-bottom: 0.4rem;
+  }
+
+  .sidebar-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+
+  .sidebar-header .subtitle {
+    font-size: 0.78rem;
+    color: #9a9088;
+    margin-top: 0.3rem;
+    font-style: italic;
+  }
+
+  .nav-section {
+    padding: 1rem 0;
+  }
+
+  .nav-group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 0.5rem 1.5rem 0.3rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.82rem;
+    color: var(--ink-light);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all .2s;
+    line-height: 1.3;
+  }
+
+  .nav-link:hover { 
+    background: var(--accent-soft); 
+    color: var(--accent);
+    border-left-color: var(--accent);
+  }
+
+  .nav-link.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-link .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    min-width: 1.2rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .nav-sub {
+    padding: 0.3rem 1.5rem 0.3rem 3rem;
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    text-decoration: none;
+    display: block;
+    transition: color .2s;
+  }
+  .nav-sub:hover { color: var(--accent); }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 5rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, #c0392b18 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    max-width: 700px;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    color: #9a9088;
+    max-width: 600px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #7a7068;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-badge span:first-child {
+    color: var(--gold);
+  }
+
+  /* ── CONTENT AREA ── */
+  .content {
+    padding: 0 4rem 6rem;
+    max-width: 900px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding-top: 4rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3rem;
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .section > h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    margin: 1.5rem 0 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+  }
+
+  p { margin-bottom: 1rem; color: var(--ink-light); }
+
+  /* ── INTRO BOX ── */
+  .intro-box {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 2rem;
+    border-radius: 0 4px 4px 0;
+    margin: 1.5rem 0;
+  }
+
+  .intro-box p { margin: 0; font-style: italic; }
+
+  /* ── TRUTH TABLES ── */
+  .table-container {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .truth-table {
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .truth-table caption {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    text-align: left;
+    padding: 0 0 0.5rem;
+    caption-side: top;
+    font-style: italic;
+  }
+
+  .truth-table th {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.6rem 1.2rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+  }
+
+  .truth-table td {
+    padding: 0.45rem 1.2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--ink-light);
+  }
+
+  .truth-table tr:hover td { background: var(--gold-soft); }
+
+  .truth-table td.val-1 { color: var(--teal); font-weight: 600; }
+  .truth-table td.val-0 { color: var(--ink-faint); }
+
+  /* ── TABLES GRID ── */
+  .tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .table-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .table-card-header {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.6rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .table-card-header .op-badge {
+    background: var(--accent);
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.68rem;
+  }
+
+  .table-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+
+  .table-card th {
+    background: #f0ece6;
+    padding: 0.4rem 0.8rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .table-card td {
+    padding: 0.35rem 0.8rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-light);
+  }
+
+  .table-card td:last-child { font-weight: 600; }
+  .table-card td.v1 { color: var(--teal); }
+  .table-card td.v0 { color: var(--ink-faint); }
+  .table-card tr:last-child td { border-bottom: none; }
+
+  /* ── GATES TABLE ── */
+  .gates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .gate-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .gate-card:hover {
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow);
+  }
+
+  .gate-symbol {
+    width: 60px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  .gate-info { flex: 1; min-width: 0; }
+
+  .gate-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .gate-expr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    margin-top: 0.2rem;
+  }
+
+  .gate-desc {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  /* ── PROPERTIES ── */
+  .props-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .prop-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+  }
+
+  .prop-card h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .prop-list {
+    list-style: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-light);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .prop-list li {
+    padding: 0.2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .prop-list li:last-child { border-bottom: none; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--teal-soft);
+    border: 1px solid #0a7c6e30;
+    border-left: 4px solid var(--teal);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 6px 6px 0;
+    margin: 1.5rem 0;
+  }
+
+  .callout-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p { margin: 0; font-size: 0.88rem; color: var(--ink-light); }
+
+  .warning {
+    background: #b5860d10;
+    border-color: #b5860d30;
+    border-left-color: var(--gold);
+  }
+
+  .warning .callout-title { color: var(--gold); }
+
+  .example-box {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    border-left: 4px solid var(--accent);
+  }
+
+  .example-box .callout-title { color: var(--accent); }
+
+  /* ── CODE ── */
+  .formula {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.5rem;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+
+  .formula-block {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    background: var(--ink);
+    color: #e8dfd6;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.7;
+  }
+
+  .formula-block .kw { color: #e06c75; }
+  .formula-block .op { color: #61afef; }
+  .formula-block .comment { color: #5c6370; font-style: italic; }
+  .formula-block .val { color: #98c379; }
+
+  /* ── KARNAUGH ── */
+  .karnaugh-wrapper {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .karnaugh {
+    border-collapse: separate;
+    border-spacing: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+
+  .karnaugh th {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.5rem 0.8rem;
+    text-align: center;
+    font-size: 0.78rem;
+    border-radius: 3px;
+  }
+
+  .karnaugh .k-corner {
+    background: #2a2520;
+    color: var(--accent);
+    font-size: 0.7rem;
+    text-align: center;
+    vertical-align: middle;
+    min-width: 80px;
+  }
+
+  .karnaugh td {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.8rem;
+    text-align: center;
+    min-width: 48px;
+    font-weight: 600;
+    border-radius: 3px;
+    position: relative;
+    cursor: default;
+    transition: background .15s;
+    color: var(--ink-light);
+  }
+
+  .karnaugh td.k-1 { color: var(--teal); background: var(--teal-soft); }
+  .karnaugh td.k-0 { color: var(--ink-faint); }
+
+  .karnaugh td.group-a { background: #c0392b12; outline: 2px solid var(--accent); }
+  .karnaugh td.group-b { background: #0a7c6e12; outline: 2px solid var(--teal); }
+  .karnaugh td.group-c { background: #b5860d12; outline: 2px solid var(--gold); }
+
+  /* ── STEPS ── */
+  .steps {
+    counter-reset: step;
+    margin: 1.5rem 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    counter-increment: step;
+    min-width: 32px;
+    height: 32px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .step-content { flex: 1; }
+
+  .step-content strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .step-content p {
+    font-size: 0.87rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  /* ── TOGGLE QUIZ ── */
+  .quiz-section {
+    margin: 2rem 0;
+  }
+
+  .quiz-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .quiz-title::before {
+    content: '✦';
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  .quiz-item {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+  }
+
+  .quiz-q {
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    user-select: none;
+    transition: background .15s;
+  }
+
+  .quiz-q:hover { background: var(--gold-soft); }
+
+  .quiz-q .arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    transition: transform .2s;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  .quiz-q.open .arrow { transform: rotate(90deg); }
+
+  .quiz-a {
+    display: none;
+    padding: 0 1.2rem 1rem;
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    border-top: 1px solid var(--border);
+    background: var(--teal-soft);
+  }
+
+  .quiz-a.open { display: block; padding-top: 1rem; }
+
+  .quiz-a code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: var(--warm-white);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    color: var(--accent);
+    border: 1px solid var(--border);
+  }
+
+  /* ── CANONICAL FORMS ── */
+  .canon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .canon-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+    transition: border-color .2s;
+  }
+
+  .canon-card:hover { border-color: var(--accent-border); }
+
+  .canon-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .canon-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .canon-sym {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--gold);
+  }
+
+  /* ── INTERACTIVE TRUTH TABLE ── */
+  .interactive-box {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .interactive-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    margin: 0 0 1rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+
+  .gate-selector {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+
+  .gate-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border);
+    background: var(--warm-white);
+    color: var(--ink-light);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: 0.05em;
+  }
+
+  .gate-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .gate-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+  .dyn-table {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .dyn-table th {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.5rem 1rem;
+    text-align: center;
+    font-size: 0.78rem;
+  }
+
+  .dyn-table td {
+    padding: 0.4rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dyn-table td.r1 { color: var(--teal); font-weight: 700; }
+  .dyn-table td.r0 { color: var(--ink-faint); }
+
+  .expr-display {
+    margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+
+  .expr-display span { color: var(--accent); font-weight: 600; }
+
+  /* ── MOBILE ── */
+  .menu-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem; left: 1rem;
+    z-index: 200;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    width: 42px; height: 42px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,23,20,0.5);
+    z-index: 90;
+  }
+
+  @media (max-width: 900px) {
+    .menu-toggle { display: flex; }
+    .sidebar {
+      transform: translateX(-100%);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .overlay.open { display: block; }
+    .main { margin-left: 0; }
+    .hero { padding: 4rem 1.5rem 3rem; }
+    .content { padding: 0 1.5rem 4rem; }
+    .tables-grid { grid-template-columns: 1fr 1fr; }
+    .gates-grid { grid-template-columns: 1fr; }
+    .props-grid { grid-template-columns: 1fr; }
+    .canon-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.6rem; }
+    .tables-grid { grid-template-columns: 1fr; }
+    .canon-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--accent);
+    z-index: 1000;
+    transition: width .1s;
+    width: 0%;
+  }
+
+  /* ── BACK TO TOP ── */
+  .back-top {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s, transform .3s;
+    z-index: 50;
+  }
+
+  .back-top.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── DE MORGAN BOX ── */
+  .morgan-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .morgan-eq {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+
+  .morgan-eq .top-bar {
+    text-decoration: overline;
+    color: var(--accent);
+  }
+
+  .morgan-eq small {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+  }
+
+  /* ── EXAMPLE WORKED ── */
+  .worked-example {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .worked-header {
+    background: #2a2520;
+    color: var(--cream);
+    padding: 0.8rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .worked-body {
+    padding: 1.5rem;
+  }
+
+  .worked-body > * + * { margin-top: 1rem; }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+  .legend-dot {
+    width: 14px; height: 14px;
+    border-radius: 2px;
+    border: 2px solid;
+  }
+  .legend-dot.a { border-color: var(--accent); background: #c0392b12; }
+  .legend-dot.b { border-color: var(--teal); background: #0a7c6e12; }
+  .legend-dot.c { border-color: var(--gold); background: #b5860d12; }
+
+  /* Gray code table */
+  .gray-table { width: 100%; max-width: 500px; }
+
+  /* ── FINAL BLOCK ── */
+  .references {
+    background: var(--ink);
+    color: #9a9088;
+    padding: 3rem 4rem;
+    font-size: 0.85rem;
+  }
+
+  .references h3 {
+    color: var(--cream);
+    font-family: 'Playfair Display', serif;
+    border: none;
+    font-size: 1.2rem;
+    margin: 0 0 1rem;
+  }
+
+  .references a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .ref-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .ref-list li::before {
+    content: '[' counter(ref) '] ';
+    counter-increment: ref;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--gold);
+  }
+  .ref-list { counter-reset: ref; }
+
+  @media (max-width: 900px) {
+    .references { padding: 2rem 1.5rem; }
+    .morgan-box { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar" aria-label="Navigation du cours">
+  <div class="sidebar-header">
+    <div class="label">Cours · 1re année Ingénieur</div>
+    <h2>Algèbre de Boole &amp; Circuits Logiques</h2>
+    <div class="subtitle">Chapitre II — 2022/2023</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-group-label">Sommaire</div>
+    <a href="#intro" class="nav-link active"><span class="num">I</span> Introduction</a>
+    <a href="#concepts" class="nav-link"><span class="num">II</span> Concepts fondamentaux</a>
+    <a href="#operations" class="nav-link"><span class="num">III</span> Opérations booléennes</a>
+    <a href="#proprietes" class="nav-link"><span class="num">IV</span> Propriétés &amp; Théorèmes</a>
+    <a href="#portes" class="nav-link"><span class="num">V</span> Portes logiques</a>
+    <a href="#fonctions" class="nav-link"><span class="num">VI</span> Fonctions &amp; Circuits</a>
+    <a href="#formes" class="nav-link"><span class="num">VII</span> Formes canoniques</a>
+    <a href="#karnaugh" class="nav-link"><span class="num">VIII</span> Tables de Karnaugh</a>
+    <a href="#exemples" class="nav-link"><span class="num">IX</span> Exemples pratiques</a>
+    <a href="#interactif" class="nav-link"><span class="num">✦</span> Simulateur interactif</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-tag">Chapitre II — Informatique &amp; Électronique numérique</div>
+    <h1>Algèbre de Boole<br>&amp; Circuits Logiques</h1>
+    <p>Un cours complet : des variables binaires aux diagrammes de Karnaugh, en passant par les portes logiques et la simplification des fonctions booléennes.</p>
+    <div class="hero-meta">
+      <div class="hero-badge"><span>◆</span> George Boole (1815–1864)</div>
+      <div class="hero-badge"><span>◆</span> Maurice Karnaugh (1924–2022)</div>
+      <div class="hero-badge"><span>◆</span> Augustus De Morgan (1806–1871)</div>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- ═══ I. INTRODUCTION ═══ -->
+    <section class="section" id="intro">
+      <div class="section-number">Section I</div>
+      <h2>Introduction</h2>
+      <div class="intro-box">
+        <p>L'algèbre de Boole est la branche des mathématiques qui traite des opérations et fonctions sur des variables logiques. Elle fut inventée au XIXe siècle par le mathématicien britannique <strong>George Boole</strong> et est aujourd'hui au cœur de l'informatique et de l'électronique numérique.</p>
+      </div>
+      <p>Tout circuit numérique — d'un simple interrupteur à un microprocesseur moderne — repose sur les mêmes principes booléens. Comprendre cette algèbre, c'est comprendre comment les ordinateurs raisonnent, calculent, et prennent des décisions à partir de simples impulsions électriques.</p>
+      <p>Dans ce chapitre, nous allons construire progressivement les outils nécessaires : les opérations de base, les propriétés algébriques, la représentation par portes logiques, et les méthodes de simplification des fonctions booléennes.</p>
+    </section>
+
+    <!-- ═══ II. CONCEPTS ═══ -->
+    <section class="section" id="concepts">
+      <div class="section-number">Section II</div>
+      <h2>Concepts fondamentaux</h2>
+
+      <h3>L'ensemble booléen B</h3>
+      <p>En algèbre de Boole, on ne travaille qu'avec deux valeurs, appelées <strong>valeurs de vérité</strong> :</p>
+      <div class="formula-block"><span class="kw">B</span> = {<span class="val">0</span>, <span class="val">1</span>}   <span class="comment">// FAUX = 0, VRAI = 1</span></div>
+      <p>Ces deux valeurs correspondent à des états physiques réels : absence ou présence de tension électrique, circuit ouvert ou fermé, etc.</p>
+
+      <div class="callout">
+        <div class="callout-title">Convention de notation</div>
+        <p>Les variables booléennes sont généralement notées avec des lettres minuscules (<em>a, b, x, y</em>…). Leur complément (inverse) est noté avec une barre au-dessus : <strong>ā</strong>. La conjonction s'écrit <strong>a·b</strong> ou <strong>ab</strong> et la disjonction <strong>a+b</strong>.</p>
+      </div>
+
+      <h3>Priorité des opérateurs</h3>
+      <p>Comme en arithmétique classique, les opérateurs booléens ont des priorités :</p>
+      <div class="formula-block"><span class="comment">// Ordre de priorité (du plus fort au plus faible) :</span>
+<span class="val">1.</span> <span class="kw">NOT</span>   (complémentation)
+<span class="val">2.</span> <span class="kw">AND</span>   (conjonction  · )
+<span class="val">3.</span> <span class="kw">OR</span>    (disjonction  + )
+
+<span class="comment">// Exemple : a + b·c  ≡  a + (b·c)  ≠  (a+b)·c</span></pre></div>
+    </section>
+
+    <!-- ═══ III. OPERATIONS ═══ -->
+    <section class="section" id="operations">
+      <div class="section-number">Section III</div>
+      <h2>Les opérations booléennes</h2>
+      <p>Six opérations fondamentales forment le vocabulaire de l'algèbre de Boole. Les voici avec leurs tables de vérité.</p>
+
+      <div class="tables-grid">
+
+        <!-- NOT -->
+        <div class="table-card">
+          <div class="table-card-header">NON (NOT) <span class="op-badge">Unaire</span></div>
+          <table>
+            <tr><th>a</th><th>ā</th></tr>
+            <tr><td class="v0">0</td><td class="v1">1</td></tr>
+            <tr><td class="v1">1</td><td class="v0">0</td></tr>
+          </table>
+        </div>
+
+        <!-- OR -->
+        <div class="table-card">
+          <div class="table-card-header">OU (OR) <span class="op-badge">a+b</span></div>
+          <table>
+            <tr><th>a</th><th>b</th><th>a+b</th></tr>
+            <tr><td class="v0">0</td><td class="v0">0</td><td class="v0">0</td></tr>
+            <tr><td class="v0">0</td><td class="v1">1</td><td class="v1">1</td></tr>
+            <tr><td class="v1">1</td><td class="v0">0</td><td class="v1">1</td></tr>
+            <tr><td class="v1">1</td><td class="v1">1</td><td class="v1">1</td></tr>
+          </table>
+        </div>
+
+        <!-- AND -->
+        <div class="table-card">
+          <div class="table-card-header">ET (AND) <span class="op-badge">a·b</span></div>
+          <table>
+            <tr><th>a</th><th>b</th><th>a·b</th></tr>
+            <tr><td class="v0">0</td><td class="v0">0</td><td class="v0">0</td></tr>
+            <tr><td class="v0">0</td><td class="v1">1</td><td class="v0">0</td></tr>
+            <tr><td class="v1">1</td><td class="v0">0</td><td class="v0">0</td></tr>
+            <tr><td class="v1">1</td><td class="v1">1</td><td class="v1">1</td></tr>
+          </table>
+        </div>
+
+        <!-- NAND -->
+        <div class="table-card">
+          <div class="table-card-header">NON-ET (NAND) <span class="op-badge">ā·b̄</span></div>
+          <table>
+            <tr><th>a</th><th>b</th><th>NAND</th></tr>
+            <tr><td class="v0">0</td><td class="v0">0</td><td class="v1">1</td></tr>
+            <tr><td class="v0">0</td><td class="v1">1</td><td class="v1">1</td></tr>
+            <tr><td class="v1">1</td><td class="v0">0</td><td class="v1">1</td></tr>
+            <tr><td class="v1">1</td><td class="v1">1</td><td class="v0">0</td></tr>
+          </table>
+        </div>
+
+        <!-- NOR -->
+        <div class="table-card">
+          <div class="table-card-header">NON-OU (NOR) <span class="op-badge">ā+b̄</span></div>
+          <table>
+            <tr><th>a</th><th>b</th><th>NOR</th></tr>
+            <tr><td class="v0">0</td><td class="v0">0</td><td class="v1">1</td></tr>
+            <tr><td class="v0">0</td><td class="v1">1</td><td class="v0">0</td></tr>
+            <tr><td class="v1">1</td><td class="v0">0</td><td class="v0">0</td></tr>
+            <tr><td class="v1">1</td><td class="v1">1</td><td class="v0">0</td></tr>
+          </table>
+        </div>
+
+        <!-- XOR -->
+        <div class="table-card">
+          <div class="table-card-header">OU exclusif (XOR) <span class="op-badge">a⊕b</span></div>
+          <table>
+            <tr><th>a</th><th>b</th><th>a⊕b</th></tr>
+            <tr><td class="v0">0</td><td class="v0">0</td><td class="v0">0</td></tr>
+            <tr><td class="v0">0</td><td class="v1">1</td><td class="v1">1</td></tr>
+            <tr><td class="v1">1</td><td class="v0">0</td><td class="v1">1</td></tr>
+            <tr><td class="v1">1</td><td class="v1">1</td><td class="v0">0</td></tr>
+          </table>
+        </div>
+
+        <!-- XNOR -->
+        <div class="table-card">
+          <div class="table-card-header">Coïncidence (XNOR) <span class="op-badge">a⊙b</span></div>
+          <table>
+            <tr><th>a</th><th>b</th><th>XNOR</th></tr>
+            <tr><td class="v0">0</td><td class="v0">0</td><td class="v1">1</td></tr>
+            <tr><td class="v0">0</td><td class="v1">1</td><td class="v0">0</td></tr>
+            <tr><td class="v1">1</td><td class="v0">0</td><td class="v0">0</td></tr>
+            <tr><td class="v1">1</td><td class="v1">1</td><td class="v1">1</td></tr>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">Remarque : NAND et NOR</div>
+        <p>La porte NAND est la plus simple à réaliser technologiquement. Fait remarquable : on peut construire <em>toutes les fonctions logiques</em> en utilisant uniquement des portes NAND (ou uniquement des portes NOR). Ce sont des portes dites « universelles ».</p>
+      </div>
+    </section>
+
+    <!-- ═══ IV. PROPRIETES ═══ -->
+    <section class="section" id="proprietes">
+      <div class="section-number">Section IV</div>
+      <h2>Propriétés &amp; Théorèmes</h2>
+      <p>Ces propriétés permettent de manipuler et simplifier algébriquement les expressions booléennes. Elles se démontrent toutes par table de vérité.</p>
+
+      <div class="props-grid">
+
+        <div class="prop-card">
+          <h5>Éléments neutres &amp; nuls</h5>
+          <ul class="prop-list">
+            <li>x + 0 = x</li>
+            <li>x · 1 = x</li>
+            <li>x + 1 = 1</li>
+            <li>x · 0 = 0</li>
+          </ul>
+        </div>
+
+        <div class="prop-card">
+          <h5>Idempotence &amp; Complémentarité</h5>
+          <ul class="prop-list">
+            <li>x + x = x</li>
+            <li>x · x = x</li>
+            <li>x + x̄ = 1</li>
+            <li>x · x̄ = 0</li>
+            <li>x̄̄ = x (double inversion)</li>
+          </ul>
+        </div>
+
+        <div class="prop-card">
+          <h5>Commutativité</h5>
+          <ul class="prop-list">
+            <li>x + y = y + x</li>
+            <li>x · y = y · x</li>
+            <li>x ⊕ y = y ⊕ x</li>
+          </ul>
+        </div>
+
+        <div class="prop-card">
+          <h5>Associativité</h5>
+          <ul class="prop-list">
+            <li>x+(y+z) = (x+y)+z</li>
+            <li>x·(y·z) = (x·y)·z</li>
+          </ul>
+        </div>
+
+        <div class="prop-card">
+          <h5>Distributivité</h5>
+          <ul class="prop-list">
+            <li>x·(y+z) = x·y + x·z</li>
+            <li>x+(y·z) = (x+y)·(x+z)</li>
+          </ul>
+        </div>
+
+        <div class="prop-card">
+          <h5>Absorption &amp; Allongement</h5>
+          <ul class="prop-list">
+            <li>x·(x+y) = x</li>
+            <li>x+(x·y) = x</li>
+            <li>x+(x̄·y) = x+y</li>
+            <li>x·(x̄+y) = x·y</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <h3>Théorèmes de De Morgan</h3>
+      <p>Ces deux théorèmes sont fondamentaux pour transformer les expressions logiques, notamment pour passer d'une forme canonique à une autre :</p>
+
+      <div class="morgan-box">
+        <div class="morgan-eq">
+          <div><span style="text-decoration:overline;color:var(--accent)">x + y</span> = x̄ · ȳ</div>
+          <small>Le NOR équivaut à AND des compléments</small>
+        </div>
+        <div class="morgan-eq">
+          <div><span style="text-decoration:overline;color:var(--accent)">x · y</span> = x̄ + ȳ</div>
+          <small>Le NAND équivaut à OR des compléments</small>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Mémo De Morgan</div>
+        <p>Pour appliquer De Morgan : on <strong>inverse la sortie</strong>, on <strong>inverse chaque entrée</strong>, et on <strong>échange ET↔OU</strong>. C'est une règle qui s'applique à n'importe quel nombre de variables.</p>
+      </div>
+
+      <h3>Démonstration par table de vérité</h3>
+      <p>Voici la vérification du théorème d'absorption <span class="formula">x·(x+y) = x</span> :</p>
+
+      <div class="table-container">
+        <table class="truth-table gray-table">
+          <caption>Vérification : x·(x+y) = x</caption>
+          <thead>
+            <tr><th>x</th><th>y</th><th>x+y</th><th>x·(x+y)</th><th>= x ?</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="val-0">0</td><td class="val-0">0</td><td class="val-0">0</td><td class="val-0">0</td><td class="val-1">✓</td></tr>
+            <tr><td class="val-0">0</td><td class="val-1">1</td><td class="val-1">1</td><td class="val-0">0</td><td class="val-1">✓</td></tr>
+            <tr><td class="val-1">1</td><td class="val-0">0</td><td class="val-1">1</td><td class="val-1">1</td><td class="val-1">✓</td></tr>
+            <tr><td class="val-1">1</td><td class="val-1">1</td><td class="val-1">1</td><td class="val-1">1</td><td class="val-1">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══ V. PORTES ═══ -->
+    <section class="section" id="portes">
+      <div class="section-number">Section V</div>
+      <h2>Portes logiques</h2>
+      <p>Chaque opération booléenne correspond à un composant électronique appelé <strong>porte logique</strong>. Les voici avec leur symbole SVG, leur expression algébrique et leur description :</p>
+
+      <div class="gates-grid">
+
+        <div class="gate-card">
+          <svg class="gate-symbol" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="24" x2="18" y2="24" stroke="#1a1714" stroke-width="2"/>
+            <rect x="18" y="10" width="24" height="28" rx="2" fill="#faf7f2" stroke="#1a1714" stroke-width="2"/>
+            <line x1="42" y1="24" x2="56" y2="24" stroke="#1a1714" stroke-width="2"/>
+            <circle cx="51" cy="24" r="4" fill="#faf7f2" stroke="#c0392b" stroke-width="1.5"/>
+            <text x="30" y="28" text-anchor="middle" font-size="9" font-family="JetBrains Mono" fill="#c0392b">NOT</text>
+          </svg>
+          <div class="gate-info">
+            <div class="gate-name">NON (NOT)</div>
+            <div class="gate-expr">s = ā</div>
+            <div class="gate-desc">Inverse la valeur d'entrée. Opérateur unaire.</div>
+          </div>
+        </div>
+
+        <div class="gate-card">
+          <svg class="gate-symbol" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="2" y1="17" x2="18" y2="17" stroke="#1a1714" stroke-width="2"/>
+            <line x1="2" y1="31" x2="18" y2="31" stroke="#1a1714" stroke-width="2"/>
+            <path d="M18 10 L30 10 Q44 10 44 24 Q44 38 30 38 L18 38 Z" fill="#faf7f2" stroke="#1a1714" stroke-width="2"/>
+            <line x1="44" y1="24" x2="58" y2="24" stroke="#1a1714" stroke-width="2"/>
+            <text x="31" y="28" text-anchor="middle" font-size="8" font-family="JetBrains Mono" fill="#0a7c6e">AND</text>
+          </svg>
+          <div class="gate-info">
+            <div class="gate-name">ET (AND)</div>
+            <div class="gate-expr">s = a·b</div>
+            <div class="gate-desc">Sortie 1 uniquement si TOUTES les entrées sont à 1.</div>
+          </div>
+        </div>
+
+        <div class="gate-card">
+          <svg class="gate-symbol" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="2" y1="17" x2="16" y2="17" stroke="#1a1714" stroke-width="2"/>
+            <line x1="2" y1="31" x2="16" y2="31" stroke="#1a1714" stroke-width="2"/>
+            <path d="M12 10 Q22 10 28 24 Q22 38 12 38 L18 38 Q30 38 44 24 Q30 10 18 10 Z" fill="#faf7f2" stroke="#1a1714" stroke-width="2"/>
+            <line x1="44" y1="24" x2="58" y2="24" stroke="#1a1714" stroke-width="2"/>
+            <text x="30" y="28" text-anchor="middle" font-size="8" font-family="JetBrains Mono" fill="#0a7c6e">OR</text>
+          </svg>
+          <div class="gate-info">
+            <div class="gate-name">OU (OR)</div>
+            <div class="gate-expr">s = a+b</div>
+            <div class="gate-desc">Sortie 1 si AU MOINS UNE entrée est à 1.</div>
+          </div>
+        </div>
+
+        <div class="gate-card">
+          <svg class="gate-symbol" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="2" y1="17" x2="18" y2="17" stroke="#1a1714" stroke-width="2"/>
+            <line x1="2" y1="31" x2="18" y2="31" stroke="#1a1714" stroke-width="2"/>
+            <path d="M18 10 L30 10 Q44 10 44 24 Q44 38 30 38 L18 38 Z" fill="#faf7f2" stroke="#1a1714" stroke-width="2"/>
+            <circle cx="48" cy="24" r="4" fill="#faf7f2" stroke="#c0392b" stroke-width="1.5"/>
+            <line x1="52" y1="24" x2="58" y2="24" stroke="#1a1714" stroke-width="2"/>
+            <text x="31" y="28" text-anchor="middle" font-size="7" font-family="JetBrains Mono" fill="#c0392b">NAND</text>
+          </svg>
+          <div class="gate-info">
+            <div class="gate-name">NON-ET (NAND)</div>
+            <div class="gate-expr">s = <span style="text-decoration:overline">a·b</span></div>
+            <div class="gate-desc">Inverse de AND. Porte universelle : peut tout construire.</div>
+          </div>
+        </div>
+
+        <div class="gate-card">
+          <svg class="gate-symbol" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="2" y1="17" x2="16" y2="17" stroke="#1a1714" stroke-width="2"/>
+            <line x1="2" y1="31" x2="16" y2="31" stroke="#1a1714" stroke-width="2"/>
+            <path d="M12 10 Q22 10 28 24 Q22 38 12 38 L18 38 Q30 38 44 24 Q30 10 18 10 Z" fill="#faf7f2" stroke="#1a1714" stroke-width="2"/>
+            <circle cx="48" cy="24" r="4" fill="#faf7f2" stroke="#c0392b" stroke-width="1.5"/>
+            <line x1="52" y1="24" x2="58" y2="24" stroke="#1a1714" stroke-width="2"/>
+            <text x="30" y="28" text-anchor="middle" font-size="7" font-family="JetBrains Mono" fill="#c0392b">NOR</text>
+          </svg>
+          <div class="gate-info">
+            <div class="gate-name">NON-OU (NOR)</div>
+            <div class="gate-expr">s = <span style="text-decoration:overline">a+b</span></div>
+            <div class="gate-desc">Inverse de OR. Aussi universelle que NAND.</div>
+          </div>
+        </div>
+
+        <div class="gate-card">
+          <svg class="gate-symbol" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="2" y1="17" x2="16" y2="17" stroke="#1a1714" stroke-width="2"/>
+            <line x1="2" y1="31" x2="16" y2="31" stroke="#1a1714" stroke-width="2"/>
+            <path d="M8 10 Q16 10 20 14" stroke="#1a1714" stroke-width="1.5" fill="none"/>
+            <path d="M8 38 Q16 38 20 34" stroke="#1a1714" stroke-width="1.5" fill="none"/>
+            <path d="M12 10 Q22 10 28 24 Q22 38 12 38 L18 38 Q30 38 44 24 Q30 10 18 10 Z" fill="#faf7f2" stroke="#1a1714" stroke-width="2"/>
+            <line x1="44" y1="24" x2="58" y2="24" stroke="#1a1714" stroke-width="2"/>
+            <text x="30" y="28" text-anchor="middle" font-size="8" font-family="JetBrains Mono" fill="#b5860d">XOR</text>
+          </svg>
+          <div class="gate-info">
+            <div class="gate-name">OU exclusif (XOR)</div>
+            <div class="gate-expr">s = a⊕b</div>
+            <div class="gate-desc">Sortie 1 si les entrées sont DIFFÉRENTES.</div>
+          </div>
+        </div>
+
+        <div class="gate-card">
+          <svg class="gate-symbol" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="2" y1="17" x2="16" y2="17" stroke="#1a1714" stroke-width="2"/>
+            <line x1="2" y1="31" x2="16" y2="31" stroke="#1a1714" stroke-width="2"/>
+            <path d="M8 10 Q16 10 20 14" stroke="#1a1714" stroke-width="1.5" fill="none"/>
+            <path d="M8 38 Q16 38 20 34" stroke="#1a1714" stroke-width="1.5" fill="none"/>
+            <path d="M12 10 Q22 10 28 24 Q22 38 12 38 L18 38 Q30 38 44 24 Q30 10 18 10 Z" fill="#faf7f2" stroke="#1a1714" stroke-width="2"/>
+            <circle cx="48" cy="24" r="4" fill="#faf7f2" stroke="#c0392b" stroke-width="1.5"/>
+            <line x1="52" y1="24" x2="58" y2="24" stroke="#1a1714" stroke-width="2"/>
+            <text x="30" y="28" text-anchor="middle" font-size="6.5" font-family="JetBrains Mono" fill="#c0392b">XNOR</text>
+          </svg>
+          <div class="gate-info">
+            <div class="gate-name">Coïncidence (XNOR)</div>
+            <div class="gate-expr">s = a⊙b</div>
+            <div class="gate-desc">Sortie 1 si les entrées sont IDENTIQUES.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══ VI. FONCTIONS & CIRCUITS ═══ -->
+    <section class="section" id="fonctions">
+      <div class="section-number">Section VI</div>
+      <h2>Fonctions logiques &amp; Circuits</h2>
+
+      <h3>Définition d'une fonction logique</h3>
+      <p>Une <strong>fonction logique</strong> (ou fonction binaire) prend <em>n</em> variables booléennes en entrée et retourne une valeur booléenne :</p>
+      <div class="formula-block">f : B<sup>n</sup> → B
+
+<span class="comment">// Pour n variables d'entrée, il y a 2ⁿ combinaisons possibles.</span>
+<span class="comment">// Exemple : 3 variables → 2³ = 8 lignes dans la table de vérité</span></div>
+
+      <h3>Deux façons d'exprimer une fonction</h3>
+      <p>Toute fonction logique peut être décrite de deux manières équivalentes :</p>
+
+      <div class="callout">
+        <div class="callout-title">1. Table de vérité</div>
+        <p>Liste exhaustive : pour chaque combinaison des variables d'entrée, on donne la valeur de sortie. Utile pour définir ou vérifier une fonction.</p>
+      </div>
+
+      <div class="callout example-box" style="margin-top:0.5rem">
+        <div class="callout-title">2. Équation logique (expression algébrique)</div>
+        <p>On écrit la fonction sous forme d'une expression booléenne. Pour obtenir l'équation depuis la table, on prend <strong>chaque ligne où la sortie vaut 1</strong> et on forme le produit des variables (complémentées si elles valent 0).</p>
+      </div>
+
+      <h3>Exemple complet : S(a, b, c)</h3>
+      <div class="worked-example">
+        <div class="worked-header">Exemple — Obtenir l'équation depuis la table de vérité</div>
+        <div class="worked-body">
+
+          <div class="table-container">
+            <table class="truth-table">
+              <thead>
+                <tr><th>#</th><th>a</th><th>b</th><th>c</th><th>S</th><th>Terme produit</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td class="val-0">0</td><td class="val-0">0</td><td class="val-0">0</td><td class="val-0">0</td><td>—</td></tr>
+                <tr><td>1</td><td class="val-0">0</td><td class="val-0">0</td><td class="val-1">1</td><td class="val-0">0</td><td>—</td></tr>
+                <tr style="background:var(--gold-soft)"><td>2</td><td class="val-0">0</td><td class="val-1">1</td><td class="val-0">0</td><td class="val-1">1</td><td><span class="formula">ā·b·c̄</span></td></tr>
+                <tr style="background:var(--gold-soft)"><td>3</td><td class="val-0">0</td><td class="val-1">1</td><td class="val-1">1</td><td class="val-1">1</td><td><span class="formula">ā·b·c</span></td></tr>
+                <tr><td>4</td><td class="val-1">1</td><td class="val-0">0</td><td class="val-0">0</td><td class="val-0">0</td><td>—</td></tr>
+                <tr><td>5</td><td class="val-1">1</td><td class="val-0">0</td><td class="val-1">1</td><td class="val-0">0</td><td>—</td></tr>
+                <tr style="background:var(--gold-soft)"><td>6</td><td class="val-1">1</td><td class="val-1">1</td><td class="val-0">0</td><td class="val-1">1</td><td><span class="formula">a·b·c̄</span></td></tr>
+                <tr><td>7</td><td class="val-1">1</td><td class="val-1">1</td><td class="val-1">1</td><td class="val-0">0</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="formula-block">S(a,b,c) = ā·b·c̄  +  ā·b·c  +  a·b·c̄
+         = <span class="comment">Σ(2, 3, 6)  ← notation des mintermes</span></div>
+
+          <p style="font-size:0.88rem;color:var(--ink-faint)">Cette expression est la <strong>première forme canonique</strong> : une somme de produits (Σ∏). Chaque produit correspond exactement à une ligne de la table où S = 1.</p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ VII. FORMES CANONIQUES ═══ -->
+    <section class="section" id="formes">
+      <div class="section-number">Section VII</div>
+      <h2>Les quatre formes canoniques</h2>
+      <p>Une même fonction peut s'exprimer sous quatre formes standardisées, chacune utile selon le contexte :</p>
+
+      <div class="canon-grid">
+        <div class="canon-card">
+          <div class="canon-num">1re forme</div>
+          <div class="canon-name">Somme de produits</div>
+          <div class="canon-sym">Σ∏</div>
+          <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem">Mintermes — on liste les lignes où S=1</p>
+        </div>
+        <div class="canon-card">
+          <div class="canon-num">2e forme</div>
+          <div class="canon-name">Produit de sommes</div>
+          <div class="canon-sym">∏Σ</div>
+          <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem">Maxtermes — on liste les lignes où S=0</p>
+        </div>
+        <div class="canon-card">
+          <div class="canon-num">3e forme</div>
+          <div class="canon-name">NAND uniquement</div>
+          <div class="canon-sym">↑</div>
+          <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem">Toutes les portes sont des NAND</p>
+        </div>
+        <div class="canon-card">
+          <div class="canon-num">4e forme</div>
+          <div class="canon-name">NOR uniquement</div>
+          <div class="canon-sym">↓</div>
+          <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem">Toutes les portes sont des NOR</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ VIII. KARNAUGH ═══ -->
+    <section class="section" id="karnaugh">
+      <div class="section-number">Section VIII</div>
+      <h2>Tables de Karnaugh</h2>
+
+      <div class="intro-box">
+        <p>Inventée par <strong>Maurice Karnaugh</strong> en 1954, la table de Karnaugh est une méthode graphique pour simplifier les expressions logiques. Elle fonctionne très bien jusqu'à 4–5 variables. Au-delà, on préfère d'autres méthodes (Quine-McCluskey).</p>
+      </div>
+
+      <h3>Construction du tableau</h3>
+      <p>Pour une fonction S à <em>n</em> variables, le tableau de Karnaugh a <strong>2<sup>n</sup> cases</strong>. Les variables sont distribuées entre lignes et colonnes, codées en <strong>code Gray</strong> — un seul bit change entre cases adjacentes.</p>
+
+      <h4>Code Gray (indispensable pour le codage des lignes/colonnes)</h4>
+      <div class="table-container">
+        <table class="truth-table gray-table">
+          <thead>
+            <tr><th>Valeur décimale</th><th>Binaire</th><th>Code Gray</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td class="val-0">0000</td><td class="val-1">0000</td></tr>
+            <tr><td>1</td><td class="val-0">0001</td><td class="val-1">0001</td></tr>
+            <tr><td>2</td><td class="val-0">0010</td><td class="val-1">0011</td></tr>
+            <tr><td>3</td><td class="val-0">0011</td><td class="val-1">0010</td></tr>
+            <tr><td>4</td><td class="val-0">0100</td><td class="val-1">0110</td></tr>
+            <tr><td>5</td><td class="val-0">0101</td><td class="val-1">0111</td></tr>
+            <tr><td>6</td><td class="val-0">0110</td><td class="val-1">0101</td></tr>
+            <tr><td>7</td><td class="val-0">0111</td><td class="val-1">0100</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">Pourquoi le code Gray ?</div>
+        <p>Le code Gray garantit que deux cases adjacentes dans le tableau ne diffèrent que d'un seul bit. Cela permet de former des groupements valides lors de la simplification. L'ordre des colonnes est donc toujours : <strong>00 — 01 — 11 — 10</strong> (et non 00-01-10-11).</p>
+      </div>
+
+      <h3>Structure des tableaux selon le nombre de variables</h3>
+
+      <div class="tables-grid" style="gap:2rem">
+
+        <div>
+          <h4>2 variables (2×2)</h4>
+          <div class="karnaugh-wrapper">
+            <table class="karnaugh">
+              <tr>
+                <th class="k-corner">b\a</th>
+                <th>a=0</th><th>a=1</th>
+              </tr>
+              <tr>
+                <th>b=0</th>
+                <td>s₀₀</td><td>s₁₀</td>
+              </tr>
+              <tr>
+                <th>b=1</th>
+                <td>s₀₁</td><td>s₁₁</td>
+              </tr>
+            </table>
+          </div>
+          <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem">4 cases = 2² lignes de vérité</p>
+        </div>
+
+        <div>
+          <h4>3 variables (2×4)</h4>
+          <div class="karnaugh-wrapper">
+            <table class="karnaugh">
+              <tr>
+                <th class="k-corner">c\ab</th>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <tr>
+                <th>0</th>
+                <td>s₀</td><td>s₂</td><td>s₆</td><td>s₄</td>
+              </tr>
+              <tr>
+                <th>1</th>
+                <td>s₁</td><td>s₃</td><td>s₇</td><td>s₅</td>
+              </tr>
+            </table>
+          </div>
+          <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem">8 cases = 2³ lignes de vérité</p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:1.5rem">
+        <h4>4 variables (4×4) — le plus courant</h4>
+        <div class="karnaugh-wrapper">
+          <table class="karnaugh">
+            <tr>
+              <th class="k-corner">cd\ab</th>
+              <th>00</th><th>01</th><th>11</th><th>10</th>
+            </tr>
+            <tr>
+              <th>00</th>
+              <td>m₀</td><td>m₄</td><td>m₁₂</td><td>m₈</td>
+            </tr>
+            <tr>
+              <th>01</th>
+              <td>m₁</td><td>m₅</td><td>m₁₃</td><td>m₉</td>
+            </tr>
+            <tr>
+              <th>11</th>
+              <td>m₃</td><td>m₇</td><td>m₁₅</td><td>m₁₁</td>
+            </tr>
+            <tr>
+              <th>10</th>
+              <td>m₂</td><td>m₆</td><td>m₁₄</td><td>m₁₀</td>
+            </tr>
+          </table>
+        </div>
+        <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem">16 cases = 2⁴ lignes de vérité</p>
+      </div>
+
+      <h3>Règles de simplification</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>Écrire en 1re forme canonique (Σ∏)</strong>
+            <p>Identifier toutes les combinaisons où la sortie vaut 1 et écrire la somme des produits correspondants.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>Remplir le tableau</strong>
+            <p>Placer des 1 dans les cases correspondant aux mintermes, et des 0 dans les autres.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>Former les groupements (boucles)</strong>
+            <p>Regrouper les 1 adjacents en rectangles de taille 2<sup>k</sup> (1, 2, 4, 8…). Commencer par les plus grands groupes possibles. Chaque 1 doit appartenir à au moins un groupe. Un même 1 peut être dans plusieurs groupes (chevauchements autorisés). Le tableau est un tore : les bords gauche/droit et haut/bas sont adjacents.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong>Écrire l'expression simplifiée</strong>
+            <p>Pour chaque groupe : éliminer les variables qui apparaissent avec leur complément dans le groupe. Faire la somme logique des résultats.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Règle de réduction des variables</div>
+        <p>Un groupement de <strong>2<sup>k</sup> cases</strong> élimine <strong>k variables</strong> de l'expression. Pour 4 variables totales :<br>
+        • Groupe de 1 case → 4 variables restantes<br>
+        • Groupe de 2 cases → 3 variables restantes<br>
+        • Groupe de 4 cases → 2 variables restantes<br>
+        • Groupe de 8 cases → 1 variable restante<br>
+        • Groupe de 16 cases → 0 variable (S = 1 constante)</p>
+      </div>
+    </section>
+
+    <!-- ═══ IX. EXEMPLES ═══ -->
+    <section class="section" id="exemples">
+      <div class="section-number">Section IX</div>
+      <h2>Exemples pratiques</h2>
+
+      <h3>Exemple 1 — Simplification à 3 variables</h3>
+      <div class="worked-example">
+        <div class="worked-header">Exemple 1 · S(a,b,c) = Σ(2, 3, 6)</div>
+        <div class="worked-body">
+          <p style="font-size:0.88rem">Fonction de départ :</p>
+          <div class="formula-block">S(a,b,c) = ā·b·c̄  +  ā·b·c  +  a·b·c̄</div>
+
+          <p style="font-size:0.88rem">Table de Karnaugh :</p>
+          <div class="karnaugh-wrapper">
+            <table class="karnaugh">
+              <tr>
+                <th class="k-corner">c\ab</th>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <tr>
+                <th>0</th>
+                <td class="k-0">0</td>
+                <td class="k-1 group-a">1</td>
+                <td class="k-1 group-a">1</td>
+                <td class="k-0">0</td>
+              </tr>
+              <tr>
+                <th>1</th>
+                <td class="k-0">0</td>
+                <td class="k-1 group-b">1</td>
+                <td class="k-0">0</td>
+                <td class="k-0">0</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot a"></div> Groupe rouge : ā·b + a·b = b (c varie)</div>
+            <div class="legend-item"><div class="legend-dot b"></div> Groupe vert : ā·b·c̄ (case isolée)</div>
+          </div>
+
+          <p style="font-size:0.88rem;margin-top:1rem">Le groupe rouge regroupe les cases 01 et 11 de la ligne c=0. Dans ce groupe, <em>a</em> prend les valeurs 0 et 1 → <em>a</em> disparaît. Reste : <strong>b·c̄</strong>.</p>
+          <p style="font-size:0.88rem">La case verte (minterm 3) est couverte par le groupe rouge et peut être groupée avec m₃ formant le groupe {m₁, m₃} = ā·b. Après analyse :</p>
+
+          <div class="formula-block"><span class="val">S(a,b,c) = b·c̄  +  ā·b</span>
+         <span class="comment">// Simplification : S = b·(c̄ + ā) — encore plus compacte</span></div>
+
+          <div class="callout" style="margin:0">
+            <div class="callout-title">Résultat</div>
+            <p>On passe de 3 produits de 3 variables à <strong>2 produits de 2 variables</strong>. Le circuit passe de 6 portes AND + 2 portes OR à seulement 2 portes AND + 1 porte OR.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Exemple 2 — Simplification à 4 variables</h3>
+      <div class="worked-example">
+        <div class="worked-header">Exemple 2 · S(a,b,c,d) = Σ(0,2,3,6,7,8,9,10,11,14,15)</div>
+        <div class="worked-body">
+
+          <p style="font-size:0.88rem">Table de Karnaugh (16 cases) :</p>
+          <div class="karnaugh-wrapper">
+            <table class="karnaugh">
+              <tr>
+                <th class="k-corner">cd\ab</th>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <tr>
+                <th>00</th>
+                <td class="k-1 group-c">1</td>
+                <td class="k-0">0</td>
+                <td class="k-0">0</td>
+                <td class="k-1 group-c">1</td>
+              </tr>
+              <tr>
+                <th>01</th>
+                <td class="k-0">0</td>
+                <td class="k-0">0</td>
+                <td class="k-0">0</td>
+                <td class="k-1 group-c">1</td>
+              </tr>
+              <tr>
+                <th>11</th>
+                <td class="k-1 group-a">1</td>
+                <td class="k-1 group-a">1</td>
+                <td class="k-1 group-a">1</td>
+                <td class="k-1 group-a">1</td>
+              </tr>
+              <tr>
+                <th>10</th>
+                <td class="k-1 group-b">1</td>
+                <td class="k-1 group-b">1</td>
+                <td class="k-1 group-b">1</td>
+                <td class="k-1 group-b">1</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot a"></div> Groupe rouge (8 cases, ligne cd=11) → 1 variable : <strong>c</strong></div>
+            <div class="legend-item"><div class="legend-dot b"></div> Groupe vert (8 cases, ligne cd=10) → 1 variable : <strong>c·d̄</strong>… → <strong>c</strong></div>
+            <div class="legend-item"><div class="legend-dot c"></div> Groupe or (3 cases col 00+10, ligne cd=00 et 01) → <strong>ā·b̄ + b·c·d</strong></div>
+          </div>
+
+          <p style="font-size:0.88rem;margin-top:1rem">Après analyse des groupements :</p>
+
+          <div class="formula-block"><span class="val">S(a,b,c,d) = c  +  ā·b̄  +  b·c̄·d</span>
+<span class="comment">// Groupe 8 cases : c varie pas → c
+// Groupe 4 cases : c,d varient → a·b
+// Groupe 2 cases : a varie → b·c̄·d</span></div>
+
+          <div class="callout" style="margin:0">
+            <div class="callout-title">Bilan de simplification</div>
+            <p>On passe de <strong>11 minterm de 4 variables</strong> à une expression de <strong>3 termes</strong> contenant au plus 3 variables. Gain considérable en nombre de composants.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <h3>Quiz de vérification</h3>
+      <div class="quiz-section">
+        <div class="quiz-title">Testez vos connaissances</div>
+
+        <div class="quiz-item">
+          <div class="quiz-q" onclick="toggleQuiz(this)">
+            Quelle est la valeur de <code>1 · 0 + 1</code> en algèbre de Boole ?
+            <span class="arrow">▶</span>
+          </div>
+          <div class="quiz-a">
+            <code>1 · 0 + 1 = 0 + 1 = 1</code><br>
+            On applique d'abord la conjonction (AND prioritaire) : 1·0 = 0, puis la disjonction : 0+1 = 1.
+          </div>
+        </div>
+
+        <div class="quiz-item">
+          <div class="quiz-q" onclick="toggleQuiz(this)">
+            Simplifiez <code>x + x̄·y</code> par le théorème d'allongement.
+            <span class="arrow">▶</span>
+          </div>
+          <div class="quiz-a">
+            D'après le théorème d'allongement : <code>x + (x̄·y) = x + y</code>.<br>
+            Vérification : si x=0, y=1 → 0+1=1 et 0+1=1 ✓. Si x=1 → les deux valent 1 ✓.
+          </div>
+        </div>
+
+        <div class="quiz-item">
+          <div class="quiz-q" onclick="toggleQuiz(this)">
+            Appliquez De Morgan à <code style="text-decoration:overline">a·b + c</code>.
+            <span class="arrow">▶</span>
+          </div>
+          <div class="quiz-a">
+            <code style="text-decoration:overline">a·b + c</code> = <code>(a·b̄ + c̄)</code><br>
+            De Morgan sur la somme : <code style="text-decoration:overline">P+Q</code> = <code>P̄·Q̄</code>. Ici P = a·b, Q = c. Donc : <code>(a·b)̄ · c̄ = (ā+b̄) · c̄</code>.
+          </div>
+        </div>
+
+        <div class="quiz-item">
+          <div class="quiz-q" onclick="toggleQuiz(this)">
+            Dans un tableau de Karnaugh à 4 variables, un groupement de 4 cases laisse combien de variables dans le terme ?
+            <span class="arrow">▶</span>
+          </div>
+          <div class="quiz-a">
+            Un groupe de 4 cases = 2<sup>2</sup>, donc k=2 variables sont éliminées. Il reste <strong>4 - 2 = 2 variables</strong> dans le terme correspondant.
+          </div>
+        </div>
+
+        <div class="quiz-item">
+          <div class="quiz-q" onclick="toggleQuiz(this)">
+            Pourquoi le tableau de Karnaugh est-il codé en code Gray et non en binaire naturel ?
+            <span class="arrow">▶</span>
+          </div>
+          <div class="quiz-a">
+            Le code Gray garantit qu'entre deux cases adjacentes dans le tableau, <strong>un seul bit change</strong>. Cela assure que des cases adjacentes correspondent bien à des mintermes qui ne diffèrent que d'une variable — condition nécessaire pour que les regroupements donnent des simplifications correctes.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══ INTERACTIF ═══ -->
+    <section class="section" id="interactif">
+      <div class="section-number">✦ Outil interactif</div>
+      <h2>Simulateur de tables de vérité</h2>
+      <p>Sélectionnez une opération pour voir sa table de vérité dynamiquement :</p>
+
+      <div class="interactive-box">
+        <h4>Choisissez l'opération</h4>
+        <div class="gate-selector">
+          <button class="gate-btn active" onclick="showGate(this,'NOT')">NOT</button>
+          <button class="gate-btn" onclick="showGate(this,'AND')">AND</button>
+          <button class="gate-btn" onclick="showGate(this,'OR')">OR</button>
+          <button class="gate-btn" onclick="showGate(this,'NAND')">NAND</button>
+          <button class="gate-btn" onclick="showGate(this,'NOR')">NOR</button>
+          <button class="gate-btn" onclick="showGate(this,'XOR')">XOR</button>
+          <button class="gate-btn" onclick="showGate(this,'XNOR')">XNOR</button>
+        </div>
+
+        <div id="dynTableContainer"></div>
+
+        <div class="expr-display" id="exprDisplay"></div>
+      </div>
+    </section>
+
+  </div><!-- .content -->
+
+  <!-- REFERENCES -->
+  <footer class="references">
+    <h3>Références bibliographiques</h3>
+    <ul class="ref-list">
+      <li>Techno-Science.net — <em>Algèbre de Boole (logique)</em>, glossaire en ligne.</li>
+      <li>Daniel Etiemble — <em>Algèbre de Boole et fonctions booléennes</em>, notes de cours, LRI.</li>
+      <li>Farid Tafinine — <em>Électronique numérique</em>, cours université A.MIRA de Béjaïa, Génie électrique, 2016–2017.</li>
+      <li>Didier Müller — <em>Informatique (presque) débranchée, Chapitre 5 : Algèbre booléenne et circuits logiques</em>, janvier 2023.</li>
+      <li>Daniel Mange — <em>Analyse et synthèse des systèmes logiques</em>, PPUR, 1995.</li>
+    </ul>
+  </footer>
+
+</main>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">↑</button>
+
+<script>
+// ── SIDEBAR TOGGLE ──
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const menuToggle = document.getElementById('menuToggle');
+
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+});
+
+// ── PROGRESS BAR ──
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrolled / total * 100) + '%';
+});
+
+// ── BACK TO TOP ──
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── ACTIVE NAV ──
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-10% 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+// ── QUIZ TOGGLE ──
+function toggleQuiz(el) {
+  el.classList.toggle('open');
+  const ans = el.nextElementSibling;
+  ans.classList.toggle('open');
+}
+
+// ── INTERACTIVE TRUTH TABLE ──
+const gates = {
+  NOT: {
+    expr: 's = ā',
+    desc: 'Opérateur unaire — inverse la valeur d\'entrée',
+    headers: ['a', 'NON a'],
+    rows: [[0,1],[1,0]],
+    highlight: [1]
+  },
+  AND: {
+    expr: 's = a · b',
+    desc: 'Sortie 1 uniquement si a=1 ET b=1',
+    headers: ['a', 'b', 'a AND b'],
+    rows: [[0,0,0],[0,1,0],[1,0,0],[1,1,1]],
+    highlight: [2]
+  },
+  OR: {
+    expr: 's = a + b',
+    desc: 'Sortie 1 si a=1 OU b=1 (ou les deux)',
+    headers: ['a', 'b', 'a OR b'],
+    rows: [[0,0,0],[0,1,1],[1,0,1],[1,1,1]],
+    highlight: [2]
+  },
+  NAND: {
+    expr: 's = ¬(a · b)',
+    desc: 'Inverse du AND — porte universelle',
+    headers: ['a', 'b', 'a NAND b'],
+    rows: [[0,0,1],[0,1,1],[1,0,1],[1,1,0]],
+    highlight: [2]
+  },
+  NOR: {
+    expr: 's = ¬(a + b)',
+    desc: 'Inverse du OR — aussi porte universelle',
+    headers: ['a', 'b', 'a NOR b'],
+    rows: [[0,0,1],[0,1,0],[1,0,0],[1,1,0]],
+    highlight: [2]
+  },
+  XOR: {
+    expr: 's = a ⊕ b',
+    desc: 'Sortie 1 si les entrées sont différentes',
+    headers: ['a', 'b', 'a XOR b'],
+    rows: [[0,0,0],[0,1,1],[1,0,1],[1,1,0]],
+    highlight: [2]
+  },
+  XNOR: {
+    expr: 's = a ⊙ b',
+    desc: 'Sortie 1 si les entrées sont identiques (coïncidence)',
+    headers: ['a', 'b', 'a XNOR b'],
+    rows: [[0,0,1],[0,1,0],[1,0,0],[1,1,1]],
+    highlight: [2]
+  }
+};
+
+function showGate(btn, name) {
+  document.querySelectorAll('.gate-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const g = gates[name];
+  let html = `<table class="dyn-table"><thead><tr>`;
+  g.headers.forEach((h, i) => {
+    const last = i === g.headers.length - 1;
+    html += `<th style="${last ? 'background:var(--accent)' : ''}">${h}</th>`;
+  });
+  html += `</tr></thead><tbody>`;
+
+  g.rows.forEach(row => {
+    html += `<tr>`;
+    row.forEach((cell, i) => {
+      const last = i === row.length - 1;
+      const cls = cell === 1 ? 'r1' : 'r0';
+      html += `<td class="${last ? cls : ''}">${cell}</td>`;
+    });
+    html += `</tr>`;
+  });
+
+  html += `</tbody></table>`;
+  document.getElementById('dynTableContainer').innerHTML = html;
+  document.getElementById('exprDisplay').innerHTML = 
+    `Expression : <span>${g.expr}</span> — ${g.desc}`;
+}
+
+// Init
+showGate(document.querySelector('.gate-btn.active'), 'NOT');
+</script>
+</body>
+</html>
