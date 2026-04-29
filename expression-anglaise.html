@@ -561,6 +561,14 @@ code {
 /* SEPARATOR */
 hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
+/* CARD hover glow improvement */
+.card:hover { border-color: rgba(245,200,66,0.15); }
+
+/* New accent for new module pages */
+.tag-transform { background: rgba(180,130,255,0.2); color: #b482ff; }
+.module-card.extra::before { background: #b482ff; }
+.module-card.extra .mc-pb-fill { background: #b482ff; }
+
 /* TEXT AREA */
 textarea {
   width: 100%;
@@ -746,21 +754,42 @@ textarea:focus { border-color: var(--accent); }
     <div class="nav-item" onclick="showPage('grammar-questions')">
       <span class="icon">❓</span> Question Forms
     </div>
+    <div class="nav-item" onclick="showPage('grammar-transformation')">
+      <span class="icon">🔁</span> Transformations BTS
+    </div>
+    <div class="nav-item" onclick="showPage('grammar-quantifiers')">
+      <span class="icon">🔢</span> Quantifiers & Déterminants
+    </div>
     <div class="nav-item" onclick="showPage('vocabulary')">
       <span class="icon">📖</span> Vocabulary BTS
       <span class="badge">10pts</span>
     </div>
+    <div class="nav-item" onclick="showPage('vocabulary-commerce')">
+      <span class="icon">💼</span> Vocab Commerce & Métiers
+    </div>
 
     <div class="nav-section">Section B</div>
     <div class="nav-item" onclick="showPage('reading')">
-      <span class="icon">📄</span> Reading Comprehension
+      <span class="icon">📄</span> Reading – Insects (2023)
       <span class="badge">10pts</span>
+    </div>
+    <div class="nav-item" onclick="showPage('reading-aids')">
+      <span class="icon">📄</span> Reading – AIDS (2024)
+    </div>
+    <div class="nav-item" onclick="showPage('reading-stroke')">
+      <span class="icon">📄</span> Reading – Stroke (2021)
+    </div>
+    <div class="nav-item" onclick="showPage('reading-cyberbullying')">
+      <span class="icon">📄</span> Reading – Cyberbullying (2020)
     </div>
 
     <div class="nav-section">Section C</div>
     <div class="nav-item" onclick="showPage('translation')">
-      <span class="icon">🌍</span> Translation
+      <span class="icon">🌍</span> Translation – Cours & Expressions
       <span class="badge">10pts</span>
+    </div>
+    <div class="nav-item" onclick="showPage('translation-proverbs')">
+      <span class="icon">📜</span> 100+ Translations & Proverbes
     </div>
 
     <div class="nav-section">Section D</div>
@@ -817,7 +846,7 @@ textarea:focus { border-color: var(--accent); }
           <div class="stat-label">Taux de réussite</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">40</div>
+          <div class="stat-num">50</div>
           <div class="stat-label">Total marks BTS</div>
         </div>
       </div>
@@ -872,6 +901,15 @@ textarea:focus { border-color: var(--accent); }
           <div class="mc-progress">
             <div class="mc-pb"><div class="mc-pb-fill" id="pb-writing" style="width:0%"></div></div>
             <div class="mc-pct" id="pct-writing">0%</div>
+          </div>
+        </div>
+        <div class="module-card translation" onclick="showPage('translation-proverbs')">
+          <div class="mc-icon">📜</div>
+          <div class="mc-title">100+ Translations</div>
+          <div class="mc-desc">Proverbes, idiomes, phrases BTS, faux amis – 9 catégories</div>
+          <div class="mc-progress">
+            <div class="mc-pb"><div class="mc-pb-fill" id="pb-translation2" style="width:0%"></div></div>
+            <div class="mc-pct" id="pct-translation2">0%</div>
           </div>
         </div>
         <div class="module-card grammar" onclick="showPage('exam')">
@@ -1934,6 +1972,695 @@ Yours sincerely, (if Dear Mr/Mrs + name)
       </div>
     </div>
 
+
+    <!-- ===== GRAMMAR: TRANSFORMATIONS ===== -->
+    <div class="page" id="page-grammar-transformation">
+      <div class="breadcrumb">🏠 Dashboard › Grammar › <span>Transformations BTS</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module – Transformations de Phrases (BTS 2019–2024)</div>
+
+        <div class="lesson-section">
+          <h3>📌 It / There – Savoir lequel choisir</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Pronom</th><th>Usage</th><th>Exemple</th></tr>
+              <tr><td><code>It</code></td><td>Sujet vide (temps, distance, heure, fait)</td><td><em>It is raining. / It is 5 km. / It is important that...</em></td></tr>
+              <tr><td><code>There</code></td><td>Existence, présence de quelque chose</td><td><em>There is a problem. / There are many students.</em></td></tr>
+            </table>
+          </div>
+          <div class="tip-box">
+            <strong>Exemples BTS 2019 :</strong><br>
+            "______ seems to be a little evidence..." → <strong>There</strong> (existence)<br>
+            "He said that ______ was his intention..." → <strong>it</strong> (fait, intention)<br>
+            "We're lost! ______'s only one thing to do" → <strong>There</strong> (existence)<br>
+            "The Minister said it is our hope..." → <strong>it</strong> (sujet vide de proposition)
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Transformation de phrases (style BTS 2020)</h3>
+          <div class="highlight-box">
+            <strong>Type 1 – Changer de temps (Past → Present/Future)</strong><br>
+            <em>Original:</em> Today, Tony begs along the road and never buys anything.<br>
+            <em>In the past, Tony</em> → <strong>used to beg along the road and never used to buy anything.</strong><br><br>
+            <strong>Type 2 – Singulier → Pluriel</strong><br>
+            <em>Original:</em> When one tooth hurts, you cannot sleep.<br>
+            <em>When two</em> → <strong>teeth hurt, you cannot sleep.</strong><br><br>
+            <strong>Type 3 – Actif → Passif</strong><br>
+            <em>Original:</em> My brothers and I will build a new house.<br>
+            <em>A new house</em> → <strong>will be built by my brothers and me.</strong><br><br>
+            <strong>Type 4 – Forme négative (not only/but also)</strong><br>
+            <em>Original:</em> Pamela handles our management unit very well.<br>
+            <em>Pamela not only</em> → <strong>handles our management unit very well, but she also does it excellently.</strong><br><br>
+            <strong>Type 5 – Passive → Active</strong><br>
+            <em>Original:</em> The final whistle was blown by the referee.<br>
+            <em>The referee</em> → <strong>blew the final whistle.</strong>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Négation – Mettre à la forme négative</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Temps</th><th>Positif</th><th>Négatif</th></tr>
+              <tr><td>Present Simple</td><td>She goes to school.</td><td>She <strong>does not go</strong> to school.</td></tr>
+              <tr><td>Past Simple</td><td>He built a house.</td><td>He <strong>did not build</strong> a house.</td></tr>
+              <tr><td>Present Perfect</td><td>They have arrived.</td><td>They <strong>have not arrived</strong>.</td></tr>
+              <tr><td>Modal</td><td>You must go.</td><td>You <strong>must not go</strong>.</td></tr>
+              <tr><td>Future</td><td>She will come.</td><td>She <strong>will not come</strong>.</td></tr>
+            </table>
+          </div>
+          <div class="error-box">
+            <strong>❌ BTS 2019 – Erreurs fréquentes en négation :</strong><br>
+            ✗ <em>This problem has not gained importance</em> — ✅ <em>This problem <strong>has not gained</strong> in importance.</em> (ne pas oublier "in")<br>
+            ✗ <em>France did not spread its crisis</em> — ✅ <em>France <strong>did not spread</strong> its crisis in Cameroonian economy.</em>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Passive Voice – Transformation complète (BTS 2019)</h3>
+          <div class="highlight-box">
+            <em>"Some oil producers could make pre-payments on the debts."</em><br>
+            → Passive: <strong>"Pre-payments could be made on the debts by some oil producers."</strong><br><br>
+            <em>"Didn't they tell you to be here by six o'clock?"</em><br>
+            → Passive: <strong>"Weren't you told to be here by six o'clock?"</strong>
+          </div>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Exercice – Transformations (Style BTS 2020/2024)</h4>
+          <div class="exercise-item">
+            <label>1. "______ seems to be evidence that wages rose." Choose: It / There</label>
+            <input type="text" id="tf1" placeholder="It ou There ?"><div class="feedback" id="fb-tf1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. He said that ______ was his intention to open a shop. (It / There)</label>
+            <input type="text" id="tf2" placeholder="It ou There ?"><div class="feedback" id="fb-tf2"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. Transform to Passive: "The referee blew the final whistle."</label>
+            <input type="text" id="tf3" placeholder="The final whistle..."><div class="feedback" id="fb-tf3"></div>
+          </div>
+          <div class="exercise-item">
+            <label>4. Put to negative: "This problem has gained in importance."</label>
+            <input type="text" id="tf4" placeholder="This problem..."><div class="feedback" id="fb-tf4"></div>
+          </div>
+          <button class="check-btn" onclick="checkTransformations()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showTransformAnswers()">👁️ Corrections</button>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('grammar-quantifiers')">Module suivant : Quantifiers →</button>
+      </div>
+    </div>
+
+    <!-- ===== GRAMMAR: QUANTIFIERS ===== -->
+    <div class="page" id="page-grammar-quantifiers">
+      <div class="breadcrumb">🏠 Dashboard › Grammar › <span>Quantifiers & Déterminants</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-grammar">GRAMMAR</span> Module – Quantifiers, Few/Little, Some/Any</div>
+
+        <div class="lesson-section">
+          <h3>📌 Few / A Few / Little / A Little</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Mot</th><th>Utilisation</th><th>Sens</th><th>Exemple BTS</th></tr>
+              <tr><td><strong>few</strong></td><td>Avec noms <em>dénombrables</em></td><td>Peu (presque aucun – négatif)</td><td><em>I have <strong>few</strong> friends.</em> (presque aucun)</td></tr>
+              <tr><td><strong>a few</strong></td><td>Avec noms <em>dénombrables</em></td><td>Quelques-uns (positif)</td><td><em>I have <strong>a few</strong> friends.</em> (quelques)</td></tr>
+              <tr><td><strong>little</strong></td><td>Avec noms <em>indénombrables</em></td><td>Peu de (presque rien – négatif)</td><td><em>I have <strong>little</strong> time.</em></td></tr>
+              <tr><td><strong>a little</strong></td><td>Avec noms <em>indénombrables</em></td><td>Un peu de (positif)</td><td><em>Bring me <strong>a little</strong> milk.</em> (BTS 2020!)</td></tr>
+            </table>
+          </div>
+          <div class="tip-box">
+            <strong>Astuce BTS :</strong> "Bring me just ______ milk for my tea." → milk = indénombrable → <strong>a little</strong>.<br>
+            "I'm so busy that I have very ______ time." → time = indénombrable, sens négatif → <strong>little</strong>. (BTS 2021!)
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Since / For / Ago / Till – Usage</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Mot</th><th>Usage</th><th>Exemple</th></tr>
+              <tr><td><strong>since</strong></td><td>Point de départ (date/événement)</td><td>I have worked here <strong>since</strong> 2019.</td></tr>
+              <tr><td><strong>for</strong></td><td>Durée</td><td>The apartment has been under maintenance <strong>for</strong> two weeks. (BTS 2020!)</td></tr>
+              <tr><td><strong>ago</strong></td><td>Durée écoulée (Past Simple seulement)</td><td>He left <strong>three years ago</strong>.</td></tr>
+              <tr><td><strong>till / until</strong></td><td>Jusqu'à</td><td>Wait <strong>until</strong> I come back.</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 One Another / Each Other / Themselves</h3>
+          <div class="highlight-box">
+            <strong>one another / each other</strong> → action réciproque entre plusieurs personnes<br>
+            <em>"The bricklayers were talking to <strong>one another</strong>."</em> (BTS 2020!)<br><br>
+            <strong>themselves</strong> → action réfléchie (ils/elles font l'action sur eux-mêmes)<br>
+            <em>"They hurt <strong>themselves</strong>."</em><br><br>
+            <strong>himself/herself</strong> → une seule personne (he/she)
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Comparatifs et Superlatifs</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Adjectif</th><th>Comparatif</th><th>Superlatif</th></tr>
+              <tr><td>good</td><td>better</td><td>the best</td></tr>
+              <tr><td>bad</td><td>worse</td><td>the worst (BTS 2020: "the worst job")</td></tr>
+              <tr><td>busy</td><td>busier</td><td>the busiest</td></tr>
+              <tr><td>long</td><td>longer</td><td>the longest</td></tr>
+              <tr><td>important</td><td>more important</td><td>the most important</td></tr>
+            </table>
+          </div>
+          <div class="tip-box">
+            <strong>BTS 2020 :</strong> "This is the ______ job I can think of." → <strong>worst</strong> (superlatif de bad)
+          </div>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Exercice – Quantifiers (Style BTS)</h4>
+          <div class="exercise-item">
+            <label>1. Bring me just ______ milk for my tea. (few / a few / little / a little)</label>
+            <input type="text" id="q1b" placeholder="answer..."><div class="feedback" id="fb-q1b"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. The apartment has been undergoing maintenance work ______ two weeks. (since / for / ago / till)</label>
+            <input type="text" id="q2b" placeholder="answer..."><div class="feedback" id="fb-q2b"></div>
+          </div>
+          <div class="exercise-item">
+            <label>3. The bricklayers were talking to ______. (himself / one another / themselves)</label>
+            <input type="text" id="q3b" placeholder="answer..."><div class="feedback" id="fb-q3b"></div>
+          </div>
+          <div class="exercise-item">
+            <label>4. If I didn't study, the test ______ easy. (wouldn't appear / won't appear / wouldn't have appeared)</label>
+            <input type="text" id="q4b" placeholder="answer..."><div class="feedback" id="fb-q4b"></div>
+          </div>
+          <button class="check-btn" onclick="checkQuantifiers()">✅ Vérifier</button>
+          <button class="show-answer-btn" onclick="showQuantifierAnswers()">👁️ Corrections</button>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('vocabulary')">Module suivant : Vocabulary →</button>
+      </div>
+    </div>
+
+    <!-- ===== VOCABULARY: COMMERCE ===== -->
+    <div class="page" id="page-vocabulary-commerce">
+      <div class="breadcrumb">🏠 Dashboard › Vocabulary › <span>Commerce & Métiers</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-vocab">VOCABULARY</span> Vocabulaire Commerce, Agents & Agriculture (BTS Toutes Spécialités)</div>
+
+        <div class="lesson-section">
+          <h3>📌 Agents Commerciaux (BTS 2021 – Complet)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Terme anglais</th><th>Définition</th><th>Équivalent français</th></tr>
+              <tr><td><strong>Auctioneer</strong></td><td>Conducts public sales; goods sold to highest bidder</td><td>Commissaire-priseur</td></tr>
+              <tr><td><strong>Insurance broker</strong></td><td>Gets clients for insurers</td><td>Courtier en assurance</td></tr>
+              <tr><td><strong>Forwarding agent</strong></td><td>Has office/warehouse in port; deals with overseas consignments</td><td>Transitaire / Agent de transit</td></tr>
+              <tr><td><strong>Factor</strong></td><td>Transacts business in his own name on behalf of a principal</td><td>Facteur / Commissionnaire</td></tr>
+              <tr><td><strong>Agent</strong></td><td>Empowered to do business on behalf of another person</td><td>Agent / Mandataire</td></tr>
+              <tr><td><strong>Stock-broker</strong></td><td>Deals in stocks and shares on the stock exchange</td><td>Courtier en bourse</td></tr>
+              <tr><td><strong>Wholesaler</strong></td><td>Buys goods in bulk from manufacturers and sells to retailers</td><td>Grossiste</td></tr>
+              <tr><td><strong>Retailer</strong></td><td>Sells goods directly to the final consumer</td><td>Détaillant</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Agriculture & Élevage (BTS 2024)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Terme anglais</th><th>Français</th></tr>
+              <tr><td><strong>Seeds</strong></td><td>Graines / Semences</td></tr>
+              <tr><td><strong>Fertilizers</strong></td><td>Engrais</td></tr>
+              <tr><td><strong>Gloves</strong></td><td>Gants</td></tr>
+              <tr><td><strong>Boots</strong></td><td>Bottes</td></tr>
+              <tr><td><strong>Watering can</strong></td><td>Arrosoir</td></tr>
+              <tr><td><strong>Slavery / Slave</strong></td><td>Esclavage / Esclave</td></tr>
+              <tr><td><strong>Freedom / Liberty</strong></td><td>Liberté</td></tr>
+              <tr><td><strong>Plantation</strong></td><td>Plantation</td></tr>
+              <tr><td><strong>Helpfulness</strong></td><td>Utilité / Serviabilité</td></tr>
+              <tr><td><strong>Sadness</strong></td><td>Tristesse</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Word Formation – Dérivation (BTS Style)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Base word</th><th>Noun</th><th>Adjective</th><th>Adverb</th></tr>
+              <tr><td>produce (v.)</td><td><strong>production / produce / producer</strong></td><td>productive</td><td>productively</td></tr>
+              <tr><td>profit (n.)</td><td>profit / profitability</td><td><strong>profitable / profiting</strong></td><td>profitably</td></tr>
+              <tr><td>engineer (n.)</td><td><strong>engineering</strong></td><td>engineering</td><td>—</td></tr>
+              <tr><td>fly (v.)</td><td><strong>flight / fly</strong></td><td>flying</td><td>—</td></tr>
+              <tr><td>receive (v.)</td><td><strong>receipt / reception / receiver</strong></td><td>receivable</td><td>—</td></tr>
+              <tr><td>slave (n.)</td><td>slavery / enslavement</td><td><strong>enslaved</strong></td><td>—</td></tr>
+              <tr><td>help (v.)</td><td><strong>helpfulness / help</strong></td><td>helpful</td><td>helpfully</td></tr>
+              <tr><td>sad (adj.)</td><td><strong>sadness</strong></td><td>sad</td><td>sadly</td></tr>
+              <tr><td>free (adj.)</td><td><strong>freedom / liberty</strong></td><td>free</td><td>freely</td></tr>
+            </table>
+          </div>
+          <div class="tip-box">
+            <strong>BTS 2020 – Fill in with correct word form :</strong><br>
+            "My wife trades in dress <strong>production</strong>" (produce → production)<br>
+            "His enterprise is highly <strong>profitable</strong> today" (profit → profitable)<br>
+            "I do electrical <strong>engineering</strong>" (engineer → engineering)<br>
+            "The <strong>flight</strong> to Paris is at 10 pm" (fly → flight)<br>
+            "Don't forget to claim your <strong>receipt</strong>" (receive → receipt)
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3>📌 Phrases verbales (BTS 2020 – Match the phrase)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Phrase complète</th><th>Sens</th></tr>
+              <tr><td><strong>To deliver a consignment of goods to a customer</strong></td><td>Livrer une marchandise à un client</td></tr>
+              <tr><td><strong>To place an order for goods</strong></td><td>Passer une commande de marchandises</td></tr>
+              <tr><td><strong>To obtain a loan from the bank</strong></td><td>Obtenir un prêt bancaire</td></tr>
+              <tr><td><strong>To preserve food in a refrigerator</strong></td><td>Conserver les aliments au réfrigérateur</td></tr>
+              <tr><td><strong>To record the daily takings in a cash book</strong></td><td>Enregistrer les recettes journalières dans un livre de caisse</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('reading')">Module suivant : Reading →</button>
+      </div>
+    </div>
+
+    <!-- ===== READING: AIDS 2024 ===== -->
+    <div class="page" id="page-reading-aids">
+      <div class="breadcrumb">🏠 Dashboard › Reading › <span>AIDS – BTS 2024</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-reading">READING</span> Texte BTS 2024 – AIDS / Le VIH-SIDA</div>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin:12px 0;font-size:0.85rem;line-height:1.85;color:#c5c7d4">
+          <p><strong>The Acquired Immune Deficiency Syndrome (AIDS)</strong> is the nations' worst public health problem. No one has ever recovered from the disease and the number of cases is increasing every year. AIDS is a disease that is not inherited and destroys the body's ability to fight off illness.</p><br>
+          <p>AIDS is caused by a virus called a Human Immune Virus (HIV). When a person has the HIV in his/her blood, he/she is said to be HIV positive. The HIV virus can live in a human body for up to ten years before he/she becomes ill. During the time the HIV is in the body, the patient can spread it to other people. Virtually, every HIV positive person develops AIDS.</p><br>
+          <p>AIDS is widespread in some parts of Africa. According to World Health Organization (WHO), about half of the world AIDS cases are found in Africa. There are between 1.5 and 2.5 million HIV positive in Africa and most of these people are found in large cities. This is because in big cities, people have access to numerous sexual partners, and the fact that in large cities many of the traditional values have broken down leading to more sexual promiscuity than in the smaller towns.</p><br>
+          <p>AIDS produces a broad range of symptoms with severe infections including diarrhea and gradual loss of weight. Because the virus sometimes also invades brain cells, a considerable number of people suffer from mental and neurological problems like forgetfulness and tremors.</p><br>
+          <p>The safest method of preventing infection is fidelity or faithfulness between sexual partners, and complete abstinence from sex.</p>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Questions BTS 2024 – Answer in complete sentences</h4>
+          <div class="exercise-item">
+            <label>1. Why are people in large towns more at risk of contracting AIDS than those in villages? (2 marks)</label>
+            <textarea id="aids1" placeholder="Write your answer..."></textarea>
+          </div>
+          <div class="exercise-item">
+            <label>2. What causes AIDS? (2 marks)</label>
+            <textarea id="aids2" placeholder="Write your answer..."></textarea>
+          </div>
+          <div class="exercise-item">
+            <label>3. Who can catch AIDS? (1 mark)</label>
+            <textarea id="aids3" placeholder="Write your answer..."></textarea>
+          </div>
+          <div class="exercise-item">
+            <label>4. Name two diseases/symptoms that AIDS patients suffer from. (2 marks)</label>
+            <textarea id="aids4" placeholder="Write your answer..."></textarea>
+          </div>
+          <div class="exercise-item">
+            <label>5. Say whether TRUE or FALSE:<br>a) The HIV virus is present in all body fluids of an infected person.<br>b) We cannot catch AIDS by shaking hands with an infected person.<br>c) One of the symptoms of AIDS is increase of weight. (3 marks)</label>
+            <textarea id="aids5" placeholder="a) ... b) ... c) ..."></textarea>
+          </div>
+          <button class="check-btn" onclick="showAidsAnswers()">👁️ Voir la correction</button>
+        </div>
+        <div id="aids-correction" style="display:none" class="highlight-box">
+          <strong>✅ CORRECTION DÉTAILLÉE – BTS 2024 :</strong><br><br>
+          <strong>Q1.</strong> People in large towns are more at risk because they have access to numerous sexual partners, and because traditional values have broken down there, leading to more sexual promiscuity than in villages.<br><br>
+          <strong>Q2.</strong> AIDS is caused by a virus called the Human Immune Virus (HIV), which destroys the body's ability to fight off illness.<br><br>
+          <strong>Q3.</strong> Anyone who comes into contact with infected blood or body fluids can catch AIDS, especially through unprotected sex. Every HIV positive person can eventually develop AIDS.<br><br>
+          <strong>Q4.</strong> AIDS patients suffer from: (i) <em>diarrhea</em> and (ii) <em>gradual loss of weight</em>. They may also suffer from neurological problems like forgetfulness and tremors.<br><br>
+          <strong>Q5.</strong> a) <strong>FALSE</strong> – The text says the virus lives in blood but does not say it is in all body fluids.<br>
+          b) <strong>TRUE</strong> – The text states there is no evidence of AIDS being spread by casual contact.<br>
+          c) <strong>FALSE</strong> – One symptom is <em>gradual loss</em> of weight, not increase.
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('reading-stroke')">Texte suivant : Stroke (2021) →</button>
+      </div>
+    </div>
+
+    <!-- ===== READING: STROKE 2021 ===== -->
+    <div class="page" id="page-reading-stroke">
+      <div class="breadcrumb">🏠 Dashboard › Reading › <span>Stroke (AVC) – BTS 2021</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-reading">READING</span> Texte BTS 2021 – Cerebrovascular Accident (Stroke / AVC)</div>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin:12px 0;font-size:0.85rem;line-height:1.85;color:#c5c7d4">
+          <p>A <strong>cerebrovascular accident</strong> or stroke is a sudden-onset cerebral deficit of vascular origin lasting more than 24 hours. These events represent the second leading cause of death in the world and take a particularly heavy toll in third world countries. Data showed that people of age 51–60 year group are the most affected. Ischemic stroke accounted for 60% of cases versus 40% for hemorrhagic stroke. MRI is known to be more sensitive than CT-scan for acute detection of stroke lesions. About half of people who have had a stroke live less than one year. Overall, two thirds of strokes occurred in those over 65 years old.</p><br>
+          <p>Signs and symptoms of a stroke may include an inability to move or feel on one side of the body, problems understanding or speaking, dizziness, or loss of vision to one side. A hemorrhagic stroke may also be associated with a severe headache. The symptoms of a stroke can be permanent. Long-term complications may include pneumonia or loss of bladder control.</p><br>
+          <p>The main risk factor for stroke is <strong>high blood pressure</strong>. Other risk factors include tobacco smoking, obesity, high blood cholesterol, and diabetes mellitus. Prevention includes decreasing risk factors, as well as aspirin, statins, and surgery to open up the arteries. A stroke or TIA often requires emergency care.</p>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Questions BTS 2021</h4>
+          <div class="exercise-item">
+            <label>1. What is a cerebrovascular accident or stroke? (1 mark)</label>
+            <textarea id="str1" placeholder="Write your answer..."></textarea>
+          </div>
+          <div class="exercise-item">
+            <label>2. What is the cause of ischemic and hemorrhagic strokes? (2 marks)</label>
+            <textarea id="str2" placeholder="Write your answer..."></textarea>
+          </div>
+          <div class="exercise-item">
+            <label>3. Which are some of the symptoms? (2 marks)</label>
+            <textarea id="str3" placeholder="Write your answer..."></textarea>
+          </div>
+          <div class="exercise-item">
+            <label>4. What are the risk factors? (2 marks)</label>
+            <textarea id="str4" placeholder="Write your answer..."></textarea>
+          </div>
+          <button class="check-btn" onclick="showStrokeAnswers()">👁️ Voir la correction</button>
+        </div>
+        <div id="stroke-correction" style="display:none" class="highlight-box">
+          <strong>✅ CORRECTION :</strong><br><br>
+          <strong>Q1.</strong> A cerebrovascular accident (stroke) is a sudden-onset cerebral deficit of vascular origin lasting more than 24 hours.<br><br>
+          <strong>Q2.</strong> An ischemic stroke is caused by blockage of a blood vessel. A hemorrhagic stroke is caused by bleeding directly into the brain or into the space between the brain's membranes.<br><br>
+          <strong>Q3.</strong> Symptoms include: inability to move or feel on one side of the body, problems speaking or understanding, dizziness, loss of vision, severe headache. Long-term complications may include pneumonia or loss of bladder control.<br><br>
+          <strong>Q4.</strong> The main risk factor is high blood pressure. Other risk factors include tobacco smoking, obesity, high blood cholesterol, and diabetes mellitus.
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('reading-cyberbullying')">Texte suivant : Cyberbullying (2020) →</button>
+      </div>
+    </div>
+
+    <!-- ===== READING: CYBERBULLYING 2020 ===== -->
+    <div class="page" id="page-reading-cyberbullying">
+      <div class="breadcrumb">🏠 Dashboard › Reading › <span>Cyberbullying – BTS 2020</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-reading">READING</span> Texte BTS 2020 – Social Media and Cyberbullying</div>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin:12px 0;font-size:0.85rem;line-height:1.85;color:#c5c7d4">
+          <p>The dictionary definition of bullying is "the use of strength or power to frighten or hurt weaker people." This definition does not account for many facets of bullying such as online abuse, subtle bullying within friendships such as manipulation, intimidation and social exclusion, as well as indirect bullying such as the spreading of harmful rumours, usually online. This new form of bullying is often referred to as <strong>cyberbullying</strong>.</p><br>
+          <p>Facebook and other social media platforms have brought communication across the world to an entirely new level. They have changed the way people communicate with each other and in turn, have affected our ability to empathize in both negative and positive ways. Although Facebook has made a positive impact on African youth, it has also contributed and exacerbated bullying in our schools. It has even created an around-the-clock atmosphere where bullying can occur even when school is not in session.</p><br>
+          <p>While cyberbullying affects each child differently, there has been a clear correlation between victims and non-victims and their self-esteem. Victims of cyberbullying were 30% more likely to think about committing suicide. Those who spent more than three hours per school day on social networks were 110% more at risk to be a cyberbully victim.</p>
+        </div>
+
+        <div class="exercise-block">
+          <h4>✏️ Questions BTS 2020</h4>
+          <div class="exercise-item">
+            <label>1. Complete: "Those who are cyberbullied ____" (choose best option: a) do not go online to get abused / b) are victims of all Facebook users / c) feel manipulated or excluded socially / d) use strength to hurt weaker people)</label>
+            <input type="text" id="cb1" placeholder="a, b, c or d ?"><div class="feedback" id="fb-cb1"></div>
+          </div>
+          <div class="exercise-item">
+            <label>2. What advantage of social media does the author see? (2 marks)</label>
+            <textarea id="cb2" placeholder="Write your answer..."></textarea>
+          </div>
+          <div class="exercise-item">
+            <label>3. Give two consequences of cyberbullying mentioned in the text. (1 mark)</label>
+            <textarea id="cb3" placeholder="Write your answer..."></textarea>
+          </div>
+          <button class="check-btn" onclick="checkCyber()">✅ Vérifier Q1 / Voir corrections</button>
+          <button class="show-answer-btn" onclick="showCyberAnswers()">👁️ Voir tout</button>
+        </div>
+        <div id="cyber-correction" style="display:none" class="highlight-box">
+          <strong>✅ CORRECTION :</strong><br><br>
+          <strong>Q1.</strong> c) <em>feel manipulated or excluded socially</em> — cyberbullying includes social exclusion and manipulation.<br><br>
+          <strong>Q2.</strong> The author sees that social media and Facebook have made a <em>positive impact on African youth</em> by bringing communication across the world to an entirely new level and changing the way people connect with each other.<br><br>
+          <strong>Q3.</strong> Two consequences: (i) victims have <em>lower self-esteem</em> than non-victims; (ii) victims are <em>30% more likely to think about suicide</em>.
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('translation')">Module suivant : Translation →</button>
+      </div>
+    </div>
+
+    <!-- ===== TRANSLATION: 100+ ===== -->
+    <div class="page" id="page-translation-proverbs">
+      <div class="breadcrumb">🏠 Dashboard › Translation › <span>100+ Traductions & Proverbes</span></div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-translation">TRANSLATION</span> 100+ Traductions Organisées – Toutes les Épreuves BTS</div>
+
+        <div class="tip-box">
+          <strong>💡 Comment utiliser cette section :</strong> Cache la colonne de droite avec la main ou un cache, essaie de trouver la traduction, puis vérifie. Répète jusqu'à mémorisation complète.
+        </div>
+
+        <!-- CAT 1: PHRASES DES EPREUVES -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 1 – Phrases tirées des épreuves BTS (FR → EN)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Français</th><th>✅ Anglais (BTS corrigé)</th><th>Épreuve</th></tr>
+              <tr><td>1</td><td>Je voudrais que vous veniez faire des courses avec moi ce soir.</td><td><strong>I would like you to come shopping with me tonight.</strong></td><td>2021</td></tr>
+              <tr><td>2</td><td>La vie est pleine des hauts et des bas.</td><td><strong>Life is full of ups and downs.</strong></td><td>2021</td></tr>
+              <tr><td>3</td><td>J'ai quatre-vingt-douze ans, mais je fréquente toujours.</td><td><strong>I am ninety-two years old but I still attend / go to school.</strong></td><td>2021</td></tr>
+              <tr><td>4</td><td>Le tutélaire de DSEP doit être capable de négocier avec des clients nationaux et étrangers s'exprimant aussi en anglais.</td><td><strong>The DSEP tutor must be able to negotiate with national and foreign clients who also express themselves in English.</strong></td><td>2021</td></tr>
+              <tr><td>5</td><td>D'une perspective linguistique, le Cameroun est un pays bilingue mais tous ses citoyens doivent être encore vraiment bilingues.</td><td><strong>From a linguistic perspective, Cameroon is a bilingual country but all its citizens still need to be truly bilingual.</strong></td><td>2021</td></tr>
+              <tr><td>6</td><td>Ravie de vous rencontrer.</td><td><strong>Delighted to meet you. / Nice to meet you.</strong></td><td>2023</td></tr>
+              <tr><td>7</td><td>Au mois d'Août, il pleut des cordes.</td><td><strong>In August, it rains heavily. / It pours in August.</strong></td><td>2023</td></tr>
+              <tr><td>8</td><td>Le bébé a pleuré toute la journée parce qu'il avait faim.</td><td><strong>The baby cried all day because he/she was hungry.</strong></td><td>2023</td></tr>
+              <tr><td>9</td><td>Je m'appelle Michel.</td><td><strong>My name is Michel. / I am Michel.</strong></td><td>2023</td></tr>
+              <tr><td>10</td><td>Tous les samedis, nous allons à la plage.</td><td><strong>Every Saturday, we go to the beach.</strong></td><td>2023</td></tr>
+              <tr><td>11</td><td>Hannah avait une réputation notoire d'être sévère avec ses étudiants.</td><td><strong>Hannah had a notorious reputation for being austere to her students.</strong></td><td>2024</td></tr>
+              <tr><td>12</td><td>Notre entreprise prévoit de construire une nouvelle usine chimique en Russie.</td><td><strong>Our company is planning to build a new chemical plant in Russia.</strong></td><td>2024</td></tr>
+              <tr><td>13</td><td>De nos jours, les motifs du mariage ne sont pas forcément purs.</td><td><strong>These days, the motives for marriage are not necessarily pure.</strong></td><td>2024</td></tr>
+              <tr><td>14</td><td>Tu parles comme si tu étais le patron.</td><td><strong>You talk as if you were the boss.</strong></td><td>2024</td></tr>
+              <tr><td>15</td><td>C'est rien moins qu'un miracle.</td><td><strong>It's nothing short of a miracle.</strong></td><td>2024</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- CAT 2: EN→FR DES EPREUVES -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 2 – Phrases tirées des épreuves BTS (EN → FR)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Anglais</th><th>✅ Français (BTS corrigé)</th><th>Épreuve</th></tr>
+              <tr><td>1</td><td>The absence of communication breeds conflict.</td><td><strong>L'absence de communication engendre le conflit.</strong></td><td>2021</td></tr>
+              <tr><td>2</td><td>As you make your bed so shall you lie on it.</td><td><strong>On récolte ce que l'on sème. / On fait son lit et on se couche dedans.</strong></td><td>2021</td></tr>
+              <tr><td>3</td><td>A crab can never give birth to a fish.</td><td><strong>Tel père, tel fils. / Les chiens ne font pas des chats.</strong></td><td>2021</td></tr>
+              <tr><td>4</td><td>For how long have the students been writing this subject?</td><td><strong>Depuis combien de temps les étudiants rédigent-ils ce sujet ?</strong></td><td>2021</td></tr>
+              <tr><td>5</td><td>Sports may be good for one's health but fruits are better.</td><td><strong>Le sport peut être bon pour la santé mais les fruits sont meilleurs.</strong></td><td>2021</td></tr>
+              <tr><td>6</td><td>The library is under construction.</td><td><strong>La bibliothèque est en construction.</strong></td><td>2024</td></tr>
+              <tr><td>7</td><td>Are you telling me that my life is in danger?</td><td><strong>Es-tu en train de me dire que ma vie est en danger ?</strong></td><td>2024</td></tr>
+              <tr><td>8</td><td>You should execute the plan according to the schedule.</td><td><strong>Vous devriez exécuter le plan selon l'horaire.</strong></td><td>2024</td></tr>
+              <tr><td>9</td><td>I am proud to be part of this project.</td><td><strong>Je suis fier de faire partie de ce projet.</strong></td><td>2024</td></tr>
+              <tr><td>10</td><td>I am glad that your team won the game.</td><td><strong>Je suis content que ton équipe ait gagné la partie.</strong></td><td>2024</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- CAT 3: PROVERBES BTS 2020 -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 3 – Proverbes & Expressions idiomatiques (BTS 2020 – Section Translation)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Français (idiome)</th><th>✅ Anglais</th></tr>
+              <tr><td>1</td><td>Avoir du pain sur la planche</td><td><strong>To have a lot on one's plate / To have a lot of work ahead.</strong></td></tr>
+              <tr><td>2</td><td>Au fil du jour</td><td><strong>As the day goes by / Day by day / In the course of the day.</strong></td></tr>
+              <tr><td>3</td><td>Tourner autour du pot</td><td><strong>To beat around the bush / To beat about the bush.</strong></td></tr>
+              <tr><td>4</td><td>Rendre l'âme</td><td><strong>To give up the ghost / To breathe one's last.</strong></td></tr>
+              <tr><td>5</td><td>Chaque chose a son temps</td><td><strong>There is a time for everything. / Everything in its own time.</strong></td></tr>
+              <tr><td>6</td><td>Faire d'une pierre deux coups (EN→FR)</td><td>To use one stone to kill two birds → <strong>Faire d'une pierre deux coups.</strong></td></tr>
+              <tr><td>7</td><td>Mieux vaut prévenir que guérir (EN→FR)</td><td>Prevention is better than cure → <strong>Mieux vaut prévenir que guérir.</strong></td></tr>
+              <tr><td>8</td><td>Vivre selon ses moyens (EN→FR)</td><td>To live within one's means → <strong>Vivre selon ses moyens / Vivre selon sa bourse.</strong></td></tr>
+              <tr><td>9</td><td>La charité commence par soi-même (EN→FR)</td><td>Charity begins at home → <strong>La charité commence par soi-même / par chez soi.</strong></td></tr>
+              <tr><td>10</td><td>L'union fait la force (EN→FR)</td><td>Unity is strength → <strong>L'union fait la force.</strong></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- CAT 4: PROVERBES GENERAUX -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 4 – Proverbes généraux courants (FR ↔ EN)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Français</th><th>✅ Anglais</th></tr>
+              <tr><td>1</td><td>L'union fait la force.</td><td><strong>Unity is strength. / United we stand, divided we fall.</strong></td></tr>
+              <tr><td>2</td><td>Mieux vaut tard que jamais.</td><td><strong>Better late than never.</strong></td></tr>
+              <tr><td>3</td><td>Il ne faut pas vendre la peau de l'ours avant de l'avoir tué.</td><td><strong>Don't count your chickens before they hatch.</strong></td></tr>
+              <tr><td>4</td><td>À cheval donné, on ne regarde pas les dents.</td><td><strong>Don't look a gift horse in the mouth.</strong></td></tr>
+              <tr><td>5</td><td>Dis-moi qui tu fréquentes, je te dirai qui tu es.</td><td><strong>Tell me who your friends are and I'll tell you who you are. / Birds of a feather flock together.</strong></td></tr>
+              <tr><td>6</td><td>Qui vivra verra.</td><td><strong>Time will tell. / Wait and see.</strong></td></tr>
+              <tr><td>7</td><td>L'habit ne fait pas le moine.</td><td><strong>Don't judge a book by its cover. / Appearances are deceiving.</strong></td></tr>
+              <tr><td>8</td><td>Bien faire et laisser dire.</td><td><strong>Do well and let people talk.</strong></td></tr>
+              <tr><td>9</td><td>Les absents ont toujours tort.</td><td><strong>The absent are always wrong.</strong></td></tr>
+              <tr><td>10</td><td>Petit à petit, l'oiseau fait son nid.</td><td><strong>Little by little, the bird builds its nest. / Rome wasn't built in a day.</strong></td></tr>
+              <tr><td>11</td><td>Il n'y a pas de fumée sans feu.</td><td><strong>There's no smoke without fire. / Where there's smoke there's fire.</strong></td></tr>
+              <tr><td>12</td><td>On récolte ce qu'on sème.</td><td><strong>You reap what you sow. / As you sow, so shall you reap.</strong></td></tr>
+              <tr><td>13</td><td>La nuit porte conseil.</td><td><strong>Sleep on it. / Night brings counsel.</strong></td></tr>
+              <tr><td>14</td><td>Les murs ont des oreilles.</td><td><strong>Walls have ears.</strong></td></tr>
+              <tr><td>15</td><td>Trop de cuisiniers gâtent la sauce.</td><td><strong>Too many cooks spoil the broth.</strong></td></tr>
+              <tr><td>16</td><td>Qui cherche trouve.</td><td><strong>Seek and you shall find.</strong></td></tr>
+              <tr><td>17</td><td>Le temps c'est de l'argent.</td><td><strong>Time is money.</strong></td></tr>
+              <tr><td>18</td><td>Aide-toi et le ciel t'aidera.</td><td><strong>God helps those who help themselves.</strong></td></tr>
+              <tr><td>19</td><td>Deux vaut mieux qu'un.</td><td><strong>Two heads are better than one.</strong></td></tr>
+              <tr><td>20</td><td>La parole est d'argent, le silence est d'or.</td><td><strong>Speech is silver, silence is golden.</strong></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- CAT 5: EXPRESSIONS IDIOMATIQUES ANGLAISES -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 5 – Expressions idiomatiques anglaises → Français</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Expression anglaise</th><th>✅ Français</th></tr>
+              <tr><td>1</td><td>To beat around the bush</td><td><strong>Tourner autour du pot</strong></td></tr>
+              <tr><td>2</td><td>To hit the nail on the head</td><td><strong>Mettre le doigt dessus / Viser juste</strong></td></tr>
+              <tr><td>3</td><td>To spill the beans</td><td><strong>Vendre la mèche / Divulguer un secret</strong></td></tr>
+              <tr><td>4</td><td>To burn the midnight oil</td><td><strong>Travailler tard dans la nuit / Brûler l'huile de minuit</strong></td></tr>
+              <tr><td>5</td><td>To bite off more than you can chew</td><td><strong>Avoir les yeux plus grands que le ventre</strong></td></tr>
+              <tr><td>6</td><td>To pull someone's leg</td><td><strong>Se moquer de quelqu'un / Faire marcher quelqu'un</strong></td></tr>
+              <tr><td>7</td><td>Once in a blue moon</td><td><strong>Très rarement / Une fois tous les trente-six du mois</strong></td></tr>
+              <tr><td>8</td><td>To cost an arm and a leg</td><td><strong>Coûter les yeux de la tête / Coûter une fortune</strong></td></tr>
+              <tr><td>9</td><td>To be under the weather</td><td><strong>Ne pas être dans son assiette / Se sentir mal</strong></td></tr>
+              <tr><td>10</td><td>To break a leg</td><td><strong>Bonne chance ! / Merde ! (au théâtre)</strong></td></tr>
+              <tr><td>11</td><td>To be on the fence</td><td><strong>Hésiter entre deux positions / Ne pas se décider</strong></td></tr>
+              <tr><td>12</td><td>To kill two birds with one stone</td><td><strong>Faire d'une pierre deux coups</strong></td></tr>
+              <tr><td>13</td><td>To let the cat out of the bag</td><td><strong>Vendre la mèche / Révéler un secret</strong></td></tr>
+              <tr><td>14</td><td>To take the bull by the horns</td><td><strong>Prendre le taureau par les cornes</strong></td></tr>
+              <tr><td>15</td><td>A blessing in disguise</td><td><strong>Un bienfait déguisé / Un mal pour un bien</strong></td></tr>
+              <tr><td>16</td><td>To give up the ghost</td><td><strong>Rendre l'âme / Mourir</strong></td></tr>
+              <tr><td>17</td><td>To have a lot on one's plate</td><td><strong>Avoir du pain sur la planche / Avoir beaucoup de travail</strong></td></tr>
+              <tr><td>18</td><td>Day in, day out</td><td><strong>Jour après jour / Tous les jours sans exception</strong></td></tr>
+              <tr><td>19</td><td>To make ends meet</td><td><strong>Joindre les deux bouts / S'en sortir financièrement</strong></td></tr>
+              <tr><td>20</td><td>To be in the same boat</td><td><strong>Être dans la même situation / Être logé à la même enseigne</strong></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- CAT 6: PHRASES USUELLES -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 6 – Phrases de la vie courante (FR → EN)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Français</th><th>✅ Anglais</th></tr>
+              <tr><td>1</td><td>Bienvenue monsieur !</td><td><strong>Welcome sir!</strong></td></tr>
+              <tr><td>2</td><td>Puis-je sortir, s'il vous plaît ?</td><td><strong>Please sir, may I go out?</strong></td></tr>
+              <tr><td>3</td><td>Défense de fumer.</td><td><strong>No smoking. / Smoking is prohibited/forbidden.</strong></td></tr>
+              <tr><td>4</td><td>Les meubles sont bon marché ici.</td><td><strong>The furniture is cheap here.</strong></td></tr>
+              <tr><td>5</td><td>Pierre se mariera bientôt.</td><td><strong>Peter will get married soon.</strong></td></tr>
+              <tr><td>6</td><td>Enchanté de vous rencontrer.</td><td><strong>Pleased / Glad to meet you.</strong></td></tr>
+              <tr><td>7</td><td>Comment vous portez-vous ?</td><td><strong>How are you? / How do you do?</strong></td></tr>
+              <tr><td>8</td><td>Je vous en prie.</td><td><strong>You're welcome. / Don't mention it.</strong></td></tr>
+              <tr><td>9</td><td>À bientôt.</td><td><strong>See you soon. / Goodbye for now.</strong></td></tr>
+              <tr><td>10</td><td>Je suis désolé d'être en retard.</td><td><strong>I am sorry for being late. / I apologize for my lateness.</strong></td></tr>
+              <tr><td>11</td><td>J'en ai assez.</td><td><strong>I have had enough. / I am fed up.</strong></td></tr>
+              <tr><td>12</td><td>C'est à moi de jouer.</td><td><strong>It is my turn.</strong></td></tr>
+              <tr><td>13</td><td>Faites attention !</td><td><strong>Watch out! / Be careful!</strong></td></tr>
+              <tr><td>14</td><td>De quoi s'agit-il ?</td><td><strong>What is it about? / What is the matter?</strong></td></tr>
+              <tr><td>15</td><td>N'en parlons plus.</td><td><strong>Let's not talk about it anymore. / Let's drop it.</strong></td></tr>
+              <tr><td>16</td><td>Cela ne m'étonne pas.</td><td><strong>That doesn't surprise me. / I'm not surprised.</strong></td></tr>
+              <tr><td>17</td><td>Il fait chaud aujourd'hui.</td><td><strong>It is hot today. / The weather is hot today.</strong></td></tr>
+              <tr><td>18</td><td>Je suis d'accord avec toi.</td><td><strong>I agree with you. / I am of the same opinion.</strong></td></tr>
+              <tr><td>19</td><td>Ça ne me regarde pas.</td><td><strong>It's none of my business. / It doesn't concern me.</strong></td></tr>
+              <tr><td>20</td><td>Qu'est-ce qui ne va pas ?</td><td><strong>What's wrong? / What's the matter?</strong></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- CAT 7: COMMERCE & BUSINESS -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 7 – Commerce & Correspondance commerciale (FR → EN)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Français</th><th>✅ Anglais</th></tr>
+              <tr><td>1</td><td>Veuillez trouver ci-joint...</td><td><strong>Please find enclosed / attached...</strong></td></tr>
+              <tr><td>2</td><td>Suite à votre courrier du...</td><td><strong>Further to your letter of... / With reference to your letter dated...</strong></td></tr>
+              <tr><td>3</td><td>Nous avons l'honneur de vous informer...</td><td><strong>We are pleased / honoured to inform you...</strong></td></tr>
+              <tr><td>4</td><td>Dans l'attente de votre réponse...</td><td><strong>Looking forward to hearing from you...</strong></td></tr>
+              <tr><td>5</td><td>Nous vous prions d'agréer l'expression de nos salutations distinguées.</td><td><strong>Yours faithfully / Yours sincerely.</strong></td></tr>
+              <tr><td>6</td><td>Nous accusons réception de votre commande.</td><td><strong>We acknowledge receipt of your order.</strong></td></tr>
+              <tr><td>7</td><td>Nous vous prions de bien vouloir nous excuser pour ce retard.</td><td><strong>We apologize for this delay.</strong></td></tr>
+              <tr><td>8</td><td>Nous vous garantissons que cela ne se reproduira plus.</td><td><strong>We assure you that this will not happen again.</strong></td></tr>
+              <tr><td>9</td><td>Nous sommes à votre disposition pour tout renseignement complémentaire.</td><td><strong>We remain at your disposal for any further information.</strong></td></tr>
+              <tr><td>10</td><td>Nous vous faisons parvenir notre nouveau catalogue.</td><td><strong>We are sending you our new catalogue.</strong></td></tr>
+              <tr><td>11</td><td>Passer une commande</td><td><strong>To place an order</strong></td></tr>
+              <tr><td>12</td><td>Livrer une marchandise</td><td><strong>To deliver goods</strong></td></tr>
+              <tr><td>13</td><td>Un bon de commande</td><td><strong>A purchase order / An order form</strong></td></tr>
+              <tr><td>14</td><td>Une facture</td><td><strong>An invoice</strong></td></tr>
+              <tr><td>15</td><td>Un reçu / Un reçu de paiement</td><td><strong>A receipt</strong></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- CAT 8: PHRASES GRAMMATICALES UTILES -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 8 – Structures grammaticales utiles à traduire (FR → EN)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Français</th><th>✅ Anglais + Explication</th></tr>
+              <tr><td>1</td><td>Il y a trois ans que je travaille ici.</td><td><strong>I have been working here for three years.</strong> (Present Perfect Continuous)</td></tr>
+              <tr><td>2</td><td>Cela fait deux semaines qu'il est malade.</td><td><strong>He has been sick for two weeks.</strong></td></tr>
+              <tr><td>3</td><td>Si j'avais de l'argent, j'achèterais une voiture.</td><td><strong>If I had money, I would buy a car.</strong> (2nd conditional)</td></tr>
+              <tr><td>4</td><td>Si j'avais su, j'aurais mangé avant.</td><td><strong>If I had known, I would have eaten before.</strong> (3rd conditional)</td></tr>
+              <tr><td>5</td><td>On lui a dit de venir.</td><td><strong>He/She was told to come.</strong> (Passive)</td></tr>
+              <tr><td>6</td><td>Il est probable qu'il vienne.</td><td><strong>He is likely to come. / It is likely that he will come.</strong></td></tr>
+              <tr><td>7</td><td>Non seulement il travaille vite, mais aussi bien.</td><td><strong>He not only works fast but also well.</strong></td></tr>
+              <tr><td>8</td><td>Il y a beaucoup de monde dans la rue.</td><td><strong>There are many people / a lot of people in the street.</strong></td></tr>
+              <tr><td>9</td><td>Je voudrais qu'il parte.</td><td><strong>I would like him to leave.</strong></td></tr>
+              <tr><td>10</td><td>On dit qu'il est honnête.</td><td><strong>He is said to be honest. / It is said that he is honest.</strong></td></tr>
+              <tr><td>11</td><td>Depuis combien de temps apprends-tu l'anglais ?</td><td><strong>How long have you been learning English?</strong></td></tr>
+              <tr><td>12</td><td>Je me demande où il habite.</td><td><strong>I wonder where he lives.</strong> (Indirect question – no inversion)</td></tr>
+              <tr><td>13</td><td>Il fait beau ce matin.</td><td><strong>The weather is fine this morning. / It is a fine morning.</strong></td></tr>
+              <tr><td>14</td><td>Cela vaut la peine d'essayer.</td><td><strong>It is worth trying. / It is worthwhile trying.</strong></td></tr>
+              <tr><td>15</td><td>C'était il y a longtemps.</td><td><strong>That was a long time ago.</strong></td></tr>
+              <tr><td>16</td><td>Il a failli tomber.</td><td><strong>He almost fell. / He nearly fell.</strong></td></tr>
+              <tr><td>17</td><td>Peu importe.</td><td><strong>It doesn't matter. / Never mind.</strong></td></tr>
+              <tr><td>18</td><td>Il n'en peut plus.</td><td><strong>He can't take it anymore. / He is exhausted.</strong></td></tr>
+              <tr><td>19</td><td>À mon avis...</td><td><strong>In my opinion... / In my view... / As far as I am concerned...</strong></td></tr>
+              <tr><td>20</td><td>Je suis pour / contre cette idée.</td><td><strong>I am in favour of / against this idea.</strong></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- CAT 9: FAUX AMIS COMPLET -->
+        <div class="lesson-section">
+          <h3>📋 Catégorie 9 – Faux amis complets (30 paires)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>#</th><th>Mot français</th><th>Faux ami EN (❌ éviter)</th><th>✅ Vraie traduction</th></tr>
+              <tr><td>1</td><td>actuellement</td><td>~~actually~~</td><td><strong>currently, at present, nowadays</strong></td></tr>
+              <tr><td>2</td><td>actually (EN)</td><td>~~actuellement~~</td><td><strong>en fait, en réalité</strong></td></tr>
+              <tr><td>3</td><td>assister à</td><td>~~to assist~~</td><td><strong>to attend</strong></td></tr>
+              <tr><td>4</td><td>sensible (FR)</td><td>~~sensible (EN)~~</td><td><strong>sensitive</strong></td></tr>
+              <tr><td>5</td><td>sensible (EN)</td><td>~~sensible (FR)~~</td><td><strong>raisonnable, sense</strong></td></tr>
+              <tr><td>6</td><td>libraire</td><td>~~library~~</td><td><strong>bookshop / bookstore</strong></td></tr>
+              <tr><td>7</td><td>library (EN)</td><td>~~librairie~~</td><td><strong>bibliothèque</strong></td></tr>
+              <tr><td>8</td><td>éventuellement</td><td>~~eventually~~</td><td><strong>possibly, if need be</strong></td></tr>
+              <tr><td>9</td><td>eventually (EN)</td><td>~~éventuellement~~</td><td><strong>finalement, à la fin</strong></td></tr>
+              <tr><td>10</td><td>sympathique</td><td>~~sympathetic~~</td><td><strong>nice, kind, pleasant</strong></td></tr>
+              <tr><td>11</td><td>sympathetic (EN)</td><td>~~sympathique~~</td><td><strong>compréhensif, compatissant</strong></td></tr>
+              <tr><td>12</td><td>rester</td><td>~~to rest~~</td><td><strong>to stay, to remain</strong></td></tr>
+              <tr><td>13</td><td>to rest (EN)</td><td>~~rester~~</td><td><strong>se reposer</strong></td></tr>
+              <tr><td>14</td><td>passer un examen</td><td>~~to pass an exam~~</td><td><strong>to take / to sit an exam</strong></td></tr>
+              <tr><td>15</td><td>réussir un examen</td><td>~~to success an exam~~</td><td><strong>to pass an exam</strong></td></tr>
+              <tr><td>16</td><td>journée</td><td>~~journey~~</td><td><strong>day</strong></td></tr>
+              <tr><td>17</td><td>journey (EN)</td><td>~~journée~~</td><td><strong>voyage, trajet</strong></td></tr>
+              <tr><td>18</td><td>location</td><td>~~location (EN)~~</td><td><strong>rental / hire (EN: emplacement)</strong></td></tr>
+              <tr><td>19</td><td>occasion</td><td>~~occasion (EN)~~</td><td><strong>opportunity (EN: occasion = circumstance)</strong></td></tr>
+              <tr><td>20</td><td>ignorer</td><td>~~to ignore~~</td><td><strong>not to know / to be unaware (to ignore = ne pas tenir compte)</strong></td></tr>
+              <tr><td>21</td><td>college</td><td>~~college (EN)~~</td><td><strong>lycée (EN college = université)</strong></td></tr>
+              <tr><td>22</td><td>grave (FR)</td><td>~~grave (EN)~~</td><td><strong>serious, severe (EN grave = tombe)</strong></td></tr>
+              <tr><td>23</td><td>chance (FR)</td><td>~~chance (EN)~~</td><td><strong>luck (EN chance = hasard, possibilité)</strong></td></tr>
+              <tr><td>24</td><td>hasard</td><td>~~hazard~~</td><td><strong>chance, luck (hazard = risque, danger)</strong></td></tr>
+              <tr><td>25</td><td>phrase (FR)</td><td>~~phrase (EN)~~</td><td><strong>sentence (EN phrase = groupe de mots)</strong></td></tr>
+              <tr><td>26</td><td>roman</td><td>~~romance~~</td><td><strong>novel</strong></td></tr>
+              <tr><td>27</td><td>agenda</td><td>~~agenda (EN)~~</td><td><strong>diary / planner (EN agenda = ordre du jour)</strong></td></tr>
+              <tr><td>28</td><td>car</td><td>~~car (EN)~~</td><td><strong>because / for (EN car = voiture)</strong></td></tr>
+              <tr><td>29</td><td>commander</td><td>~~to command~~</td><td><strong>to order (to command = ordonner militairement)</strong></td></tr>
+              <tr><td>30</td><td>décevoir</td><td>~~to deceive~~</td><td><strong>to disappoint (to deceive = tromper)</strong></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <strong>🎯 Total : plus de 100 traductions organisées en 9 catégories.</strong> Utilise ce tableau comme révision quotidienne : 10 traductions par jour = tout révisé en 10 jours !
+        </div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" onclick="nextModule('writing')">Module suivant : Writing →</button>
+      </div>
+    </div>
+
   </div><!-- end #content -->
 </main>
 
@@ -2001,9 +2728,16 @@ function showPage(id) {
     'grammar-conjunctions': 'Grammar – Conjunctions',
     'grammar-modals': 'Grammar – Modal Verbs',
     'grammar-questions': 'Grammar – Question Forms',
+    'grammar-transformation': 'Grammar – Transformations BTS',
+    'grammar-quantifiers': 'Grammar – Quantifiers & Déterminants',
     'vocabulary': 'Vocabulary BTS',
-    'reading': 'Reading Comprehension',
+    'vocabulary-commerce': 'Vocabulary – Commerce & Métiers',
+    'reading': 'Reading – Insects (2023)',
+    'reading-aids': 'Reading – AIDS (2024)',
+    'reading-stroke': 'Reading – Stroke (2021)',
+    'reading-cyberbullying': 'Reading – Cyberbullying (2020)',
     'translation': 'Translation',
+    'translation-proverbs': '100+ Translations & Proverbes',
     'writing': 'Writing Composition',
     'exam': 'Épreuve Complète',
     'revision': 'Plan de Révision',
@@ -2049,6 +2783,68 @@ function showCorrect(inputId, feedbackId, correct) {
   document.getElementById(feedbackId).textContent = '✅ Réponse : ' + correct;
   document.getElementById(inputId).value = correct.split('|')[0];
   document.getElementById(inputId).className = 'correct';
+}
+
+// TRANSFORMATIONS
+function checkTransformations() {
+  const ans = ['there', 'it', 'the final whistle was blown by the referee|was blown by the referee', 'this problem has not gained in importance'];
+  const ids = ['tf1','tf2','tf3','tf4'];
+  const fbs = ['fb-tf1','fb-tf2','fb-tf3','fb-tf4'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], ans[i])) score++; });
+  exerciseScore += score;
+  saveProgress();
+}
+function showTransformAnswers() {
+  showCorrect('tf1','fb-tf1','There');
+  showCorrect('tf2','fb-tf2','it');
+  showCorrect('tf3','fb-tf3','The final whistle was blown by the referee.');
+  showCorrect('tf4','fb-tf4','This problem has not gained in importance.');
+}
+
+// QUANTIFIERS
+function checkQuantifiers() {
+  const ans = ['a little', 'for', 'one another', "wouldn't appear"];
+  const ids = ['q1b','q2b','q3b','q4b'];
+  const fbs = ['fb-q1b','fb-q2b','fb-q3b','fb-q4b'];
+  let score = 0;
+  ids.forEach((id, i) => { if (checkAnswer(id, fbs[i], ans[i])) score++; });
+  exerciseScore += score;
+  saveProgress();
+}
+function showQuantifierAnswers() {
+  showCorrect('q1b','fb-q1b','a little');
+  showCorrect('q2b','fb-q2b','for');
+  showCorrect('q3b','fb-q3b','one another');
+  showCorrect('q4b','fb-q4b',"wouldn't appear");
+}
+
+// AIDS READING
+function showAidsAnswers() {
+  document.getElementById('aids-correction').style.display = 'block';
+  exerciseScore += 3;
+  saveProgress();
+}
+
+// STROKE READING
+function showStrokeAnswers() {
+  document.getElementById('stroke-correction').style.display = 'block';
+  exerciseScore += 2;
+  saveProgress();
+}
+
+// CYBERBULLYING
+function checkCyber() {
+  checkAnswer('cb1', 'fb-cb1', 'c');
+  document.getElementById('cyber-correction').style.display = 'block';
+  exerciseScore += 1;
+  saveProgress();
+}
+function showCyberAnswers() {
+  document.getElementById('cyber-correction').style.display = 'block';
+  document.getElementById('cb1').value = 'c';
+  document.getElementById('fb-cb1').className = 'feedback show correct';
+  document.getElementById('fb-cb1').textContent = '✅ Réponse : c';
 }
 
 // TENSES
